@@ -123,34 +123,44 @@ class Customer:
     # cart related methods
     ###########################
 
-    # working
+    # done
     def view_menu(self):
-        pass
+        query = "call customer_view_menu()"
+        df = pd.read_sql(query, self.conn)
+        df.index = df.index + 1
+        print(df)
 
     # working
     def add_dish(self, menuID: int, quantity: int):
-        pass
-
-
+        if menuID in self.cart:
+            self.cart[menuID] += 1
+        else:
+            self.cart[menuID] = 1
+        print("Added.")
 
     # working
     def update_dish(self, menuID: int, quantity: int):
-        if quantity == 0:
+        if (menuID in self.cart) and quantity == 0:
             self.remove_dish(menuID)
-        else:
-            pass
-
-
+        elif menuID in self.cart:
+            self.cart[menuID] = quantity
+        print("Updated.")
+            
     # working
     def remove_dish(self, menuID: int):
+        if menuID in self.cart:
+            self.cart.pop(menuID)
         print("Removed.")
-        pass
 
     # working
     def view_cart(self):
         for menuID in self.cart.keys():
             # call sql here
-            pass
+            query = "call view_cart(%s)"
+            parames = []
+            df = pd.read_sql(query, self.conn)
+            df.index = df.index + 1
+            print(df)
 
 
 

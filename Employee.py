@@ -4,6 +4,7 @@ This module is a class of the employee
 
 import getpass
 from mysql.connector import connect, Error
+import pandas as pd
 
 class Employee:
     '''
@@ -105,8 +106,12 @@ class Employee:
     # food related methods
     ###########################
 
+    # done
     def view_menu(self):
-        pass
+        query = "call employee_view_menu()"
+        df = pd.read_sql(query, self.conn)
+        df.index = df.index + 1
+        print(df)
 
     def add_new_category(self, categoryName: str):
         pass
