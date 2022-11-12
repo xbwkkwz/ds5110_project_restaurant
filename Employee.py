@@ -43,12 +43,19 @@ class Employee:
 
 
     def view_order(self, orderID: int):
+        # this one should be the same as the method in customer
         pass
 
     def assign_table_to_order(self, orderID: int, tableID: int):
         pass
 
-    def update_order_status(self, orderID: int, orderStatus: str):
+    def cancel_order(self, orderID: int):
+        # this one should be the same as the method in customer
+        # after order in queue, cannot cancel
+        pass
+
+    def update_order(self, orderID: int):
+        # turn from "Received" to "Ready"
         pass
 
     def update_tips(self, orderID: int, tips: float):
@@ -75,7 +82,8 @@ class Employee:
 
     
 
-    def update_reservation_status(self, date: str, time: int, tableID: int, status: str):
+    def cancel_reservation(self, date: str, time: int, tableID: int):
+        # this one should be the same as the method in customer
         pass
 
 
@@ -86,7 +94,8 @@ class Employee:
         pass
 
 
-    def update_waiting_list_status(self, waitingID: int, status: str):
+    def cancel_waiting_list(self, waitingID: int):
+        # this one should be the same as the method in customer
         pass
 
 

@@ -167,6 +167,7 @@ class Customer:
 
 
     def cancel_order(self, orderID: int):
+        # after order in queue, cannot cancel
         pass
 
     def view_order(self, orderID: int):

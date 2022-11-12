@@ -11,3 +11,15 @@ natural join menu_category
 order by menuID ASC;
 end//
 delimiter ;
+
+-- 
+
+
+
+
+
+
+
+
+
+
