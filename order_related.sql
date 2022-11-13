@@ -1,15 +1,19 @@
 -- ds5110 restaurant project
 -- order related
 
--- get the menu info for customer
-delimiter //
-create procedure customer_view_menu()
-begin
+-- create the view for the menu
+create view menu_for_customer as
 select menu_category.categoryName, menu.menuID, menu.dishName, menu.dishDescription, menu.price
 from menu
 natural join menu_category
 where dishStatus is true
 order by menuID ASC;
+
+-- get the menu info for customer
+delimiter //
+create procedure customer_view_menu()
+begin
+select * from menu_for_customer;
 end//
 delimiter ;
 
