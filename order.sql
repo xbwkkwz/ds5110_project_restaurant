@@ -26,9 +26,10 @@ delimiter ;
 
 -- display dish in the cart
 delimiter //
-create procedure view_cart(in menuID_var int)
+create procedure get_menu_info(in menuID_var int)
 begin
-select dishName from menu where menuID = menuID_var;
+select dishName, price
+from menu where menuID = menuID_var;
 end//
 delimiter ;
 

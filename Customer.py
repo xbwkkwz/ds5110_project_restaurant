@@ -21,7 +21,7 @@ class Customer:
         self.email = None
         self.phone = None
         self.__password = None
-        self.cart = {}
+        self.cart = {} # {menuID: [dishName, price, quantity]}
         self.__sql_connect()
 
     ###########################
@@ -74,7 +74,6 @@ class Customer:
             val = (input_email, input_password)
             with self.conn.cursor() as cursor:
                 cursor.callproc("sign_in", val)
-                self.conn.commit()
                 tables = cursor.stored_results()
                 for table in tables:
                     for row in table.fetchall():
@@ -130,44 +129,63 @@ class Customer:
         df.index = df.index + 1
         print(df)
 
-    # working
+    # done
+    def __get_menu_info(self, menuID: int) -> str:
+        with self.conn.cursor() as cursor:
+            cursor.callproc("get_menu_info", (menuID,))
+            tables = cursor.stored_results()
+            for table in tables:
+                for row in table.fetchall():
+                    return row
+
+    # done
     def add_dish(self, menuID: int, quantity: int):
         if menuID in self.cart:
-            self.cart[menuID] += 1
+            self.cart[menuID][2] += quantity
         else:
-            self.cart[menuID] = 1
+            self.cart[menuID] = [self.__get_menu_info(menuID)[0], self.__get_menu_info(menuID)[1], quantity]
         print("Added.")
 
-    # working
+    # done
     def update_dish(self, menuID: int, quantity: int):
         if (menuID in self.cart) and quantity == 0:
             self.remove_dish(menuID)
         elif menuID in self.cart:
-            self.cart[menuID] = quantity
+            self.cart[menuID][2] = quantity
         print("Updated.")
             
-    # working
+    # done
     def remove_dish(self, menuID: int):
         if menuID in self.cart:
             self.cart.pop(menuID)
         print("Removed.")
 
-    # working
+    # done
     def view_cart(self):
-        for menuID in self.cart.keys():
-            # call sql here
-            query = "call view_cart(%s)"
-            parames = []
-            df = pd.read_sql(query, self.conn)
+        if self.cart:
+            c_menuID, c_dishName, c_quantity, c_price, c_subtotal = [], [], [], [], []
+            for key, value in self.cart.items():
+                c_menuID.append(key)
+                c_dishName.append(value[0])
+                c_quantity.append(value[2])
+                c_price.append(value[1])
+                c_subtotal.append(value[1]*value[2])
+            table_format = {"menuID": c_menuID, "dishName": c_dishName, "quantity": c_quantity, "price": c_price, "subtotal": c_subtotal}
+            df = pd.DataFrame(table_format)
             df.index = df.index + 1
             print(df)
+            print("-----------------")
+            print("Total: $" + str(sum(c_subtotal)))
+        else:
+            print("Empty Cart.")
 
 
 
     ###########################
     # order related methods
     ###########################
-
+    
+    # working
     def place_order(self):
         if not self.cart:
             print("Empty cart!")
