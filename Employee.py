@@ -42,7 +42,7 @@ class Employee:
         pass
 
 
-
+    # Bowen working
     def view_order(self, orderID: int):
         # this one should be the same as the method in customer
         pass
@@ -50,6 +50,7 @@ class Employee:
     def assign_table_to_order(self, orderID: int, tableID: int):
         pass
 
+    # Bowen working
     def cancel_order(self, orderID: int):
         # this one should be the same as the method in customer
         # after order in queue, cannot cancel
@@ -58,12 +59,14 @@ class Employee:
     def update_order(self, orderID: int):
         # turn from "Received" to "Ready"
         pass
+        
 
     def update_tips(self, orderID: int, tips: float):
-        # this will trigger total
+        # this will trigger total change
         pass
 
     def put_order_in_queue(self, orderID: int, employeeID: int):
+        # need to trigger subtract ingredient stock
         pass
 
 
@@ -132,7 +135,7 @@ class Employee:
     def add_new_ingredient(self, ingredientName: str):
         pass
 
-    def view_dish_has_ingredient(self):
+    def view_dish_has_ingredient(self, dishName: str):
         pass
 
     def add_dish_has_ingredient(self, dishName: str, ingredientName: str, quantity: int):
@@ -142,6 +145,7 @@ class Employee:
         pass
 
     def add_inventory(self, ingredientName: str, quantity: int, totalCost: float, employeeID: int, purchaseDate: str, expDate: str):
+        # this will trigger the stock column update in ingredient
         pass
 
     ###########################

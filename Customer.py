@@ -185,22 +185,50 @@ class Customer:
     # order related methods
     ###########################
     
-    # working
+    # still working, need to check business time before place the order
     def place_order(self):
         if not self.cart:
             print("Empty cart!")
         else:
-            # sql codes here
-            pass
+            c_listID, c_menuID, c_quantity, c_price, c_subtotal = [], [], [], [], []
+            list_start = 1
+            for key, value in self.cart.items():
+                c_listID.append(list_start)
+                list_start += 1
+                c_menuID.append(key)
+                c_quantity.append(value[2])
+                c_price.append(value[1])
+                c_subtotal.append(value[1]*value[2])
+            num_dish = len(c_subtotal)
+            total_before_tips = sum(c_subtotal)
+            # save data to the order table
+            val = (self.customerID, num_dish, total_before_tips)
+            with self.conn.cursor() as cursor:
+                cursor.callproc("create_order", val)
+                self.conn.commit()
+                tables = cursor.stored_results()
+                for table in tables:
+                    for row in table.fetchall():
+                        orderID = row[0]
+            # save data to the order_list
+            for i in range(len(c_listID)):
+                val = (orderID, c_listID[i], c_menuID[i], c_quantity[i])
+                with self.conn.cursor() as cursor:
+                    cursor.callproc("create_order_list", val)
+                    self.conn.commit()
+            print("Order received!")
+            
 
-
+    # Bowen working
     def cancel_order(self, orderID: int):
         # after order in queue, cannot cancel
         pass
 
+    # Bowen working
     def view_order(self, orderID: int):
         pass
 
+    # Bowen working
     def view_order_history(self):
         pass
 
