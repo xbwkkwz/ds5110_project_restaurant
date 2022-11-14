@@ -78,7 +78,7 @@ delimiter ;
 delimiter //
 create procedure customer_view_order_history (in customerID_var int)
 begin
-select orderID, orderDate, orderTime, orderStatus, numOfDish, subtotal, tips, total
+select orderID, orderDate, orderStatus, numOfDish, subtotal, tips, total
 from orders
 where customerID = customerID_var
 order by orderID ASC;

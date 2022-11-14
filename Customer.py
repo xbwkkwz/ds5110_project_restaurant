@@ -56,9 +56,9 @@ class Customer:
                 cursor.callproc("sign_up", val)
                 self.conn.commit()
                 tables = cursor.stored_results()
-                for table in tables:
-                    for row in table.fetchall():
-                        self.customerID = row[0]
+            for table in tables:
+                for row in table.fetchall():
+                    self.customerID = row[0]
             print(f"Welcome {self.firstName} {self.lastName}!")
         else:
             print("Passwords do not match!")
@@ -75,10 +75,10 @@ class Customer:
             with self.conn.cursor() as cursor:
                 cursor.callproc("sign_in", val)
                 tables = cursor.stored_results()
-                for table in tables:
-                    for row in table.fetchall():
-                        (self.customerID, self.firstName, self.lastName, self.email,
-                        self.phone, self.__password) = row
+            for table in tables:
+                for row in table.fetchall():
+                    (self.customerID, self.firstName, self.lastName, self.email,
+                    self.phone, self.__password) = row
             print(f"Welcome {self.firstName} {self.lastName}!")
 
     # done
@@ -119,13 +119,14 @@ class Customer:
     # cart related methods
     ###########################
 
-    # bowen working
+    # done
     def view_menu(self):
         with self.conn.cursor() as cursor:
             cursor.callproc("customer_view_menu")
             tables = cursor.stored_results()
         for table in tables:
-            df = pd.DataFrame(table.fetchall())
+            col = ["Category", "Dish ID", "Dish Name", "Description", "Price"]
+            df = pd.DataFrame(table.fetchall(), columns=col)
             df.index = df.index + 1
             print(df)
 
@@ -170,7 +171,7 @@ class Customer:
                 c_quantity.append(value[2])
                 c_price.append(value[1])
                 c_subtotal.append(value[1]*value[2])
-            table_format = {"menuID": c_menuID, "dishName": c_dishName, "quantity": c_quantity, "price": c_price, "subtotal": c_subtotal}
+            table_format = {"Dish ID": c_menuID, "Name": c_dishName, "Quantity": c_quantity, "Price": c_price, "Subtotal": c_subtotal}
             df = pd.DataFrame(table_format)
             df.index = df.index + 1
             print(df)
@@ -240,13 +241,14 @@ class Customer:
     def view_order_details(self, orderID: int):
         pass
 
-    # bowen working
+    # done
     def view_order_history(self):
         with self.conn.cursor() as cursor:
             cursor.callproc("customer_view_order_history", (self.customerID,))
             tables = cursor.stored_results()
         for table in tables:
-            df = pd.DataFrame(table.fetchall())
+            col = ["Order ID", "Date", "Status", "Num Of Dish", "Subtotal", "Tips", "Total"]
+            df = pd.DataFrame(table.fetchall(), columns=col)
             df.index = df.index + 1
             print(df)
 
