@@ -115,28 +115,28 @@ class Customer:
 
 
 
-
-
-
     ###########################
     # cart related methods
     ###########################
 
-    # done
+    # bowen working
     def view_menu(self):
-        query = "call customer_view_menu()"
-        df = pd.read_sql(query, self.conn)
-        df.index = df.index + 1
-        print(df)
+        with self.conn.cursor() as cursor:
+            cursor.callproc("customer_view_menu")
+            tables = cursor.stored_results()
+        for table in tables:
+            df = pd.DataFrame(table.fetchall())
+            df.index = df.index + 1
+            print(df)
 
     # done
     def __get_name_price(self, menuID: int) -> str:
         with self.conn.cursor() as cursor:
             cursor.callproc("get_dish_name_price", (menuID,))
             tables = cursor.stored_results()
-            for table in tables:
-                for row in table.fetchall():
-                    return row
+        for table in tables:
+            for row in table.fetchall():
+                return row
 
     # done
     def add_dish(self, menuID: int, quantity: int):
@@ -207,9 +207,9 @@ class Customer:
                 cursor.callproc("create_order", val)
                 self.conn.commit()
                 tables = cursor.stored_results()
-                for table in tables:
-                    for row in table.fetchall():
-                        orderID = row[0]
+            for table in tables:
+                for row in table.fetchall():
+                    orderID = row[0]
             # save data to the order_list
             for i in range(len(c_listID)):
                 val = (orderID, c_listID[i], c_menuID[i], c_quantity[i])
@@ -224,9 +224,10 @@ class Customer:
         with self.conn.cursor() as cursor:
             cursor.callproc("check_order_in_queue", (self.customerID, orderID))
             tables = cursor.stored_results()
-            for table in tables:
-                for row in table.fetchall():
-                    inQueueStatus = row[0]
+        for table in tables:
+            for row in table.fetchall():
+                inQueueStatus = row[0]
+        # cancel the order
         if not inQueueStatus:
             with self.conn.cursor() as cursor:
                 cursor.callproc("cancel_order", (self.customerID, orderID))
@@ -239,12 +240,15 @@ class Customer:
     def view_order_details(self, orderID: int):
         pass
 
-    # done
+    # bowen working
     def view_order_history(self):
-        query = "call customer_view_order_history(%s)"
-        df = pd.read_sql(query, self.conn, params=[self.customerID])
-        df.index = df.index + 1
-        print(df)
+        with self.conn.cursor() as cursor:
+            cursor.callproc("customer_view_order_history", (self.customerID,))
+            tables = cursor.stored_results()
+        for table in tables:
+            df = pd.DataFrame(table.fetchall())
+            df.index = df.index + 1
+            print(df)
 
 
 
