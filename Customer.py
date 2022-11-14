@@ -21,7 +21,7 @@ class Customer:
         self.email = None
         self.phone = None
         self.__password = None
-        self.cart = {} # {menuID: [dishName, price, quantity]}
+        self.cart = {} # format->{menuID: [dishName, price, quantity]}
         self.__sql_connect()
 
     ###########################
@@ -130,9 +130,9 @@ class Customer:
         print(df)
 
     # done
-    def __get_menu_info(self, menuID: int) -> str:
+    def __get_name_price(self, menuID: int) -> str:
         with self.conn.cursor() as cursor:
-            cursor.callproc("get_menu_info", (menuID,))
+            cursor.callproc("get_dish_name_price", (menuID,))
             tables = cursor.stored_results()
             for table in tables:
                 for row in table.fetchall():
@@ -143,7 +143,7 @@ class Customer:
         if menuID in self.cart:
             self.cart[menuID][2] += quantity
         else:
-            self.cart[menuID] = [self.__get_menu_info(menuID)[0], self.__get_menu_info(menuID)[1], quantity]
+            self.cart[menuID] = [self.__get_name_price(menuID)[0], self.__get_name_price(menuID)[1], quantity]
         print("Added.")
 
     # done
@@ -216,21 +216,35 @@ class Customer:
                 with self.conn.cursor() as cursor:
                     cursor.callproc("create_order_list", val)
                     self.conn.commit()
-            print("Order received!")
+            print("Order received.")
             
-
-    # Bowen working
+    # done
     def cancel_order(self, orderID: int):
-        # after order in queue, cannot cancel
-        pass
+        # check order in queue first
+        with self.conn.cursor() as cursor:
+            cursor.callproc("check_order_in_queue", (self.customerID, orderID))
+            tables = cursor.stored_results()
+            for table in tables:
+                for row in table.fetchall():
+                    inQueueStatus = row[0]
+        if not inQueueStatus:
+            with self.conn.cursor() as cursor:
+                cursor.callproc("cancel_order", (self.customerID, orderID))
+                self.conn.commit()
+            print("The order has been canceled.")
+        else:
+            print("The order is already in the queue and cannot be canceled.")
 
     # Bowen working
-    def view_order(self, orderID: int):
+    def view_order_details(self, orderID: int):
         pass
 
-    # Bowen working
+    # done
     def view_order_history(self):
-        pass
+        query = "call customer_view_order_history(%s)"
+        df = pd.read_sql(query, self.conn, params=[self.customerID])
+        df.index = df.index + 1
+        print(df)
 
 
 

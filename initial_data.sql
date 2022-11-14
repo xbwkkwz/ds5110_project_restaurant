@@ -494,30 +494,30 @@ values
 insert into reservation (reservationDate, windowID, tableID, customerID, numOfPeople, reservationStatus, employeeID)
 values
 ('2022-10-03', 13, 6, 1, 2, 'Reserved', 1),
-('2022-10-03', 13, 7, 2, 2, 'Cancelled', 2),
-('2022-10-03', 18, 8, 3, 2, 'Cancelled', 3),
+('2022-10-03', 13, 7, 2, 2, 'Canceled', 2),
+('2022-10-03', 18, 8, 3, 2, 'Canceled', 3),
 ('2022-10-03', 19, 16, 4, 4, 'Reserved', 4),
 ('2022-10-04', 38, 6, 5, 2, 'Reserved', 5), 
-('2022-10-04', 38, 7, 6, 2, 'Cancelled', 6),
-('2022-10-04', 43, 16, 7, 4, 'Cancelled', 7),
-('2022-10-04', 43, 17, 8, 4, 'Cancelled', 8),
-('2022-10-12', 61, 16, 9, 4, 'Cancelled', 9),
-('2022-10-12', 61, 17, 10, 4, 'Cancelled', 10),
-('2022-10-12', 66, 6, 11, 2, 'Cancelled', 3),
-('2022-10-12', 66, 16, 12, 4, 'Cancelled', 4),
-('2022-10-13', 85, 1, 13, 1, 'Cancelled', 5),
-('2022-10-13', 86, 16, 14, 4, 'Cancelled', 6),
-('2022-10-13', 91, 6, 15, 2, 'Cancelled', 7),
-('2022-10-13', 92, 16, 16, 4, 'Cancelled', 8),
+('2022-10-04', 38, 7, 6, 2, 'Canceled', 6),
+('2022-10-04', 43, 16, 7, 4, 'Canceled', 7),
+('2022-10-04', 43, 17, 8, 4, 'Canceled', 8),
+('2022-10-12', 61, 16, 9, 4, 'Canceled', 9),
+('2022-10-12', 61, 17, 10, 4, 'Canceled', 10),
+('2022-10-12', 66, 6, 11, 2, 'Canceled', 3),
+('2022-10-12', 66, 16, 12, 4, 'Canceled', 4),
+('2022-10-13', 85, 1, 13, 1, 'Canceled', 5),
+('2022-10-13', 86, 16, 14, 4, 'Canceled', 6),
+('2022-10-13', 91, 6, 15, 2, 'Canceled', 7),
+('2022-10-13', 92, 16, 16, 4, 'Canceled', 8),
 ('2022-10-21', 115, 16, 17, 4, 'Reserved', 3),
 ('2022-10-21', 115, 17, 18, 4, 'Reserved', 4),
 ('2022-10-21', 115, 18, 19, 4, 'Reserved', 7),
 ('2022-10-21', 115, 19, 20, 4, 'Reserved', 8),
 ('2022-10-21', 115, 20, 21, 4, 'Reserved', 9),
-('2022-10-22', 138, 6, 22, 2, 'Cancelled', 1),
-('2022-10-22', 138, 7, 23, 2, 'Cancelled', 2),
-('2022-10-30', 163, 6, 24, 2, 'Cancelled', 5),
-('2022-10-30', 164, 7, 25, 2, 'Cancelled', 6);
+('2022-10-22', 138, 6, 22, 2, 'Canceled', 1),
+('2022-10-22', 138, 7, 23, 2, 'Canceled', 2),
+('2022-10-30', 163, 6, 24, 2, 'Canceled', 5),
+('2022-10-30', 164, 7, 25, 2, 'Canceled', 6);
 
 -- insert data into waiting_list
 insert into waiting_list (waitingID, waitingDate, windowID, customerID, numOfPeople, waitingStatus)
@@ -532,7 +532,7 @@ values
 (8, '2022-10-21', 115, 33, 4, 'Joined'),
 (9, '2022-10-21', 115, 34, 4, 'Joined'),
 (10, '2022-10-21', 115, 35, 4, 'Joined'),
-(11, '2022-10-21', 115, 36, 4, 'Cancelled');
+(11, '2022-10-21', 115, 36, 4, 'Canceled');
 
 -- insert data into orders table
 insert into orders (orderID, orderDate, orderTime, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID, tableID)

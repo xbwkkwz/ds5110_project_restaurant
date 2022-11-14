@@ -30,7 +30,7 @@ delimiter ;
 
 -- find dish name and price for the cart
 delimiter //
-create procedure get_menu_info(in menuID_var int)
+create procedure get_dish_name_price(in menuID_var int)
 begin
 select dishName, price
 from menu where menuID = menuID_var;
@@ -57,6 +57,44 @@ values
 (orderID_var, listID_var, menuID_var, quantity_var);
 end//
 delimiter ;
+
+-- check order in queue status
+delimiter //
+create procedure check_order_in_queue (in customerID_var int, in orderID_var int)
+begin
+select orderInQueue from orders where customerID = customerID_var and orderID = orderID_var;
+end//
+delimiter ;
+
+-- cancel one order
+delimiter //
+create procedure cancel_order (in customerID_var int, in orderID_var int)
+begin
+update orders set orderStatus = 'Canceled' where customerID = customerID_var and orderID = orderID_var;
+end//
+delimiter ;
+
+-- customer view all order history
+delimiter //
+create procedure customer_view_order_history (in customerID_var int)
+begin
+select orderID, orderDate, orderTime, orderStatus, numOfDish, subtotal, tips, total
+from orders
+where customerID = customerID_var
+order by orderID ASC;
+end//
+delimiter ;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
