@@ -1,7 +1,7 @@
 -- ds5110 restaurant project
 -- order related
 
--- create the view for the menu
+-- create the view for the menu for customer
 create view menu_for_customer as
 select menu_category.categoryName, menu.menuID, menu.dishName, menu.dishDescription, menu.price
 from menu
@@ -17,14 +17,18 @@ select * from menu_for_customer;
 end//
 delimiter ;
 
+-- create a view for the menu for employee
+create view menu_for_employee as
+select mc.categoryName, mc.categoryDescription, m.menuID, m.dishName, m.dishDescription, m.price, m.dishStatus
+from menu as m
+natural join menu_category as mc
+order by menuID ASC;
+
 -- get the menu info for employee
 delimiter //
 create procedure employee_view_menu()
 begin
-select menu_category.categoryName, menu.menuID, menu.dishName, menu.dishDescription, menu.price, menu.dishStatus
-from menu
-natural join menu_category
-order by menuID ASC;
+select * from menu_for_employee;
 end//
 delimiter ;
 
@@ -66,7 +70,7 @@ select orderInQueue from orders where orderID = orderID_var;
 end//
 delimiter ;
 
--- cancel one order
+-- update orders status
 delimiter //
 create procedure update_order_status (in orderID_var int, in status_var varchar(64))
 begin
@@ -96,9 +100,25 @@ order by orderID ASC;
 end//
 delimiter ;
 
+-- employee view all order history
+delimiter //
+create procedure employee_view_order_history ()
+begin
+select orderID, orderDate, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID, tableID
+from orders
+order by orderID ASC;
+end//
+delimiter ;
+
+-- assign a table to one order
+delimiter //
+create procedure assign_table (in orderID_var int, in tableID_var int)
+begin
+update orders set tableID = tableID_var where orderID = orderID_var;
+end//
+delimiter ;
+
 -- 
-
-
 
 
 

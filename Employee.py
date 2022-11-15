@@ -39,9 +39,16 @@ class Employee:
     # order related methods
     ###########################
 
+    # done
     def view_all_orders(self):
-        pass
-
+        with self.conn.cursor() as cursor:
+            cursor.callproc("employee_view_order_history")
+            tables = cursor.stored_results()
+        for table in tables:
+            col = ["Order ID", "Date", "Status", "InQueue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
+            df = pd.DataFrame(table.fetchall(), columns=col)
+            df.index = df.index + 1
+            print(df)
 
     # done
     def view_order_details(self, orderID: int):
@@ -55,8 +62,12 @@ class Employee:
             df.index = df.index + 1
             print(df)
 
+    # done
     def assign_table_to_order(self, orderID: int, tableID: int):
-        pass
+        with self.conn.cursor() as cursor:
+            cursor.callproc("assign_table", (orderID, tableID))
+            self.conn.commit()
+        print("Saved.")
 
     # done
     def cancel_order(self, orderID: int):
@@ -77,7 +88,7 @@ class Employee:
         else:
             print("The order is already in the queue and cannot be canceled.")
 
-    # bowen working
+    # done
     def update_order(self, orderID: int):
         # check order in queue first
         with self.conn.cursor() as cursor:
@@ -95,11 +106,12 @@ class Employee:
         else:
             print("The order is not in the chef queue.")
         
-
+    # bowen working
     def update_tips(self, orderID: int, tips: float):
         # this will trigger total change
         pass
 
+    # bowen working
     def put_order_in_queue(self, orderID: int, employeeID: int):
         # need to trigger subtract ingredient stock
         pass
