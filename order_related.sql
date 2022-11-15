@@ -19,7 +19,7 @@ delimiter ;
 
 -- create a view for the menu for employee
 create view menu_for_employee as
-select mc.categoryName, mc.categoryDescription, m.menuID, m.dishName, m.dishDescription, m.price, m.dishStatus
+select mc.categoryName, m.menuID, m.dishName, m.dishDescription, m.price, m.dishStatus
 from menu as m
 natural join menu_category as mc
 order by menuID ASC;
@@ -47,7 +47,7 @@ create procedure create_order(in customerID_var int, in numOfDish_var int, in su
 begin
 insert into orders (orderDate, orderTime, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID)
 values
-(current_date(), current_time(), "Received", 0, numOfDish_var, subtotal_var, 0, subtotal_var, customerID_var);
+(current_date(), current_time(), "Received", false, numOfDish_var, subtotal_var, 0, subtotal_var, customerID_var);
 select max(orderID) from orders;
 end//
 delimiter ;
@@ -118,15 +118,60 @@ update orders set tableID = tableID_var where orderID = orderID_var;
 end//
 delimiter ;
 
--- 
+-- create a function to calcuate total cost of one order
+delimiter //
+create function calculate_total(orderID_var int)
+returns decimal(6,2)
+deterministic
+reads sql data
+begin
+declare new_total decimal(6,2);
+select tips+total into new_total from orders where orderID = orderID_var;
+return new_total;
+end//
+delimiter ;
 
+-- add tips to one order
+delimiter //
+create procedure update_tips (in orderID_var int, in tips_var decimal(6,2))
+begin
+update orders set tips = tips_var where orderID = orderID_var;
+update orders set total = calculate_total(orderID_var) where orderID = orderID_var;
+end//
+delimiter ;
 
+-- put one order in queue
+delimiter //
+create procedure create_order_queue (in orderID_var int, in employeeID_var int)
+begin
+insert into order_queue (orderID, employeeID)
+values
+(orderID_var, employeeID_var);
+end//
+delimiter ;
 
+-- create a trigger for update orderInQueue
+delimiter //
+create trigger update_queue_status after insert on order_queue
+for each row
+begin
+update orders set orderInQueue = true where orderID = NEW.orderID;
+end//
+delimiter ;
 
+-- create a view for the queue table
+create view chef_cooking_queue as
+select oq.queueID, oq.orderID, o.orderTime, oq.employeeID, concat(e.firstName, ' ', e.lastName) as chefName, o.orderStatus
+from order_queue as oq
+natural join employee as e
+natural join orders as o;
 
-
-
-
-
+-- create the manager to view the cooking queue
+delimiter //
+create procedure view_queue ()
+begin
+select * from chef_cooking_queue;
+end//
+delimiter ;
 
 

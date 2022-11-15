@@ -106,15 +106,33 @@ class Employee:
         else:
             print("The order is not in the chef queue.")
         
-    # bowen working
+    # done
     def update_tips(self, orderID: int, tips: float):
-        # this will trigger total change
-        pass
+        # this will change total cost also
+        with self.conn.cursor() as cursor:
+            cursor.callproc("update_tips", (orderID, tips))
+            self.conn.commit()
+        print("Saved.")
 
     # bowen working
     def put_order_in_queue(self, orderID: int, employeeID: int):
         # need to trigger subtract ingredient stock
-        pass
+        # need to trigger order in queue
+        with self.conn.cursor() as cursor:
+            cursor.callproc("create_order_queue", (orderID, employeeID))
+            self.conn.commit()
+        print("Saved.")
+
+    # bowen working
+    def view_queue(self):
+        with self.conn.cursor() as cursor:
+            cursor.callproc("view_queue")
+            tables = cursor.stored_results()
+        for table in tables:
+            col = ["Queue ID", "Order ID", "Order Time", "Employee ID", "Chef Name", "Status"]
+            df = pd.DataFrame(table.fetchall(), columns=col)
+            df.index = df.index + 1
+            print(df)
 
 
     
@@ -162,7 +180,7 @@ class Employee:
             cursor.callproc("employee_view_menu")
             tables = cursor.stored_results()
         for table in tables:
-            col = ["Category", "Description", "Dish ID", "Dish Name", "Description", "Price", "Status"]
+            col = ["Category", "Dish ID", "Dish Name", "Description", "Price", "Status"]
             df = pd.DataFrame(table.fetchall(), columns=col)
             df.index = df.index + 1
             print(df)
