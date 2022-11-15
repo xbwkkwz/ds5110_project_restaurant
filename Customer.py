@@ -223,7 +223,7 @@ class Customer:
     def cancel_order(self, orderID: int):
         # check order in queue first
         with self.conn.cursor() as cursor:
-            cursor.callproc("check_order_in_queue", (orderID))
+            cursor.callproc("check_order_in_queue", (orderID,))
             tables = cursor.stored_results()
         for table in tables:
             for row in table.fetchall():
@@ -231,7 +231,7 @@ class Customer:
         # cancel the order
         if not inQueueStatus:
             with self.conn.cursor() as cursor:
-                cursor.callproc("cancel_order", (orderID))
+                cursor.callproc("update_order_status", (orderID, "Canceled"))
                 self.conn.commit()
             print("The order has been canceled.")
         else:
@@ -240,7 +240,7 @@ class Customer:
     # done
     def view_order_details(self, orderID: int):
         with self.conn.cursor() as cursor:
-            cursor.callproc("customer_view_order_detail", (orderID,))
+            cursor.callproc("view_order_detail", (orderID,))
             tables = cursor.stored_results()
         for table in tables:
             col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]

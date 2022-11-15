@@ -68,15 +68,15 @@ delimiter ;
 
 -- cancel one order
 delimiter //
-create procedure cancel_order (in orderID_var int)
+create procedure update_order_status (in orderID_var int, in status_var varchar(64))
 begin
-update orders set orderStatus = 'Canceled' where orderID = orderID_var;
+update orders set orderStatus = status_var where orderID = orderID_var;
 end//
 delimiter ;
 
--- customer view one order detail
+-- view one order detail
 delimiter //
-create procedure customer_view_order_detail (in orderID_var int)
+create procedure view_order_detail (in orderID_var int)
 begin
 select ol.menuID, m.dishName, ol.quantity, m.price, ol.quantity*m.price as subtotal
 from order_list as ol
@@ -96,7 +96,7 @@ order by orderID ASC;
 end//
 delimiter ;
 
-
+-- 
 
 
 

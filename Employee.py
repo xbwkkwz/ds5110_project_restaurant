@@ -47,7 +47,7 @@ class Employee:
     def view_order_details(self, orderID: int):
         # this one should be the same as the method in customer
         with self.conn.cursor() as cursor:
-            cursor.callproc("customer_view_order_detail", (orderID,))
+            cursor.callproc("view_order_detail", (orderID,))
             tables = cursor.stored_results()
         for table in tables:
             col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
@@ -63,7 +63,7 @@ class Employee:
         # this one should be the same as the method in customer
         # after order in queue, cannot cancel, check order in queue first
         with self.conn.cursor() as cursor:
-            cursor.callproc("check_order_in_queue", (orderID))
+            cursor.callproc("check_order_in_queue", (orderID,))
             tables = cursor.stored_results()
         for table in tables:
             for row in table.fetchall():
@@ -71,7 +71,7 @@ class Employee:
         # cancel the order
         if not inQueueStatus:
             with self.conn.cursor() as cursor:
-                cursor.callproc("cancel_order", (orderID))
+                cursor.callproc("update_order_status", (orderID, "Canceled"))
                 self.conn.commit()
             print("The order has been canceled.")
         else:
@@ -79,8 +79,21 @@ class Employee:
 
     # bowen working
     def update_order(self, orderID: int):
+        # check order in queue first
+        with self.conn.cursor() as cursor:
+            cursor.callproc("check_order_in_queue", (orderID,))
+            tables = cursor.stored_results()
+        for table in tables:
+            for row in table.fetchall():
+                inQueueStatus = row[0]
         # turn from "Received" to "Ready"
-        pass
+        if inQueueStatus:
+            with self.conn.cursor() as cursor:
+                cursor.callproc("update_order_status", (orderID, "Ready"))
+                self.conn.commit()
+            print("The order is ready.")
+        else:
+            print("The order is not in the chef queue.")
         
 
     def update_tips(self, orderID: int, tips: float):
