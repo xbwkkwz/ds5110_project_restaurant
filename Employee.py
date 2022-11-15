@@ -45,7 +45,7 @@ class Employee:
             cursor.callproc("employee_view_order_history")
             tables = cursor.stored_results()
         for table in tables:
-            col = ["Order ID", "Date", "Status", "InQueue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
+            col = ["Order ID", "Date", "Status", "In Queue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
             df = pd.DataFrame(table.fetchall(), columns=col)
             df.index = df.index + 1
             print(df)
@@ -158,10 +158,14 @@ class Employee:
 
     # done
     def view_menu(self):
-        query = "call employee_view_menu()"
-        df = pd.read_sql(query, self.conn)
-        df.index = df.index + 1
-        print(df)
+        with self.conn.cursor() as cursor:
+            cursor.callproc("employee_view_menu")
+            tables = cursor.stored_results()
+        for table in tables:
+            col = ["Category", "Description", "Dish ID", "Dish Name", "Description", "Price", "Status"]
+            df = pd.DataFrame(table.fetchall(), columns=col)
+            df.index = df.index + 1
+            print(df)
 
     def add_new_category(self, categoryName: str):
         pass
@@ -207,6 +211,7 @@ class Employee:
 
     def update_business_hour_status(self, timeID: int, dayStatus: int):
         # this will trigger the reservation windows update
+        # the latest reservation window is one hour eariler before store close.
         pass
 
     def view_all_tables(self):
