@@ -161,7 +161,7 @@ delimiter ;
 
 -- create a view for the queue table
 create view chef_cooking_queue as
-select oq.queueID, oq.orderID, o.orderTime, oq.employeeID, concat(e.firstName, ' ', e.lastName) as chefName, o.orderStatus
+select oq.queueID, oq.orderID, convert(o.orderTime, char(8)) as orderTime, oq.employeeID, concat(e.firstName, ' ', e.lastName) as chefName, o.orderStatus
 from order_queue as oq
 natural join employee as e
 natural join orders as o;
