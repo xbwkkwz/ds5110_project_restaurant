@@ -186,7 +186,7 @@ class Customer:
     # order related methods
     ###########################
     
-    # still working, need to check business time before place the order
+    # done, ignore business time check for now
     def place_order(self):
         if not self.cart:
             print("Empty cart!")
