@@ -237,9 +237,16 @@ class Customer:
         else:
             print("The order is already in the queue and cannot be canceled.")
 
-    # Bowen working
+    # done
     def view_order_details(self, orderID: int):
-        pass
+        with self.conn.cursor() as cursor:
+            cursor.callproc("customer_view_order_detail", (orderID,))
+            tables = cursor.stored_results()
+        for table in tables:
+            col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
+            df = pd.DataFrame(table.fetchall(), columns=col)
+            df.index = df.index + 1
+            print(df)
 
     # done
     def view_order_history(self):

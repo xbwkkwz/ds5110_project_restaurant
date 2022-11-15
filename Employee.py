@@ -42,19 +42,39 @@ class Employee:
         pass
 
 
-    # Bowen working
-    def view_order(self, orderID: int):
+    # done
+    def view_order_details(self, orderID: int):
         # this one should be the same as the method in customer
-        pass
+        with self.conn.cursor() as cursor:
+            cursor.callproc("customer_view_order_detail", (orderID,))
+            tables = cursor.stored_results()
+        for table in tables:
+            col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
+            df = pd.DataFrame(table.fetchall(), columns=col)
+            df.index = df.index + 1
+            print(df)
 
     def assign_table_to_order(self, orderID: int, tableID: int):
         pass
 
     # Bowen working
     def cancel_order(self, orderID: int):
-        # this one should be the same as the method in customer
-        # after order in queue, cannot cancel
-        pass
+        # this one should be similar as the method in customer
+        # after order in queue, cannot cancel, check order in queue first
+        with self.conn.cursor() as cursor:
+            cursor.callproc("check_order_in_queue", (self.customerID, orderID))
+            tables = cursor.stored_results()
+        for table in tables:
+            for row in table.fetchall():
+                inQueueStatus = row[0]
+        # cancel the order
+        if not inQueueStatus:
+            with self.conn.cursor() as cursor:
+                cursor.callproc("cancel_order", (self.customerID, orderID))
+                self.conn.commit()
+            print("The order has been canceled.")
+        else:
+            print("The order is already in the queue and cannot be canceled.")
 
     def update_order(self, orderID: int):
         # turn from "Received" to "Ready"

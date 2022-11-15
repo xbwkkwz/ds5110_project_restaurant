@@ -74,6 +74,17 @@ update orders set orderStatus = 'Canceled' where customerID = customerID_var and
 end//
 delimiter ;
 
+-- customer view one order detail
+delimiter //
+create procedure customer_view_order_detail (in orderID_var int)
+begin
+select ol.menuID, m.dishName, ol.quantity, m.price, ol.quantity*m.price as subtotal
+from order_list as ol
+natural join menu as m
+where ol.orderID = orderID_var;
+end//
+delimiter ;
+
 -- customer view all order history
 delimiter //
 create procedure customer_view_order_history (in customerID_var int)
