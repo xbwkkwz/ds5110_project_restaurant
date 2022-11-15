@@ -58,12 +58,12 @@ class Employee:
     def assign_table_to_order(self, orderID: int, tableID: int):
         pass
 
-    # Bowen working
+    # done
     def cancel_order(self, orderID: int):
-        # this one should be similar as the method in customer
+        # this one should be the same as the method in customer
         # after order in queue, cannot cancel, check order in queue first
         with self.conn.cursor() as cursor:
-            cursor.callproc("check_order_in_queue", (self.customerID, orderID))
+            cursor.callproc("check_order_in_queue", (orderID))
             tables = cursor.stored_results()
         for table in tables:
             for row in table.fetchall():
@@ -71,12 +71,13 @@ class Employee:
         # cancel the order
         if not inQueueStatus:
             with self.conn.cursor() as cursor:
-                cursor.callproc("cancel_order", (self.customerID, orderID))
+                cursor.callproc("cancel_order", (orderID))
                 self.conn.commit()
             print("The order has been canceled.")
         else:
             print("The order is already in the queue and cannot be canceled.")
 
+    # bowen working
     def update_order(self, orderID: int):
         # turn from "Received" to "Ready"
         pass

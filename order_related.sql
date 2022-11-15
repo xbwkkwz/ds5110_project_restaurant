@@ -60,17 +60,17 @@ delimiter ;
 
 -- check order in queue status
 delimiter //
-create procedure check_order_in_queue (in customerID_var int, in orderID_var int)
+create procedure check_order_in_queue (in orderID_var int)
 begin
-select orderInQueue from orders where customerID = customerID_var and orderID = orderID_var;
+select orderInQueue from orders where orderID = orderID_var;
 end//
 delimiter ;
 
 -- cancel one order
 delimiter //
-create procedure cancel_order (in customerID_var int, in orderID_var int)
+create procedure cancel_order (in orderID_var int)
 begin
-update orders set orderStatus = 'Canceled' where customerID = customerID_var and orderID = orderID_var;
+update orders set orderStatus = 'Canceled' where orderID = orderID_var;
 end//
 delimiter ;
 
