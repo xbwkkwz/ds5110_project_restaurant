@@ -114,7 +114,7 @@ class Employee:
             self.conn.commit()
         print("Saved.")
 
-    # bowen working
+    # done
     def put_order_in_queue(self, orderID: int, employeeID: int):
         # need to trigger order in queue
         with self.conn.cursor() as cursor:
@@ -122,7 +122,7 @@ class Employee:
             self.conn.commit()
         print("Saved.")
         # need to trigger subtract ingredient stock
-        
+        # done by the trigger "update_ingredient_stock"
 
     # done
     def view_queue(self):

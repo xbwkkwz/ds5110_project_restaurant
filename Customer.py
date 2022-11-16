@@ -200,8 +200,9 @@ class Customer:
                 c_quantity.append(value[2])
                 c_price.append(value[1])
                 c_subtotal.append(value[1]*value[2])
-            num_dish = len(c_subtotal)
+            num_dish = sum(c_quantity)
             total_before_tips = sum(c_subtotal)
+            self.cart.clear()
             # save data to the order table
             val = (self.customerID, num_dish, total_before_tips)
             with self.conn.cursor() as cursor:

@@ -80,13 +80,13 @@ delimiter ;
 
 -- create a function to calcuate total cost of one order
 delimiter //
-create function calculate_total(orderID_var int)
+create function calculate_total (orderID_var int)
 returns decimal(6,2)
-deterministic
+not deterministic
 reads sql data
 begin
 declare new_total decimal(6,2);
-select tips+total into new_total from orders where orderID = orderID_var;
+select subtotal + tips into new_total from orders where orderID = orderID_var;
 return new_total;
 end//
 delimiter ;
