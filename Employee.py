@@ -34,6 +34,7 @@ class Employee:
         self.conn.close()
         self.conn = None
 
+    # done, use this if insert, update, delete database
     def modify_database(self, procedure_name: str, args: tuple):
         with self.conn.cursor() as cursor:
             cursor.callproc(procedure_name, args)
@@ -43,41 +44,43 @@ class Employee:
             for row in table.fetchall():
                 return row[0]
 
+    # done, use this if read database only
+    def read_database(self, procedure_name: str, args: tuple, col: list):
+        with self.conn.cursor() as cursor:
+            if args:
+                cursor.callproc(procedure_name, args)
+            else:
+                cursor.callproc(procedure_name)
+            tables = cursor.stored_results()
+        for table in tables:
+            df = pd.DataFrame(table.fetchall(), columns = col)
+            df.index = df.index + 1
+            print(df)
+
+
     ###########################
     # order related methods
     ###########################
 
     # done
     def view_all_orders(self):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("employee_view_order_history")
-            tables = cursor.stored_results()
-        for table in tables:
-            col = ["Order ID", "Date", "Status", "In Queue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
-            df = pd.DataFrame(table.fetchall(), columns=col)
-            df.index = df.index + 1
-            print(df)
+        col = ["Order ID", "Date", "Status", "In Queue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
+        self.read_database("employee_view_order_history", None, col)
 
     # done
     def view_order_details(self, orderID: int):
         # this one should be the same as the method in customer
-        with self.conn.cursor() as cursor:
-            cursor.callproc("view_order_detail", (orderID,))
-            tables = cursor.stored_results()
-        for table in tables:
-            col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
-            df = pd.DataFrame(table.fetchall(), columns=col)
-            df.index = df.index + 1
-            print(df)
+        col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
+        self.read_database("view_order_detail", (orderID,), col)
 
-    # done
+    # done for function, bowen needs to clean the code
     def assign_table_to_order(self, orderID: int, tableID: int):
         with self.conn.cursor() as cursor:
             cursor.callproc("assign_table", (orderID, tableID))
             self.conn.commit()
         print("Saved.")
 
-    # done
+    # done for function, bowen needs to clean the code
     def cancel_order(self, orderID: int):
         # this one should be the same as the method in customer
         # after order in queue, cannot cancel, check order in queue first
@@ -96,7 +99,7 @@ class Employee:
         else:
             print("The order is already in the queue and cannot be canceled.")
 
-    # done
+    # done for function, bowen needs to clean the code
     def update_order(self, orderID: int):
         # check order in queue first
         with self.conn.cursor() as cursor:
@@ -114,7 +117,7 @@ class Employee:
         else:
             print("The order is not in the chef queue.")
         
-    # done
+    # done for function, bowen needs to clean the code
     def update_tips(self, orderID: int, tips: float):
         # this will change total cost also
         with self.conn.cursor() as cursor:
@@ -122,7 +125,7 @@ class Employee:
             self.conn.commit()
         print("Saved.")
 
-    # done
+    # done for function, bowen needs to clean the code
     def put_order_in_queue(self, orderID: int, employeeID: int):
         # need to trigger order in queue
         with self.conn.cursor() as cursor:
@@ -132,7 +135,7 @@ class Employee:
         # need to trigger subtract ingredient stock
         # done by the trigger "update_ingredient_stock"
 
-    # done
+    # done for function, bowen needs to clean the code
     def view_queue(self):
         with self.conn.cursor() as cursor:
             cursor.callproc("view_queue")

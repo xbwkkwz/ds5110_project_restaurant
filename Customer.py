@@ -119,7 +119,7 @@ class Customer:
     # cart related methods
     ###########################
 
-    # done
+    # done for function, bowen needs to clean the code
     def view_menu(self):
         with self.conn.cursor() as cursor:
             cursor.callproc("customer_view_menu")
@@ -130,7 +130,7 @@ class Customer:
             df.index = df.index + 1
             print(df)
 
-    # done
+    # done for function, bowen needs to clean the code
     def __get_name_price(self, menuID: int) -> str:
         with self.conn.cursor() as cursor:
             cursor.callproc("get_dish_name_price", (menuID,))
@@ -139,7 +139,7 @@ class Customer:
             for row in table.fetchall():
                 return row
 
-    # done
+    # done for function, bowen needs to clean the code
     def add_dish(self, menuID: int, quantity: int):
         if menuID in self.cart:
             self.cart[menuID][2] += quantity
@@ -147,7 +147,7 @@ class Customer:
             self.cart[menuID] = [self.__get_name_price(menuID)[0], self.__get_name_price(menuID)[1], quantity]
         print("Added.")
 
-    # done
+    # done for function, bowen needs to clean the code
     def update_dish(self, menuID: int, quantity: int):
         if (menuID in self.cart) and quantity == 0:
             self.remove_dish(menuID)
@@ -155,13 +155,13 @@ class Customer:
             self.cart[menuID][2] = quantity
         print("Updated.")
             
-    # done
+    # done for function, bowen needs to clean the code
     def remove_dish(self, menuID: int):
         if menuID in self.cart:
             self.cart.pop(menuID)
         print("Removed.")
 
-    # done
+    # done for function, bowen needs to clean the code
     def view_cart(self):
         if self.cart:
             c_menuID, c_dishName, c_quantity, c_price, c_subtotal = [], [], [], [], []
@@ -220,7 +220,7 @@ class Customer:
                     self.conn.commit()
             print("Order received.")
             
-    # done
+    # done for function, bowen needs to clean the code
     def cancel_order(self, orderID: int):
         # check order in queue first
         with self.conn.cursor() as cursor:
@@ -238,7 +238,7 @@ class Customer:
         else:
             print("The order is already in the queue and cannot be canceled.")
 
-    # done
+    # done for function, bowen needs to clean the code
     def view_order_details(self, orderID: int):
         with self.conn.cursor() as cursor:
             cursor.callproc("view_order_detail", (orderID,))
@@ -249,7 +249,7 @@ class Customer:
             df.index = df.index + 1
             print(df)
 
-    # done
+    # done for function, bowen needs to clean the code
     def view_order_history(self):
         with self.conn.cursor() as cursor:
             cursor.callproc("customer_view_order_history", (self.customerID,))
