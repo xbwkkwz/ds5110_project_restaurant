@@ -1,5 +1,4 @@
--- ds5110 restaurant project
--- account related
+-- account related views, procedures, functions, triggers
 
 
 -- create one new customer account

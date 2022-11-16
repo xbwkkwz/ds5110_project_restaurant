@@ -116,14 +116,15 @@ class Employee:
 
     # bowen working
     def put_order_in_queue(self, orderID: int, employeeID: int):
-        # need to trigger subtract ingredient stock
         # need to trigger order in queue
         with self.conn.cursor() as cursor:
             cursor.callproc("create_order_queue", (orderID, employeeID))
             self.conn.commit()
         print("Saved.")
+        # need to trigger subtract ingredient stock
+        
 
-    # bowen working
+    # done
     def view_queue(self):
         with self.conn.cursor() as cursor:
             cursor.callproc("view_queue")
