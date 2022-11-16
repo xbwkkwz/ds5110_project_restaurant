@@ -181,9 +181,36 @@ end if;
 end//
 delimiter ;
 
+-- view ingredient for one dish
+delimiter //
+create procedure view_dish_ingredient (in menuID_var int)
+begin
+select i.ingredientID, i.ingredientName, dhi.quantity
+from ingredient as i
+join dish_has_ingredient as dhi
+on i.ingredientID = dhi.ingredientID
+where dhi.menuID = menuID_var;
+end//
+delimiter ;
 
-
-
+-- add ingredient list for one dish
+delimiter //
+create procedure add_dish_has_ingredient (in dishName_var varchar(64), in ingredientName_var varchar(64), in quantity_var int)
+begin
+declare name_not_exist boolean default false;
+declare CONTINUE handler for 1048
+	set name_not_exist = true;
+insert into dish_has_ingredient (menuID, ingredientID, quantity) 
+values ((select menuID from menu where dishName = dishName_var), 
+		(select ingredientID from ingredient where ingredientName = ingredientName_var), 
+		quantity_var);
+if name_not_exist = true then
+	select 'Error: The food name does not exist.' as message;
+else
+	select 'Saved.' as message;
+end if;
+end//
+delimiter ;
 
 
 

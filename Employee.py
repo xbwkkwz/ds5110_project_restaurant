@@ -226,13 +226,15 @@ class Employee:
         message = self.modify_database("add_new_ingredient", (ingredientName,))
         print(message)
 
-    # bowen working
-    def view_dish_has_ingredient(self, dishName: str):
-        pass
+    # done
+    def view_dish_ingredient(self, menuID: int):
+        col = ["Ingredient ID", "Ingredient Name", "Quantity"]
+        self.read_database("view_dish_ingredient", (menuID,), col)
 
-    # bowen working
+    # done
     def add_dish_has_ingredient(self, dishName: str, ingredientName: str, quantity: int):
-        pass
+        message = self.modify_database("add_dish_has_ingredient", (dishName, ingredientName, quantity))
+        print(message)
 
     # bowen working
     def view_inventory(self):
@@ -250,7 +252,7 @@ class Employee:
     def view_all_business_hours(self):
         pass
 
-    def add_new_business_hour(self, businessDay: str, openTime: str, closeTime: str):
+    def add_business_hour(self, businessDay: str, openTime: str, closeTime: str):
         pass
 
     def update_business_hour_status(self, timeID: int, dayStatus: int):
@@ -261,7 +263,7 @@ class Employee:
     def view_all_tables(self):
         pass
 
-    def add_new_table(self, capacity: int):
+    def add_table(self, capacity: int):
         pass
 
     def update_table_status(self, tableID: int, tableStatus: int):
@@ -272,7 +274,10 @@ class Employee:
     # employee related methods
     ###########################
 
-    def add_new_employee(self, firstName: str, lastName: str, email: str, phone: str, ssn: str, salary: float, occupation: str):
+    def add_employee(self, firstName: str, lastName: str, email: str, phone: str, ssn: str, salary: float, occupation: str):
+        pass
+
+    def delete_employee(self, employeeID: int):
         pass
 
     def update_salary(self, employeeID: int, salary: float):
