@@ -197,8 +197,14 @@ class Employee:
                 print(row[0])
     
     # bowen working
-    def add_new_dish(self, categoryName: str, dishName: str, dishDescription: str, price: float):
-        pass
+    def add_new_dish(self, categoryName: str, dishName: str, price: float):
+        with self.conn.cursor() as cursor:
+            cursor.callproc("add_new_dish", (categoryName, dishName, price))
+            self.conn.commit()
+            tables = cursor.stored_results()
+        for table in tables:
+            for row in table.fetchall():
+                print(row[0])
 
     # bowen working
     def update_dish_status(self, menuID: int, dishStatus: int):

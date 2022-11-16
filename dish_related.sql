@@ -113,7 +113,22 @@ end if;
 end//
 delimiter ;
 
-
+-- create new dish
+delimiter //
+create procedure add_new_dish (in categoryName_var varchar(64), in dishName_var varchar(64), in price_var decimal(5,2))
+begin
+declare category_name_not_exist boolean default false;
+declare CONTINUE handler for 1048
+	set category_name_not_exist = true;
+insert into menu (categoryID, dishName, price, dishStatus) 
+values ((select categoryID from menu_category where categoryName = categoryName_var), dishName_var, price_var, true);
+if category_name_not_exist = true then
+	select 'Error: This category name does not exist.' as message;
+else
+	select 'Saved.' as message;
+end if;
+end//
+delimiter ;
 
 
 
