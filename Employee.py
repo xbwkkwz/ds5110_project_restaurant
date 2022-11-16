@@ -186,16 +186,25 @@ class Employee:
             df.index = df.index + 1
             print(df)
 
+    # done
     def add_new_category(self, categoryName: str):
-        pass
-
+        with self.conn.cursor() as cursor:
+            cursor.callproc("add_new_category", (categoryName,))
+            self.conn.commit()
+            tables = cursor.stored_results()
+        for table in tables:
+            for row in table.fetchall():
+                print(row[0])
+    
+    # bowen working
     def add_new_dish(self, categoryName: str, dishName: str, dishDescription: str, price: float):
         pass
 
+    # bowen working
     def update_dish_status(self, menuID: int, dishStatus: int):
         pass
 
-
+    # bowen working
     def update_dish_price(self, menuID: int, newPrice: float):
         pass
 

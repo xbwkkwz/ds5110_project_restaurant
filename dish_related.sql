@@ -83,7 +83,7 @@ begin
 declare orderID_var int;
 declare menuID_var int;
 declare ingredientID_var int;
-declare row_not_found tinyint default false;
+declare row_not_found boolean default false;
 declare ingredient_cursor cursor for
 	select orderID, menuID, ingredientID from order_dish_ingredient where orderID = NEW.orderID;
 declare EXIT handler for not found
@@ -97,7 +97,21 @@ close ingredient_cursor;
 end//
 delimiter ;
 
-
+-- create new menu category
+delimiter //
+create procedure add_new_category (in categoryName_var varchar(64))
+begin
+declare duplicate_name boolean default false;
+declare CONTINUE handler for 1062
+	set duplicate_name = true;
+insert into menu_category (categoryName) values (categoryName_var);
+if duplicate_name = true then
+	select 'Error: This category name already exists.' as message;
+else
+	select 'Saved.' as message;
+end if;
+end//
+delimiter ;
 
 
 
