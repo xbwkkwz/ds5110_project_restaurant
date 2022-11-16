@@ -188,14 +188,8 @@ class Employee:
 
     # done
     def view_menu(self):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("employee_view_menu")
-            tables = cursor.stored_results()
-        for table in tables:
-            col = ["Category", "Dish ID", "Dish Name", "Description", "Price", "Status"]
-            df = pd.DataFrame(table.fetchall(), columns=col)
-            df.index = df.index + 1
-            print(df)
+        col = ["Category", "Dish ID", "Dish Name", "Description", "Price", "Status"]
+        self.read_database("employee_view_menu", None, col)
 
     # done
     def add_new_category(self, categoryName: str):
@@ -222,13 +216,15 @@ class Employee:
         message = self.modify_database("update_dish_description", (menuID, newDes))
         print(message)
 
-    # bowen working
+    # done
     def view_ingredient_stock(self):
-        pass
+        col = ["Ingredient ID", "Ingredient Name", "Current Stock"]
+        self.read_database("view_ingredient_stock", None, col)
 
-    # bowen working
+    # done
     def add_new_ingredient(self, ingredientName: str):
-        pass
+        message = self.modify_database("add_new_ingredient", (ingredientName,))
+        print(message)
 
     # bowen working
     def view_dish_has_ingredient(self, dishName: str):

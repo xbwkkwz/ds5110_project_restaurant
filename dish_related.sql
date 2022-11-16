@@ -157,4 +157,35 @@ select 'Saved.' as message;
 end//
 delimiter ;
 
+-- view all ingredient stock
+delimiter //
+create procedure view_ingredient_stock ()
+begin
+select * from ingredient;
+end//
+delimiter ;
+
+-- add new ingredient to the table
+delimiter //
+create procedure add_new_ingredient (in ingredientName_var varchar(64))
+begin
+declare duplicate_name boolean default false;
+declare CONTINUE handler for 1062
+	set duplicate_name = true;
+insert into ingredient (ingredientName) values (ingredientName_var);
+if duplicate_name = true then
+	select 'Error: This ingredient already exists.' as message;
+else
+	select 'Saved.' as message;
+end if;
+end//
+delimiter ;
+
+
+
+
+
+
+
+
 
