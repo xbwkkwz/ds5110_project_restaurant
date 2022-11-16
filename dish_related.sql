@@ -130,10 +130,31 @@ end if;
 end//
 delimiter ;
 
+-- update dish status
+delimiter //
+create procedure update_dish_status (in menuID_var int, in dishStatus_var boolean)
+begin
+update menu set dishStatus = dishStatus_var where menuID = menuID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
 
+-- update dish price
+delimiter //
+create procedure update_dish_price (in menuID_var int, in price_var boolean)
+begin
+update menu set price = price_var where menuID = menuID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
 
-
-
-
+-- update dish price
+delimiter //
+create procedure update_dish_description (in menuID_var int, in description_var varchar(512))
+begin
+update menu set dishDescription = description_var where menuID = menuID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
 
 

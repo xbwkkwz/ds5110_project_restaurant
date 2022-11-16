@@ -34,6 +34,14 @@ class Employee:
         self.conn.close()
         self.conn = None
 
+    def modify_database(self, procedure_name: str, args: tuple):
+        with self.conn.cursor() as cursor:
+            cursor.callproc(procedure_name, args)
+            self.conn.commit()
+            tables = cursor.stored_results()
+        for table in tables:
+            for row in table.fetchall():
+                return row[0]
 
     ###########################
     # order related methods
@@ -188,47 +196,50 @@ class Employee:
 
     # done
     def add_new_category(self, categoryName: str):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("add_new_category", (categoryName,))
-            self.conn.commit()
-            tables = cursor.stored_results()
-        for table in tables:
-            for row in table.fetchall():
-                print(row[0])
+        message = self.modify_database("add_new_category", (categoryName,))
+        print(message)
     
-    # bowen working
+    # done
     def add_new_dish(self, categoryName: str, dishName: str, price: float):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("add_new_dish", (categoryName, dishName, price))
-            self.conn.commit()
-            tables = cursor.stored_results()
-        for table in tables:
-            for row in table.fetchall():
-                print(row[0])
+        message = self.modify_database("add_new_dish", (categoryName, dishName, price))
+        print(message)
 
-    # bowen working
+    # done
     def update_dish_status(self, menuID: int, dishStatus: int):
-        pass
+        message = self.modify_database("update_dish_status", (menuID, dishStatus))
+        print(message)
+
+    # done
+    def update_dish_price(self, menuID: int, newPrice: float):
+        message = self.modify_database("update_dish_price", (menuID, newPrice))
+        print(message)
+
+    # done
+    def update_dish_description(self, menuID: int, newDes: str):
+        message = self.modify_database("update_dish_description", (menuID, newDes))
+        print(message)
 
     # bowen working
-    def update_dish_price(self, menuID: int, newPrice: float):
-        pass
-
     def view_ingredient_stock(self):
         pass
 
+    # bowen working
     def add_new_ingredient(self, ingredientName: str):
         pass
 
+    # bowen working
     def view_dish_has_ingredient(self, dishName: str):
         pass
 
+    # bowen working
     def add_dish_has_ingredient(self, dishName: str, ingredientName: str, quantity: int):
         pass
 
+    # bowen working
     def view_inventory(self):
         pass
 
+    # bowen working
     def add_inventory(self, ingredientName: str, quantity: int, totalCost: float, employeeID: int, purchaseDate: str, expDate: str):
         # this will trigger the stock column update in ingredient
         pass
