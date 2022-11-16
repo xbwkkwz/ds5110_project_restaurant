@@ -238,12 +238,15 @@ class Employee:
 
     # bowen working
     def view_inventory(self):
-        pass
+        col = ["Inventory ID", "Ingredient Name", "Quantity", "Cost", "Employee Name", "Purchase Date", "Exp Date"]
+        self.read_database("view_inventory", None, col)
 
     # bowen working
     def add_inventory(self, ingredientName: str, quantity: int, totalCost: float, employeeID: int, purchaseDate: str, expDate: str):
         # this will trigger the stock column update in ingredient
-        pass
+        message = self.modify_database("add_inventory", (ingredientName, quantity, totalCost, employeeID, purchaseDate, expDate))
+        print(message)
+
 
     ###########################
     # restaurant related methods
