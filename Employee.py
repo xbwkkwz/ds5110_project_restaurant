@@ -236,17 +236,17 @@ class Employee:
         message = self.modify_database("add_dish_has_ingredient", (dishName, ingredientName, quantity))
         print(message)
 
-    # bowen working
+    # done
     def view_inventory(self):
-        col = ["Inventory ID", "Ingredient Name", "Quantity", "Cost", "Employee Name", "Purchase Date", "Exp Date"]
+        col = ["Inventory ID", "Ingredient Name", "Quantity", "Cost", "Employee ID", "Employee Name", "Purchase Date", "Exp Date"]
         self.read_database("view_inventory", None, col)
 
-    # bowen working
+    # done
     def add_inventory(self, ingredientName: str, quantity: int, totalCost: float, employeeID: int, purchaseDate: str, expDate: str):
         # this will trigger the stock column update in ingredient
         message = self.modify_database("add_inventory", (ingredientName, quantity, totalCost, employeeID, purchaseDate, expDate))
         print(message)
-
+        # done through the trigger add_ingredient_stock
 
     ###########################
     # restaurant related methods

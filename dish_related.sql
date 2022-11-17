@@ -75,9 +75,9 @@ return new_stock;
 end//
 delimiter ;
 
--- create a trigger to update ingredient stock
+-- create a trigger to subtract ingredient stock
 delimiter //
-create trigger update_ingredient_stock after insert on order_queue
+create trigger subtract_ingredient_stock after insert on order_queue
 for each row
 begin
 declare orderID_var int;
@@ -212,7 +212,57 @@ end if;
 end//
 delimiter ;
 
+-- make one view for inventory table
+create view ingredient_inventory as
+select inv.inventoryID, ing.ingredientName, inv.quantity, inv.totalCost, e.employeeID, concat(e.firstName, ' ', e.lastName) as employeeName, inv.purchaseDate, inv.expDate
+from inventory as inv
+natural join ingredient as ing
+natural join employee as e; 
 
+-- make one procedure to view the current inventory
+delimiter //
+create procedure view_inventory ()
+begin
+select * from ingredient_inventory;
+end//
+delimiter ;
 
+-- create one function to determine the ingredient id from name
+delimiter //
+create function find_ingredient_id(ingredientName_var varchar(64))
+returns int
+deterministic
+reads sql data
+begin
+declare ingredientID_var int;
+select ingredientID into ingredientID_var from ingredient where ingredientName = ingredientName_var;
+return ingredientID_var;
+end//
+delimiter ;
 
+-- add purchase to the inventory table
+delimiter //
+create procedure add_inventory (in ingredientName_var varchar(64), in quantity_var int, in totalCost_var decimal(6,2), in employeeID_var int, in purchaseDate_var date, in expDate_var date)
+begin
+declare name_not_exist boolean default false;
+declare CONTINUE handler for 1048
+	set name_not_exist = true;
+insert into inventory (ingredientID, quantity, totalCost, employeeID, purchaseDate, expDate)
+values (find_ingredient_id(ingredientName_var), quantity_var, totalCost_var, employeeID_var, purchaseDate_var, expDate_var);
+if name_not_exist = true then
+	select 'Error: The ingredient name does not exist.' as message;
+else
+	select 'Saved.' as message;
+end if;
+end//
+delimiter ;
+
+-- create a trigger to add ingredient stock
+delimiter //
+create trigger add_ingredient_stock after insert on inventory
+for each row
+begin
+update ingredient set stock = stock + new.quantity where ingredientID = new.ingredientID;
+end//
+delimiter ;
 
