@@ -51,14 +51,7 @@ class Customer:
         if attempt1 == attempt2:
             self.__password = attempt1
             # call your sql code here and return a customer ID and save to customerID.
-            val = (self.firstName, self.lastName, self.email, self.phone, self.__password)
-            with self.conn.cursor() as cursor:
-                cursor.callproc("sign_up", val)
-                self.conn.commit()
-                tables = cursor.stored_results()
-            for table in tables:
-                for row in table.fetchall():
-                    self.customerID = row[0]
+            self.customerID = self.modify_database("sign_up", (self.firstName, self.lastName, self.email, self.phone, self.__password))
             print(f"Welcome {self.firstName} {self.lastName}!")
         else:
             print("Passwords do not match!")
