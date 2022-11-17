@@ -94,20 +94,27 @@ class Customer:
         print("Email:", self.email)
         print("Phone:", self.phone)
 
-    def change_phone(self):
-        self.phone = input("Phone: ")
-        print("Saved.")
+    # done
+    def change_phone(self, phone: str):
+        self.phone = phone
+        message = self.modify_database("change_phone", (self.customerID, phone))
+        print(message)
 
+    # done
     def change_password(self):
         old_pass = getpass.getpass("Enter old password: ")
         if old_pass == self.__password:
             self.__password = getpass.getpass("Enter new password: ")
-            print("Saved.")
+            message = self.modify_database("change_password", (self.customerID, self.__password))
+            print(message)
         else:
             print("Old passwords do not match!")
 
+    # done
     def delete_account(self):
-        pass
+        message = self.modify_database("delete_account", (self.customerID,))
+        print(message)
+        self.sign_out()
 
     # done, use this if insert, update, delete database
     def modify_database(self, procedure_name: str, args: tuple):

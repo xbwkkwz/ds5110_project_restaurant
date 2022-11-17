@@ -21,13 +21,31 @@ end//
 delimiter ;
 
 -- create change phone number
-
-
+delimiter //
+create procedure change_phone (in customerID_var int, in phone_var varchar(64))
+begin
+update customer set phone = phone_var where customerID = customerID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
 
 -- create change password
+delimiter //
+create procedure change_password (in customerID_var int, in password_var varchar(64))
+begin
+update customer set customerPassword = password_var where customerID = customerID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
 
-
-
+-- create delete customer account
+delimiter //
+create procedure delete_account (in customerID_var int)
+begin
+delete from customer where customerID = customerID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
 
 
 
