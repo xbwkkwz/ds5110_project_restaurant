@@ -183,14 +183,14 @@ class Customer:
     # done
     def view_cart(self):
         if self.cart:
-            c_menuID, c_dishName, c_quantity, c_price, c_subtotal = [], [], [], [], []
+            c_menuID, c_dishName, c_price, c_quantity, c_subtotal = [], [], [], [], []
             for key, value in self.cart.items():
                 c_menuID.append(key)
                 c_dishName.append(value[0])
-                c_quantity.append(value[2])
                 c_price.append(value[1])
+                c_quantity.append(value[2])
                 c_subtotal.append(value[1]*value[2])
-            table_format = {"Dish ID": c_menuID, "Name": c_dishName, "Quantity": c_quantity, "Price": c_price, "Subtotal": c_subtotal}
+            table_format = {"Dish ID": c_menuID, "Name": c_dishName, "Price": c_price, "Quantity": c_quantity, "Subtotal": c_subtotal}
             df = pd.DataFrame(table_format)
             df.index = df.index + 1
             print(df)
@@ -210,77 +210,41 @@ class Customer:
         if not self.cart:
             print("Empty cart!")
         else:
-            c_listID, c_menuID, c_quantity, c_price, c_subtotal = [], [], [], [], []
+            c_listID, c_menuID, c_price, c_quantity, c_subtotal = [], [], [], [], []
             list_start = 1
             for key, value in self.cart.items():
                 c_listID.append(list_start)
                 list_start += 1
                 c_menuID.append(key)
-                c_quantity.append(value[2])
                 c_price.append(value[1])
+                c_quantity.append(value[2])
                 c_subtotal.append(value[1]*value[2])
             num_dish = sum(c_quantity)
             total_before_tips = sum(c_subtotal)
             self.cart.clear()
             # save data to the order table
-            val = (self.customerID, num_dish, total_before_tips)
-            with self.conn.cursor() as cursor:
-                cursor.callproc("create_order", val)
-                self.conn.commit()
-                tables = cursor.stored_results()
-            for table in tables:
-                for row in table.fetchall():
-                    orderID = row[0]
+            orderID = self.modify_database("create_order", (self.customerID, num_dish, total_before_tips))
             # save data to the order_list
             for i in range(len(c_listID)):
-                val = (orderID, c_listID[i], c_menuID[i], c_quantity[i])
-                with self.conn.cursor() as cursor:
-                    cursor.callproc("create_order_list", val)
-                    self.conn.commit()
+                self.modify_database("create_order_list", (orderID, c_listID[i], c_menuID[i], c_quantity[i]))
             print("Order received.")
             
-    # done for function, bowen needs to clean the code
+    # done
     def cancel_order(self, orderID: int):
-        # check order in queue first
-        with self.conn.cursor() as cursor:
-            cursor.callproc("check_order_in_queue", (orderID,))
-            tables = cursor.stored_results()
-        for table in tables:
-            for row in table.fetchall():
-                inQueueStatus = row[0]
-        # cancel the order
-        if not inQueueStatus:
-            with self.conn.cursor() as cursor:
-                cursor.callproc("update_order_status", (orderID, "Canceled"))
-                self.conn.commit()
-            print("The order has been canceled.")
-        else:
-            print("The order is already in the queue and cannot be canceled.")
+        # this one should be the same as the method in employee
+        message = self.modify_database("update_order_status", (orderID, "Canceled"))
+        print(message)
 
-    # done for function, bowen needs to clean the code
+    # done
     def view_order_details(self, orderID: int):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("view_order_detail", (orderID,))
-            tables = cursor.stored_results()
-        for table in tables:
-            col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
-            df = pd.DataFrame(table.fetchall(), columns=col)
-            df.index = df.index + 1
-            print(df)
+        # this one should be the same as the method in employee
+        col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
+        self.read_database("view_order_detail", (orderID,), col)
 
-    # done for function, bowen needs to clean the code
+    # done
     def view_order_history(self):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("customer_view_order_history", (self.customerID,))
-            tables = cursor.stored_results()
-        for table in tables:
-            col = ["Order ID", "Date", "Status", "Num Of Dish", "Subtotal", "Tips", "Total"]
-            df = pd.DataFrame(table.fetchall(), columns=col)
-            df.index = df.index + 1
-            print(df)
-
-
-
+        col = ["Order ID", "Date", "Status", "Num Of Dish", "Subtotal", "Tips", "Total"]
+        self.read_database("customer_view_order_history", (self.customerID,), col)
 
 
 
