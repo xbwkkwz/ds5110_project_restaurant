@@ -217,23 +217,32 @@ class Employee:
     # restaurant related methods
     ###########################
 
+    # done
     def view_all_business_hours(self):
-        pass
+        col = ["Time ID", "Day", "Open", "Close", "Status"]
+        self.read_database("view_all_business_hours", None, col)
 
+    # done
     def add_business_hour(self, businessDay: str, openTime: str, closeTime: str):
-        pass
+        message = self.modify_database("add_business_hour", (businessDay, openTime, closeTime))
+        print(message)
 
-    def update_business_hour_status(self, timeID: int, dayStatus: int):
+    # working
+    def update_business_hour(self, timeID: int, dayStatus: int):
         # this will trigger the reservation windows update
         # the latest reservation window is one hour eariler before store close.
-        pass
+        message = self.modify_database("update_business_hour", (timeID, dayStatus))
+        print(message)
 
+    # bowen working
     def view_all_tables(self):
         pass
 
+    # bowen working
     def add_table(self, capacity: int):
         pass
 
+    # bowen working
     def update_table_status(self, tableID: int, tableStatus: int):
         pass
 

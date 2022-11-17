@@ -245,9 +245,12 @@ class Customer:
     # reservation related methods
     ###########################
 
+    # done
     def view_business_hour(self):
-        pass
+        col = ["Day", "Open", "Close"]
+        self.read_database("view_business_hour", None, col)
 
+    #
     def reserve_table(self):
         date = input("Date(Y:M:D): ")
         # sql here to display available time
