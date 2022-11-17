@@ -113,24 +113,43 @@ class Customer:
         else:
             print("Old passwords do not match!")
 
+    def delete_account(self):
+        pass
+
+    # done, use this if insert, update, delete database
+    def modify_database(self, procedure_name: str, args: tuple):
+        with self.conn.cursor() as cursor:
+            cursor.callproc(procedure_name, args)
+            self.conn.commit()
+            tables = cursor.stored_results()
+        for table in tables:
+            for row in table.fetchall():
+                return row[0]
+
+    # done, use this if read database only
+    def read_database(self, procedure_name: str, args: tuple, col: list):
+        with self.conn.cursor() as cursor:
+            if args:
+                cursor.callproc(procedure_name, args)
+            else:
+                cursor.callproc(procedure_name)
+            tables = cursor.stored_results()
+        for table in tables:
+            df = pd.DataFrame(table.fetchall(), columns = col)
+            df.index = df.index + 1
+            print(df)
 
 
     ###########################
     # cart related methods
     ###########################
 
-    # done for function, bowen needs to clean the code
+    # done
     def view_menu(self):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("customer_view_menu")
-            tables = cursor.stored_results()
-        for table in tables:
-            col = ["Category", "Dish ID", "Dish Name", "Description", "Price"]
-            df = pd.DataFrame(table.fetchall(), columns=col)
-            df.index = df.index + 1
-            print(df)
+        col = ["Category", "Dish ID", "Dish Name", "Description", "Price"]
+        self.read_database("customer_view_menu", None, col)
 
-    # done for function, bowen needs to clean the code
+    # done
     def __get_name_price(self, menuID: int) -> str:
         with self.conn.cursor() as cursor:
             cursor.callproc("get_dish_name_price", (menuID,))
@@ -139,7 +158,7 @@ class Customer:
             for row in table.fetchall():
                 return row
 
-    # done for function, bowen needs to clean the code
+    # done
     def add_dish(self, menuID: int, quantity: int):
         if menuID in self.cart:
             self.cart[menuID][2] += quantity
@@ -147,7 +166,7 @@ class Customer:
             self.cart[menuID] = [self.__get_name_price(menuID)[0], self.__get_name_price(menuID)[1], quantity]
         print("Added.")
 
-    # done for function, bowen needs to clean the code
+    # done
     def update_dish(self, menuID: int, quantity: int):
         if (menuID in self.cart) and quantity == 0:
             self.remove_dish(menuID)
@@ -155,13 +174,13 @@ class Customer:
             self.cart[menuID][2] = quantity
         print("Updated.")
             
-    # done for function, bowen needs to clean the code
+    # done
     def remove_dish(self, menuID: int):
         if menuID in self.cart:
             self.cart.pop(menuID)
         print("Removed.")
 
-    # done for function, bowen needs to clean the code
+    # done
     def view_cart(self):
         if self.cart:
             c_menuID, c_dishName, c_quantity, c_price, c_subtotal = [], [], [], [], []

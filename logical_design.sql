@@ -105,19 +105,6 @@ constraint menu_fk_category
 	foreign key (categoryID) references menu_category(categoryID) on update cascade on delete restrict
 );
 
--- create the cart table
-create table cart (
-customerID int not null,
-cartID int not null,
-menuID int not null,
-quantity int not null check (quantity > 0),
-primary key (customerID, cartID),
-constraint cart_fk_customer
-	foreign key (customerID) references customer(customerID) on update cascade on delete cascade,
-constraint cart_fk_menu
-	foreign key (menuID) references menu(menuID) on update cascade on delete cascade
-);
-
 -- create the order table
 create table orders (
 orderID int primary key auto_increment,
