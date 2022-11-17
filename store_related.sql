@@ -55,9 +55,23 @@ select 'Saved.' as message;
 end//
 delimiter ;
 
---
+-- view current restaurant table configurations
+delimiter //
+create procedure view_all_tables ()
+begin
+select * from dining_table;
+end//
+delimiter ;
 
-
+-- add more tables to the restaurant
+delimiter //
+create procedure add_table (in capacity_var int)
+begin
+insert into dining_table (capacity, tableStatus)
+values (capacity_var, true);
+select 'Saved.' as message;
+end//
+delimiter ;
 
 
 

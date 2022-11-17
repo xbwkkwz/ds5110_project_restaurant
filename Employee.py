@@ -234,17 +234,20 @@ class Employee:
         message = self.modify_database("update_business_hour", (timeID, dayStatus))
         print(message)
 
-    # bowen working
+    # done
     def view_all_tables(self):
-        pass
+        col = ["Table ID", "Capacity", "Status"]
+        self.read_database("view_all_tables", None, col)
 
-    # bowen working
+    # done
     def add_table(self, capacity: int):
-        pass
+        message = self.modify_database("add_table", (capacity,))
+        print(message)
 
-    # bowen working
-    def update_table_status(self, tableID: int, tableStatus: int):
-        pass
+    # done
+    def update_table(self, tableID: int, tableStatus: int):
+        message = self.modify_database("update_table", (tableID, tableStatus))
+        print(message)
 
 
     ###########################
