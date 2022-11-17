@@ -68,83 +68,47 @@ class Employee:
         self.read_database("employee_view_order_history", None, col)
 
     # done
-    def view_order_details(self, orderID: int):
+    def view_order_detail(self, orderID: int):
         # this one should be the same as the method in customer
         col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
         self.read_database("view_order_detail", (orderID,), col)
 
-    # done for function, bowen needs to clean the code
-    def assign_table_to_order(self, orderID: int, tableID: int):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("assign_table", (orderID, tableID))
-            self.conn.commit()
-        print("Saved.")
+    # done
+    def assign_table(self, orderID: int, tableID: int):
+        message = self.modify_database("assign_table", (orderID, tableID))
+        print(message)
 
-    # done for function, bowen needs to clean the code
+    # done
     def cancel_order(self, orderID: int):
         # this one should be the same as the method in customer
-        # after order in queue, cannot cancel, check order in queue first
-        with self.conn.cursor() as cursor:
-            cursor.callproc("check_order_in_queue", (orderID,))
-            tables = cursor.stored_results()
-        for table in tables:
-            for row in table.fetchall():
-                inQueueStatus = row[0]
-        # cancel the order
-        if not inQueueStatus:
-            with self.conn.cursor() as cursor:
-                cursor.callproc("update_order_status", (orderID, "Canceled"))
-                self.conn.commit()
-            print("The order has been canceled.")
-        else:
-            print("The order is already in the queue and cannot be canceled.")
+        message = self.modify_database("update_order_status", (orderID, "Canceled"))
+        print(message)
 
-    # done for function, bowen needs to clean the code
+    # done
     def update_order(self, orderID: int):
-        # check order in queue first
-        with self.conn.cursor() as cursor:
-            cursor.callproc("check_order_in_queue", (orderID,))
-            tables = cursor.stored_results()
-        for table in tables:
-            for row in table.fetchall():
-                inQueueStatus = row[0]
         # turn from "Received" to "Ready"
-        if inQueueStatus:
-            with self.conn.cursor() as cursor:
-                cursor.callproc("update_order_status", (orderID, "Ready"))
-                self.conn.commit()
-            print("The order is ready.")
-        else:
-            print("The order is not in the chef queue.")
+        message = self.modify_database("update_order_status", (orderID, "Ready"))
+        print(message)
         
-    # done for function, bowen needs to clean the code
+    # done
     def update_tips(self, orderID: int, tips: float):
         # this will change total cost also
-        with self.conn.cursor() as cursor:
-            cursor.callproc("update_tips", (orderID, tips))
-            self.conn.commit()
-        print("Saved.")
+        message = self.modify_database("update_tips", (orderID, tips))
+        print(message)
 
-    # done for function, bowen needs to clean the code
-    def put_order_in_queue(self, orderID: int, employeeID: int):
+    # done
+    def create_order_queue(self, orderID: int, employeeID: int):
         # need to trigger order in queue
-        with self.conn.cursor() as cursor:
-            cursor.callproc("create_order_queue", (orderID, employeeID))
-            self.conn.commit()
-        print("Saved.")
         # need to trigger subtract ingredient stock
-        # done by the trigger "update_ingredient_stock"
+        message = self.modify_database("create_order_queue", (orderID, employeeID))
+        print(message)
+        # done by the trigger "update_queue_status"
+        # done by the trigger "subtract_ingredient_stock"
 
-    # done for function, bowen needs to clean the code
+    # done
     def view_queue(self):
-        with self.conn.cursor() as cursor:
-            cursor.callproc("view_queue")
-            tables = cursor.stored_results()
-        for table in tables:
-            col = ["Queue ID", "Order ID", "Order Time", "Employee ID", "Chef Name", "Status"]
-            df = pd.DataFrame(table.fetchall(), columns=col)
-            df.index = df.index + 1
-            print(df)
+        col = ["Queue ID", "Order ID", "Order Time", "Employee ID", "Chef Name", "Status"]
+        self.read_database("view_queue", None, col)
 
 
     
@@ -247,6 +211,7 @@ class Employee:
         message = self.modify_database("add_inventory", (ingredientName, quantity, totalCost, employeeID, purchaseDate, expDate))
         print(message)
         # done through the trigger add_ingredient_stock
+
 
     ###########################
     # restaurant related methods

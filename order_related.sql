@@ -22,33 +22,6 @@ values
 end//
 delimiter ;
 
--- check order in queue status
-delimiter //
-create procedure check_order_in_queue (in orderID_var int)
-begin
-select orderInQueue from orders where orderID = orderID_var;
-end//
-delimiter ;
-
--- update orders status
-delimiter //
-create procedure update_order_status (in orderID_var int, in status_var varchar(64))
-begin
-update orders set orderStatus = status_var where orderID = orderID_var;
-end//
-delimiter ;
-
--- view one order detail
-delimiter //
-create procedure view_order_detail (in orderID_var int)
-begin
-select ol.menuID, m.dishName, ol.quantity, m.price, ol.quantity*m.price as subtotal
-from order_list as ol
-natural join menu as m
-where ol.orderID = orderID_var;
-end//
-delimiter ;
-
 -- customer view all order history
 delimiter //
 create procedure customer_view_order_history (in customerID_var int)
@@ -70,11 +43,58 @@ order by orderID ASC;
 end//
 delimiter ;
 
+-- view one order detail
+delimiter //
+create procedure view_order_detail (in orderID_var int)
+begin
+select ol.menuID, m.dishName, ol.quantity, m.price, ol.quantity*m.price as subtotal
+from order_list as ol
+natural join menu as m
+where ol.orderID = orderID_var;
+end//
+delimiter ;
+
 -- assign a table to one order
 delimiter //
 create procedure assign_table (in orderID_var int, in tableID_var int)
 begin
 update orders set tableID = tableID_var where orderID = orderID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
+
+-- check order in queue status
+delimiter //
+create function check_order_in_queue (orderID_var int)
+returns boolean
+not deterministic
+reads sql data
+begin
+declare queueStatus boolean;
+select orderInQueue into queueStatus from orders where orderID = orderID_var;
+return queueStatus;
+end//
+delimiter ;
+
+-- update orders status
+delimiter //
+create procedure update_order_status (in orderID_var int, in status_var varchar(64))
+begin
+if status_var = 'Ready' then
+	if check_order_in_queue(orderID_var) = true then
+		update orders set orderStatus = status_var where orderID = orderID_var;
+		select 'Saved.' as message;
+    else
+		select 'The order is not in the chef queue.' as message;
+	end if;
+elseif status_var = 'Canceled' then
+	if check_order_in_queue(orderID_var) = false then
+		update orders set orderStatus = status_var where orderID = orderID_var;
+		select 'Saved.' as message;
+	else
+		select 'The order is already in the queue and cannot be canceled.' as message;
+	end if;
+end if;
 end//
 delimiter ;
 
@@ -97,6 +117,7 @@ create procedure update_tips (in orderID_var int, in tips_var decimal(6,2))
 begin
 update orders set tips = tips_var where orderID = orderID_var;
 update orders set total = calculate_total(orderID_var) where orderID = orderID_var;
+select 'Saved.' as message;
 end//
 delimiter ;
 
@@ -105,8 +126,8 @@ delimiter //
 create procedure create_order_queue (in orderID_var int, in employeeID_var int)
 begin
 insert into order_queue (orderID, employeeID)
-values
-(orderID_var, employeeID_var);
+values (orderID_var, employeeID_var);
+select 'Saved.' as message;
 end//
 delimiter ;
 
