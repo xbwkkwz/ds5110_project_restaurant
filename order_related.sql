@@ -5,10 +5,23 @@
 delimiter //
 create procedure create_order(in customerID_var int, in numOfDish_var int, in subtotal_var decimal(6,2))
 begin
-insert into orders (orderDate, orderTime, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID)
-values
-(current_date(), current_time(), "Received", false, numOfDish_var, subtotal_var, 0, subtotal_var, customerID_var);
-select max(orderID) from orders;
+declare currentDate_var date;
+declare currentTime_var time;
+declare businessDay_var varchar(64);
+declare openTime_var time;
+declare closeTime_var time;
+set currentDate_var = current_date();
+set currentTime_var = current_time();
+set businessDay_var = convert_date(currentDate_var);
+select openTime, closeTime into openTime_var, closeTime_var from business_hour where businessDay = businessDay_var and dayStatus = true;
+if openTime_var < currentTime_var and currentTime_var < closeTime_var then
+	insert into orders (orderDate, orderTime, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID)
+	values
+	(currentDate_var, currentTime_var, "Received", false, numOfDish_var, subtotal_var, 0, subtotal_var, customerID_var);
+	select max(orderID) from orders;
+else
+	select 'error' as message;
+end if;
 end//
 delimiter ;
 

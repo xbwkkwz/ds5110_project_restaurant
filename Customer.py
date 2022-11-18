@@ -205,7 +205,7 @@ class Customer:
     # order related methods
     ###########################
     
-    # done, ignore business time check for now
+    # done
     def place_order(self):
         if not self.cart:
             print("Empty cart!")
@@ -224,6 +224,9 @@ class Customer:
             self.cart.clear()
             # save data to the order table
             orderID = self.modify_database("create_order", (self.customerID, num_dish, total_before_tips))
+            if orderID == "error":
+                print("Out of business hours. The restaurant is closed.")
+                return
             # save data to the order_list
             for i in range(len(c_listID)):
                 self.modify_database("create_order_list", (orderID, c_listID[i], c_menuID[i], c_quantity[i]))
