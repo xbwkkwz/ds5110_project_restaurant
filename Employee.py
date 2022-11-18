@@ -132,15 +132,16 @@ class Employee:
         message = self.modify_database("cancel_reservation", (date, time, tableID))
         print(message)
 
-
+    # done
     def view_all_waiting_list(self):
-        pass
+        col = ["Waiting ID", "Date", "Time", "Customer ID", "Customer Name", "Num Of People", "Status"]
+        self.read_database("view_all_waiting_list", None, col)
 
-
+    # done
     def cancel_waiting_list(self, waitingID: int):
         # this one should be the same as the method in customer
-        pass
-
+        message = self.modify_database("cancel_waiting_list", (waitingID,))
+        print(message)
 
 
 

@@ -279,18 +279,21 @@ class Customer:
     # waiting list related methods
     ###########################
 
-    def join_waiting_list(self):
-        date = input("Date(Y:M:D): ")
-        # sql here to display available time
-        time = input("Time(H:00): ")
-        num_of_people = input("Number of People: ")
+    # done
+    def join_waiting_list(self, date: str, time: str, num_of_people: int):
+        # input format (Y:M:D, H:00, n=4 max)
+        message = self.modify_database("join_waiting_list", (date, time, num_of_people, self.customerID))
+        print(message)
 
+    # done
     def cancel_waiting_list(self, waitingID: int):
-        pass
+        message = self.modify_database("cancel_waiting_list", (waitingID,))
+        print(message)
 
-
+    # done
     def view_waiting_list(self):
-        pass
+        col = ["Waiting ID", "Date", "Time", "Num Of People", "Status"]
+        self.read_database("view_waiting_list", (self.customerID,), col)
 
 
 
