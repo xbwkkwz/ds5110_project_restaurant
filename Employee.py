@@ -226,10 +226,9 @@ class Employee:
         message = self.modify_database("add_business_hour", (businessDay, openTime, closeTime))
         print(message)
 
-    # working
+    # done
     def update_business_hour(self, timeID: int, dayStatus: int):
-        # this will trigger the reservation windows update
-        # the latest reservation window is one hour eariler before store close.
+        # this will also update the reservation windows automatically
         message = self.modify_database("update_business_hour", (timeID, dayStatus))
         print(message)
 

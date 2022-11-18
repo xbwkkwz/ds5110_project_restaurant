@@ -46,10 +46,18 @@ delimiter ;
 delimiter //
 create procedure update_business_hour (in timeID_var int, in dayStatus_var boolean)
 begin
+declare businessDay_var varchar(64);
+declare openTime_var time;
+declare closeTime_var time;
+select businessDay, openTime, closeTime into businessDay_var, openTime_var, closeTime_var from business_hour where timeID = timeID_var;
 update business_hour set dayStatus = dayStatus_var where timeID = timeID_var;
 if dayStatus_var = true then
-	update business_hour set dayStatus = false
-    where timeID != timeID_var and businessDay = find_day(timeID_var);
+	update business_hour set dayStatus = false where timeID != timeID_var and businessDay = find_day(timeID_var);
+    -- update the reservation window
+    update reservation_window set windowStatus = false where 0 < windowID and businessDay = businessDay_var;
+    update reservation_window set windowStatus = true where 0 < windowID and openTime_var <= startTime and startTime <= closeTime_var;
+else
+	update reservation_window set windowStatus = false where 0 < windowID and businessDay = businessDay_var;
 end if; 
 select 'Saved.' as message;
 end//
