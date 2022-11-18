@@ -72,7 +72,8 @@ from reservation as r
 natural join reservation_window as rw
 natural join customer as c
 left join employee as e
-on r.employeeID = e.employeeID;
+on r.employeeID = e.employeeID
+order by r.reservationDate;
 
 -- customer view reservation
 delimiter //
@@ -80,14 +81,29 @@ create procedure view_reservation (in customerID_var int)
 begin
 select rh.reservationDate, rh.startTime, rh.tableID, rh.numOfPeople, rh.reservationStatus
 from reservation_history as rh
-where customerID = customerID_var;
+where customerID = customerID_var
+order by rh.reservationDate;
 end//
 delimiter ;
 
+-- employee view reservation
+delimiter //
+create procedure view_all_reservations ()
+begin
+select * from reservation_history;
+end//
+delimiter ;
 
-
-
-
+-- assign a waiter to a reservation 
+delimiter //
+create procedure assign_waiter (in date_var date, in time_var time, in tableID_var int, in employeeID_var int)
+begin
+declare windowID_var int;
+select windowID into windowID_var from reservation_window where businessDay = convert_date(date_var) and startTime = time_var;
+update reservation set employeeID = employeeID_var where reservationDate = date_var and windowID = windowID_var and tableID = tableID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
 
 
 

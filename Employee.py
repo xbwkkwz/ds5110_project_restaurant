@@ -116,14 +116,15 @@ class Employee:
     # reservation and waiting list related methods
     ###########################
 
+    # done
     def view_all_reservations(self):
-        pass
+        col = ["Date", "Time", "Table ID", "Customer ID", "Customer Name", "Num Of People", "Status", "Waiter ID", "Waiter Name"]
+        self.read_database("view_all_reservations", None, col)
 
-
-
-    def assign_waiter_to_reservation(self, date: str, time: str, tableID: int, employeeID: int):
-        pass
-
+    # done
+    def assign_waiter(self, date: str, time: str, tableID: int, employeeID: int):
+        message = self.modify_database("assign_waiter", (date, time, tableID, employeeID))
+        print(message)
 
     # done
     def cancel_reservation(self, date: str, time: int, tableID: int):
