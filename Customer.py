@@ -257,23 +257,21 @@ class Customer:
         col = ["Day", "Open", "Close"]
         self.read_database("view_business_hour", None, col)
 
-    #
-    def reserve_table(self):
-        date = input("Date(Y:M:D): ")
-        # sql here to display available time
-        time = input("Time(H:00): ")
-        num_of_people = input("Number of People: ")
-        # sql here
-        pass
+    # done
+    def reserve_table(self, date: str, time: str, num_of_people: int):
+        # input format (Y:M:D, H:00, n=4 max)
+        message = self.modify_database("reserve_table", (date, time, num_of_people, self.customerID))
+        print(message)
 
+    # done
     def cancel_reservation(self, date: str, time: str, tableID: int):
-        pass
+        message = self.modify_database("cancel_reservation", (date, time, tableID))
+        print(message)
 
-
+    # done
     def view_reservation(self):
-        pass
-
-
+        col = ["Date", "Time", "Table ID", "Num Of People", "Status"]
+        self.read_database("view_reservation", (self.customerID,), col)
 
 
 
