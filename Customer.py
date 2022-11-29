@@ -13,8 +13,9 @@ class Customer:
     menu, put foods into cart, place orders, cancel orders, reserve tables, 
     and join a waiting list.
     '''
+
+    # done
     def __init__(self):
-        self.conn = None
         self.customerID = None
         self.firstName = None
         self.lastName = None
@@ -22,11 +23,8 @@ class Customer:
         self.phone = None
         self.__password = None
         self.cart = {} # format->{menuID: [dishName, price, quantity]}
+        self.conn = None
         self.__sql_connect()
-
-    ###########################
-    # account related methods
-    ###########################
 
     # done
     def __sql_connect(self):
@@ -40,94 +38,23 @@ class Customer:
         except Error as e:
             print(e)
 
-    # done
-    def sign_up(self):
-        self.firstName = input("First Name: ")
-        self.lastName = input("Last Name: ")
-        self.email = input("Email: ")
-        self.phone = input("Phone: ")
-        attempt1 = getpass.getpass("Enter password: ")
-        attempt2 = getpass.getpass("Enter password again: ")
-        if attempt1 == attempt2:
-            self.__password = attempt1
-            # call your sql code here and return a customer ID and save to customerID.
-            self.customerID = self.modify_database("sign_up", (self.firstName, self.lastName, self.email, self.phone, self.__password))
-            print(f"Welcome {self.firstName} {self.lastName}!")
-        else:
-            print("Passwords do not match!")
-        
-    # done
-    def sign_in(self):
-        if self.customerID != None:
-            print("You are already signed in.")
-        else:
-            input_email = input("Email: ")
-            input_password = getpass.getpass("Enter password: ")
-            # call sql code here to find account match and then save all customer info.
-            val = (input_email, input_password)
-            with self.conn.cursor() as cursor:
-                cursor.callproc("sign_in", val)
-                tables = cursor.stored_results()
-            for table in tables:
-                for row in table.fetchall():
-                    (self.customerID, self.firstName, self.lastName, self.email,
-                    self.phone, self.__password) = row
-            print(f"Welcome {self.firstName} {self.lastName}!")
 
-    # done
-    def sign_out(self):
-        self.conn.close()
-        self.conn = None
-        self.customerID = None
-        self.firstName = None
-        self.lastName = None
-        self.email = None
-        self.phone = None
-        self.__password = None
-        print("Signed out.")
-
-    # done
-    def view_account_info(self):
-        print("ID:", self.customerID)
-        print("First Name:", self.firstName)
-        print("Last Name:", self.lastName)
-        print("Email:", self.email)
-        print("Phone:", self.phone)
-
-    # done
-    def change_phone(self, phone: str):
-        self.phone = phone
-        message = self.modify_database("change_phone", (self.customerID, phone))
-        print(message)
-
-    # done
-    def change_password(self):
-        old_pass = getpass.getpass("Enter old password: ")
-        if old_pass == self.__password:
-            self.__password = getpass.getpass("Enter new password: ")
-            message = self.modify_database("change_password", (self.customerID, self.__password))
-            print(message)
-        else:
-            print("Old passwords do not match!")
-
-    # done
-    def delete_account(self):
-        message = self.modify_database("delete_account", (self.customerID,))
-        print(message)
-        self.sign_out()
+    ###########################
+    # procedure call related methods
+    ###########################
 
     # done, use this if insert, update, delete database
-    def modify_database(self, procedure_name: str, args: tuple):
+    def modify_database(self, procedure_name: str, args: tuple) -> tuple:
         with self.conn.cursor() as cursor:
             cursor.callproc(procedure_name, args)
             self.conn.commit()
             tables = cursor.stored_results()
         for table in tables:
             for row in table.fetchall():
-                return row[0]
+                return row
 
     # done, use this if read database only
-    def read_database(self, procedure_name: str, args: tuple, col: list):
+    def read_database(self, procedure_name: str, args: tuple) -> list:
         with self.conn.cursor() as cursor:
             if args:
                 cursor.callproc(procedure_name, args)
@@ -135,9 +62,102 @@ class Customer:
                 cursor.callproc(procedure_name)
             tables = cursor.stored_results()
         for table in tables:
-            df = pd.DataFrame(table.fetchall(), columns = col)
-            df.index = df.index + 1
-            print(df)
+            return table.fetchall()
+
+    # done, output a formatted data
+    def print_database(self, table: list, col: list):
+        df = pd.DataFrame(table, columns = col)
+        df.index = df.index + 1
+        print(df)
+
+
+    ###########################
+    # account related methods
+    ###########################
+
+    # done
+    def sign_up(self, firstName, lastName, email, phone, password):
+        # call your sql code here and return a customer ID and save to customerID.
+        try:
+            row = self.modify_database("sign_up", (firstName, lastName, email, phone, password))        
+            self.customerID = row[0]
+            self.firstName = firstName
+            self.lastName = lastName
+            self.email = email
+            self.phone = phone
+            self.__password = password
+            print(f"Welcome {self.firstName} {self.lastName}!")
+        except Error as e:
+            print(e)
+            print("Account exists. Please sign in or change your password.")
+            
+    # done
+    def sign_in(self, email, password):
+        # call sql code here to find account match and then save all customer info.
+        try:
+            table = self.read_database("sign_in", (email, password))
+            if not table:
+                print("Account does not exist or wrong password.")
+                return
+            (self.customerID, self.firstName, self.lastName, self.email,
+                self.phone, self.__password) = table[0]
+            print(f"Welcome {self.firstName} {self.lastName}!")
+        except Error as e:
+            print(e)
+
+    # done
+    def sign_out(self):
+        self.customerID = None
+        self.firstName = None
+        self.lastName = None
+        self.email = None
+        self.phone = None
+        self.__password = None
+        self.cart = {}
+        print("Signed out.")
+
+    # done
+    def view_account_info(self):
+        print("Customer ID:", self.customerID)
+        print("First Name:", self.firstName)
+        print("Last Name:", self.lastName)
+        print("Email:", self.email)
+        print("Phone:", self.phone)
+
+    # done
+    def change_phone(self, phone: str):
+        try:
+            row = self.modify_database("change_phone", (self.customerID, phone))
+            print(row[0])
+            self.phone = phone
+        except Error as e:
+            print(e)
+
+    # done
+    def change_password(self, old_pass: str, new_pass: str):
+        if old_pass == self.__password:
+            try:
+                row = self.modify_database("change_password", (self.customerID, new_pass))
+                print(row[0])
+                self.__password = new_pass
+            except Error as e:
+                print(e)
+        else:
+            print("Old passwords do not match!")
+
+    # done
+    def delete_account(self):
+        try:
+            row = self.modify_database("delete_account", (self.customerID,))
+            print(row[0])
+            self.sign_out()
+        except Error as e:
+            print(e)
+
+    # done, disconnect the sql 
+    def exit_system(self):
+        self.conn.close()
+        self.conn = None
 
 
     ###########################
@@ -146,8 +166,15 @@ class Customer:
 
     # done
     def view_menu(self):
-        col = ["Category", "Dish ID", "Dish Name", "Description", "Price"]
-        self.read_database("customer_view_menu", None, col)
+        try:
+            table = self.read_database("customer_view_menu", None)
+            if not table:
+                print("No available menu right now.")
+                return
+            col = ["Category", "Dish ID", "Dish Name", "Description", "Price"]
+            self.print_database(table, col)
+        except Error as e:
+            print(e)
 
     # done
     def __get_name_price(self, menuID: int) -> str:
@@ -182,7 +209,7 @@ class Customer:
 
     # done
     def view_cart(self):
-        if self.cart:
+        if self.cart:  # format->{menuID: [dishName, price, quantity]}
             c_menuID, c_dishName, c_price, c_quantity, c_subtotal = [], [], [], [], []
             for key, value in self.cart.items():
                 c_menuID.append(key)
@@ -198,7 +225,6 @@ class Customer:
             print("Total: $" + str(sum(c_subtotal)))
         else:
             print("Empty Cart.")
-
 
 
     ###########################
@@ -223,7 +249,8 @@ class Customer:
             total_before_tips = sum(c_subtotal)
             self.cart.clear()
             # save data to the order table
-            orderID = self.modify_database("create_order", (self.customerID, num_dish, total_before_tips))
+            row = self.modify_database("create_order", (self.customerID, num_dish, total_before_tips))
+            orderID = row[0]
             if orderID == "error":
                 print("Out of business hours. The restaurant is closed.")
                 return
@@ -235,20 +262,24 @@ class Customer:
     # done
     def cancel_order(self, orderID: int):
         # this one should be the same as the method in employee
-        message = self.modify_database("update_order_status", (orderID, "Canceled"))
-        print(message)
+        row = self.modify_database("update_order_status", (orderID, "Canceled"))
+        print(row[0])
 
     # done
     def view_order_details(self, orderID: int):
         # this one should be the same as the method in employee
+        table = self.read_database("view_order_detail", (orderID,))
         col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
-        self.read_database("view_order_detail", (orderID,), col)
+        self.print_database(table, col)
 
     # done
     def view_order_history(self):
+        table = self.read_database("customer_view_order_history", (self.customerID,))
+        if not table:
+            print("No history.")
+            return
         col = ["Order ID", "Date", "Status", "Num Of Dish", "Subtotal", "Tips", "Total"]
-        self.read_database("customer_view_order_history", (self.customerID,), col)
-
+        self.print_database(table, col)
 
 
     ###########################
@@ -257,25 +288,29 @@ class Customer:
 
     # done
     def view_business_hour(self):
+        table = self.read_database("view_business_hour", None)
         col = ["Day", "Open", "Close"]
-        self.read_database("view_business_hour", None, col)
+        self.print_database(table, col)
 
     # done
     def reserve_table(self, date: str, time: str, num_of_people: int):
         # input format (Y:M:D, H:00, n=4 max)
-        message = self.modify_database("reserve_table", (date, time, num_of_people, self.customerID))
-        print(message)
+        row = self.modify_database("reserve_table", (date, time, num_of_people, self.customerID))
+        print(row[0])
 
     # done
     def cancel_reservation(self, date: str, time: str, tableID: int):
-        message = self.modify_database("cancel_reservation", (date, time, tableID))
-        print(message)
+        row = self.modify_database("cancel_reservation", (date, time, tableID))
+        print(row[0])
 
     # done
     def view_reservation(self):
+        table = self.read_database("view_reservation", (self.customerID,))
+        if not table:
+            print("No history.")
+            return
         col = ["Date", "Time", "Table ID", "Num Of People", "Status"]
-        self.read_database("view_reservation", (self.customerID,), col)
-
+        self.print_database(table, col)
 
 
     ###########################
@@ -285,18 +320,22 @@ class Customer:
     # done
     def join_waiting_list(self, date: str, time: str, num_of_people: int):
         # input format (Y:M:D, H:00, n=4 max)
-        message = self.modify_database("join_waiting_list", (date, time, num_of_people, self.customerID))
-        print(message)
+        row = self.modify_database("join_waiting_list", (date, time, num_of_people, self.customerID))
+        print(row[0])
 
     # done
     def cancel_waiting_list(self, waitingID: int):
-        message = self.modify_database("cancel_waiting_list", (waitingID,))
-        print(message)
+        row = self.modify_database("cancel_waiting_list", (waitingID,))
+        print(row[0])
 
     # done
     def view_waiting_list(self):
+        table = self.read_database("view_waiting_list", (self.customerID,))
+        if not table:
+            print("No history.")
+            return
         col = ["Waiting ID", "Date", "Time", "Num Of People", "Status"]
-        self.read_database("view_waiting_list", (self.customerID,), col)
+        self.print_database(table, col)
 
 
 
