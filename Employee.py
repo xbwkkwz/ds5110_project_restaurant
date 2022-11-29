@@ -277,14 +277,22 @@ class Employee:
     # employee related methods
     ###########################
 
+    # need to write the sql procedure
     def add_employee(self, firstName: str, lastName: str, email: str, phone: str, ssn: str, salary: float, occupation: str):
-        pass
+        row = self.modify_database("add_employee", (firstName, lastName, email, phone, ssn, salary, occupation))
+        print(row[0])
 
+    # need to write the sql procedure
     def delete_employee(self, employeeID: int):
-        pass
+        row = self.modify_database("delete_employee", (employeeID,))
+        print(row[0])
 
+    # need to write the sql procedure
     def update_salary(self, employeeID: int, salary: float):
-        pass
+        row = self.modify_database("update_salary", (employeeID, salary))
+        print(row[0])
 
+    # need to write the sql procedure
     def rate_employee(self, employeeID: int, rating: str):
-        pass
+        row = self.modify_database("rate_employee", (employeeID, rating))
+        print(row[0])
