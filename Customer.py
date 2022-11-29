@@ -258,15 +258,27 @@ class Customer:
             for i in range(len(c_listID)):
                 self.modify_database("create_order_list", (orderID, c_listID[i], c_menuID[i], c_quantity[i]))
             print("Order received.")
-            
+            self.__view_one_order(orderID)
+
+    # done
+    def __view_one_order(self, orderID: int):
+        table = self.read_database("view_one_order", (orderID,))
+        if not table:
+            print("No history.")
+            return
+        col = ["Order ID", "Date", "Status", "In Queue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
+        self.print_database(table, col)
+
     # done
     def cancel_order(self, orderID: int):
         # this one should be the same as the method in employee
         row = self.modify_database("update_order_status", (orderID, "Canceled"))
         print(row[0])
+        self.__view_one_order(orderID)
 
     # done
     def view_order_details(self, orderID: int):
+        self.__view_one_order(orderID)
         # this one should be the same as the method in employee
         table = self.read_database("view_order_detail", (orderID,))
         col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]

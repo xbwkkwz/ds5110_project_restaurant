@@ -190,7 +190,6 @@ def menu_loop():
                 pause_screen()
                 continue
             c.place_order()
-            c.view_order_history()
             pause_screen()
         elif option == 14: # cancel order
             clear()
