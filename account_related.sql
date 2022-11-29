@@ -47,5 +47,14 @@ select 'Saved.' as message;
 end//
 delimiter ;
 
+-- view employee info
+delimiter //
+create procedure view_employee (in occupation_var varchar(64), in filter_var boolean)
+begin
+select employeeID, concat(firstName, ' ', lastName) as ename, occupation
+from employee
+where filter_var or (occupation = occupation_var);
+end//
+delimiter ;
 
 

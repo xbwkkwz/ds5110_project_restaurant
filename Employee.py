@@ -85,7 +85,17 @@ class Employee:
         self.print_database(table, col)
 
     # done
+    def __view_one_order(self, orderID: int):
+        table = self.read_database("employee_view_one_order", (orderID,))
+        if not table:
+            print("No history.")
+            return
+        col = ["Order ID", "Date", "Status", "In Queue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
+        self.print_database(table, col)
+
+    # done
     def view_order_detail(self, orderID: int):
+        self.__view_one_order(orderID)
         # this one should be the same as the method in customer
         table = self.read_database("view_order_detail", (orderID,))
         col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
@@ -95,24 +105,28 @@ class Employee:
     def assign_table(self, orderID: int, tableID: int):
         row = self.modify_database("assign_table", (orderID, tableID))
         print(row[0])
+        self.__view_one_order(orderID)
 
     # done
     def cancel_order(self, orderID: int):
         # this one should be the same as the method in customer
         row = self.modify_database("update_order_status", (orderID, "Canceled"))
         print(row[0])
+        self.__view_one_order(orderID)
 
     # done
     def update_order(self, orderID: int):
         # turn from "Received" to "Ready"
         row = self.modify_database("update_order_status", (orderID, "Ready"))
         print(row[0])
+        self.__view_one_order(orderID)
         
     # done
     def update_tips(self, orderID: int, tips: float):
         # this will change total cost also
         row = self.modify_database("update_tips", (orderID, tips))
         print(row[0])
+        self.__view_one_order(orderID)
 
     # done
     def create_order_queue(self, orderID: int, employeeID: int):
@@ -276,6 +290,15 @@ class Employee:
     ###########################
     # employee related methods
     ###########################
+
+    # done
+    def view_employee(self, occupation):
+        if not occupation:
+            table = self.read_database("view_employee", (" ", 1))
+        else:
+            table = self.read_database("view_employee", (occupation, 0))
+        col = ["Employee ID", "Name", "Role"]
+        self.print_database(table, col)
 
     # need to write the sql procedure
     def add_employee(self, firstName: str, lastName: str, email: str, phone: str, ssn: str, salary: float, occupation: str):
