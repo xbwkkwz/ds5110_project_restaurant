@@ -150,6 +150,7 @@ def menu_loop():
             e.view_all_reservations()
             date = input("Select date (Y-M-D): ")
             time = input("Select time (H:00): ")
+            e.view_all_tables()
             tableID = int(input("Select table ID: "))
             e.view_employee("Waiter")
             employeeID = int(input("Select employee ID: "))
