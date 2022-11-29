@@ -255,7 +255,9 @@ def menu_loop():
         elif option == 27: # add business hour
             clear()
             businessDay = input("Input day of the week: ").capitalize()
-            e.add_business_hour(businessDay)
+            openTime = input("Input Open Time (HH:00): ")
+            closeTime = input("Input Close Time (HH:00): ")
+            e.add_business_hour(businessDay, openTime, closeTime)
             pause_screen()
         elif option == 28: # update business hour
             clear()
@@ -297,20 +299,23 @@ def menu_loop():
             pause_screen()
         elif option == 34: # delete employee
             clear()
-            e.view_employee()
+            e.view_employee(None)
             employeeID = int(input("Select employee ID: "))
+            confirm = input("Confirm deletion? (Y/N): ").lower()
+            if confirm != 'y':
+                continue
             e.delete_employee(employeeID)
             pause_screen()
         elif option == 35: # update salary
             clear()
-            e.view_employee()
+            e.view_employee(None)
             employeeID = int(input("Select employee ID: "))
             salary = float(input("Salary: "))
             e.update_salary(employeeID, salary)
             pause_screen()
         elif option == 36: # rate employee
             clear()
-            e.view_employee()
+            e.view_employee(None)
             employeeID = int(input("Select employee ID: "))
             rating = input("Rating 1~5: ")
             e.rate_employee(employeeID, rating)

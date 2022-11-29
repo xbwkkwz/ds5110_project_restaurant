@@ -297,13 +297,16 @@ class Employee:
             table = self.read_database("view_employee", (" ", 1))
         else:
             table = self.read_database("view_employee", (occupation, 0))
-        col = ["Employee ID", "Name", "Role"]
+        col = ["Employee ID", "Name", "Email", "Phone", "Ssn", "Salary", "Occupation", "Rating"]
         self.print_database(table, col)
 
-    # need to write the sql procedure
+    # done
     def add_employee(self, firstName: str, lastName: str, email: str, phone: str, ssn: str, salary: float, occupation: str):
-        row = self.modify_database("add_employee", (firstName, lastName, email, phone, ssn, salary, occupation))
-        print(row[0])
+        try:
+            row = self.modify_database("add_employee", (firstName, lastName, email, phone, ssn, salary, occupation))
+            print(row[0])
+        except Error as e:
+            print(e)
 
     # need to write the sql procedure
     def delete_employee(self, employeeID: int):

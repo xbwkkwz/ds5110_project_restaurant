@@ -266,7 +266,7 @@ class Customer:
         if not table:
             print("No history.")
             return
-        col = ["Order ID", "Date", "Status", "In Queue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
+        col = ["Order ID", "Date", "Status", "Num Of Dish", "Subtotal", "Tips", "Total"]
         self.print_database(table, col)
 
     # done

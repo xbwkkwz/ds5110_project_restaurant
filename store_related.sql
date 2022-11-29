@@ -81,7 +81,15 @@ select 'Saved.' as message;
 end//
 delimiter ;
 
-
+-- update table status
+delimiter //
+create procedure update_table (in tableID_var int, in tableStatus_var boolean)
+begin
+update dining_table set tableStatus = tableStatus_var
+where tableID = tableID_var;
+select 'Saved.' as message;
+end//
+delimiter ;
 
 
 
