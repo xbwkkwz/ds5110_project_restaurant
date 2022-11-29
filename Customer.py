@@ -262,7 +262,7 @@ class Customer:
 
     # done
     def __view_one_order(self, orderID: int):
-        table = self.read_database("view_one_order", (orderID,))
+        table = self.read_database("customer_view_one_order", (orderID,))
         if not table:
             print("No history.")
             return

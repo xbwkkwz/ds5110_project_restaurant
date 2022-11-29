@@ -56,6 +56,28 @@ order by orderID ASC;
 end//
 delimiter ;
 
+-- customer view one order
+delimiter //
+create procedure customer_view_one_order (in orderID_var int)
+begin
+select orderID, orderDate, orderStatus, numOfDish, subtotal, tips, total
+from orders
+where orderID = orderID_var
+order by orderID ASC;
+end//
+delimiter ;
+
+-- employee view one order
+delimiter //
+create procedure employee_view_one_order (in orderID_var int)
+begin
+select orderID, orderDate, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID, tableID
+from orders
+where orderID = orderID_var
+order by orderID ASC;
+end//
+delimiter ;
+
 -- view one order detail
 delimiter //
 create procedure view_order_detail (in orderID_var int)
