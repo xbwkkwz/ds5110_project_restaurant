@@ -204,7 +204,7 @@ class Employee:
     # done, view the entire menu with offline dish
     def view_menu(self):
         table = self.read_database("employee_view_menu", None)
-        col = ["Category", "Dish ID", "Dish Name", "Description", "Price", "Status"]
+        col = ["Dish ID", "Category", "Dish Name", "Description", "Price", "Status"]
         self.print_database(table, col)
 
     # done, add new dish category

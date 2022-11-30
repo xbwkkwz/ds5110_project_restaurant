@@ -278,7 +278,7 @@ class Customer:
             for i in range(len(c_listID)):
                 self.modify_database("create_order_list", (orderID, c_listID[i], c_menuID[i], c_quantity[i]))
             print("Order received.")
-            self.__view_one_order(orderID)
+            self.view_order_details(orderID)
 
     # done, print one order
     def __view_one_order(self, orderID: int):
