@@ -19,15 +19,30 @@ class Employee:
     # done
     def __init__(self):
         self.conn = None
+        self.password = None
         self.__sql_connect()
 
     # done, connect to the mySQL
     def __sql_connect(self):
         try:
+            in_password = getpass.getpass("Enter SQL Server Password: ")
             self.conn = connect(
                 host = "localhost",
                 user = "root",
-                password = getpass.getpass("Enter SQL Server Password: "),
+                password = in_password,
+                database = "restaurant"
+            )
+            self.password = in_password
+        except Error as e:
+            print(e)
+
+    # done, reconnect to the sql
+    def sql_reconnect(self):
+        try:
+            self.conn = connect(
+                host = "localhost",
+                user = "root",
+                password = self.password,
                 database = "restaurant"
             )
         except Error as e:
@@ -45,6 +60,8 @@ class Employee:
 
     # done, use this if insert, update, delete database
     def modify_database(self, procedure_name: str, args: tuple) -> tuple:
+        self.exit_system()
+        self.sql_reconnect()
         with self.conn.cursor() as cursor:
             cursor.callproc(procedure_name, args)
             self.conn.commit()
@@ -55,6 +72,8 @@ class Employee:
 
     # done, use this if read database only
     def read_database(self, procedure_name: str, args: tuple) -> list:
+        self.exit_system()
+        self.sql_reconnect()
         with self.conn.cursor() as cursor:
             if args:
                 cursor.callproc(procedure_name, args)
