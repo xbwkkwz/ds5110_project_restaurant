@@ -26,7 +26,7 @@ def clear():
 
 #define the simple user interface
 def gui():
-    print("|---------W E L C O M E---------|")
+    print("|--Restaurant Database Management System--|")
     print("[1 ] -- View All Orders")
     print("[2 ] -- View Order Detail")
     print("[3 ] -- Assign Table")

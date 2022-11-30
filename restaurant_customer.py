@@ -22,8 +22,7 @@ def clear():
     else:
         _ = system('clear')
 
-
-#define the simple user interface
+# define the simple user interface
 def gui():
     print("|---------W E L C O M E---------|")
     print("[1 ] -- Sign Up")
@@ -77,6 +76,10 @@ def menu_loop():
     while option != int(VALID_OPTIONS[-1]):
         # clear the screen
         clear()
+        if c.customerID:
+            print(f"Current user: {c.firstName} {c.lastName}.")
+        else:
+            print(f"Current user: Guest.")
         gui()
         option = get_user_option()
         if option == 1: # sign up
