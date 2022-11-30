@@ -26,7 +26,7 @@ class Customer:
         self.conn = None
         self.__sql_connect()
 
-    # done
+    # done, connect to the mySQL
     def __sql_connect(self):
         try:
             self.conn = connect(
@@ -75,7 +75,7 @@ class Customer:
     # account related methods
     ###########################
 
-    # done
+    # done, sign up for a account
     def sign_up(self, firstName, lastName, email, phone, password):
         # call your sql code here and return a customer ID and save to customerID.
         try:
@@ -91,7 +91,7 @@ class Customer:
             print(e)
             print("Account exists. Please sign in or change your password.")
             
-    # done
+    # done, sign in with registered account
     def sign_in(self, email, password):
         # call sql code here to find account match and then save all customer info.
         try:
@@ -164,19 +164,19 @@ class Customer:
     # cart related methods
     ###########################
 
-    # done
+    # done, view available menu dishes
     def view_menu(self):
         try:
             table = self.read_database("customer_view_menu", None)
             if not table:
                 print("No available menu right now.")
                 return
-            col = ["Category", "Dish ID", "Dish Name", "Description", "Price"]
+            col = ["Dish ID", "Category", "Dish Name", "Price"]
             self.print_database(table, col)
         except Error as e:
             print(e)
 
-    # done
+    # done, return the name and price of the dish
     def __get_name_price(self, menuID: int) -> str:
         with self.conn.cursor() as cursor:
             cursor.callproc("get_dish_name_price", (menuID,))
@@ -185,15 +185,15 @@ class Customer:
             for row in table.fetchall():
                 return row
 
-    # done
+    # done, format->{menuID: [dishName, price, quantity]}
     def add_dish(self, menuID: int, quantity: int):
         if menuID in self.cart:
             self.cart[menuID][2] += quantity
         else:
-            self.cart[menuID] = [self.__get_name_price(menuID)[0], self.__get_name_price(menuID)[1], quantity]
+            self.cart[menuID] = [self.__get_name_price(menuID)[0], float(self.__get_name_price(menuID)[1]), quantity]
         print("Added.")
 
-    # done
+    # done, update quantity of dishes in the cart
     def update_dish(self, menuID: int, quantity: int):
         if (menuID in self.cart) and quantity == 0:
             self.remove_dish(menuID)
@@ -201,13 +201,13 @@ class Customer:
             self.cart[menuID][2] = quantity
         print("Updated.")
             
-    # done
+    # done, delete one dish from the cart
     def remove_dish(self, menuID: int):
         if menuID in self.cart:
             self.cart.pop(menuID)
         print("Removed.")
 
-    # done
+    # done, view the cart
     def view_cart(self):
         if self.cart:  # format->{menuID: [dishName, price, quantity]}
             c_menuID, c_dishName, c_price, c_quantity, c_subtotal = [], [], [], [], []
@@ -222,6 +222,7 @@ class Customer:
             df.index = df.index + 1
             print(df)
             print("-----------------")
+            print("Number of Dishes: " + str(sum(c_quantity)))
             print("Total: $" + str(sum(c_subtotal)))
         else:
             print("Empty Cart.")
@@ -231,7 +232,7 @@ class Customer:
     # order related methods
     ###########################
     
-    # done
+    # done, send order to the restaurant
     def place_order(self):
         if not self.cart:
             print("Empty cart!")
@@ -260,7 +261,7 @@ class Customer:
             print("Order received.")
             self.__view_one_order(orderID)
 
-    # done
+    # done, print one order
     def __view_one_order(self, orderID: int):
         table = self.read_database("customer_view_one_order", (orderID,))
         if not table:
@@ -269,14 +270,14 @@ class Customer:
         col = ["Order ID", "Date", "Status", "Num Of Dish", "Subtotal", "Tips", "Total"]
         self.print_database(table, col)
 
-    # done
+    # done, cancel one order before it goes to the chef queue
     def cancel_order(self, orderID: int):
         # this one should be the same as the method in employee
         row = self.modify_database("update_order_status", (orderID, "Canceled"))
         print(row[0])
         self.__view_one_order(orderID)
 
-    # done
+    # done, view dish list of one order
     def view_order_details(self, orderID: int):
         self.__view_one_order(orderID)
         # this one should be the same as the method in employee
@@ -284,7 +285,7 @@ class Customer:
         col = ["Dish ID", "Name", "Quantity", "Price", "Subtotal"]
         self.print_database(table, col)
 
-    # done
+    # done, view all orders belog to the account
     def view_order_history(self):
         table = self.read_database("customer_view_order_history", (self.customerID,))
         if not table:
@@ -298,24 +299,24 @@ class Customer:
     # reservation related methods
     ###########################
 
-    # done
+    # done, view the current restaurant hour
     def view_business_hour(self):
         table = self.read_database("view_business_hour", None)
         col = ["Day", "Open", "Close"]
         self.print_database(table, col)
 
-    # done
+    # done, reserve a table by selecting a day and time
     def reserve_table(self, date: str, time: str, num_of_people: int):
         # input format (Y:M:D, H:00, n=4 max)
         row = self.modify_database("reserve_table", (date, time, num_of_people, self.customerID))
         print(row[0])
 
-    # done
+    # done, cancel one reservation
     def cancel_reservation(self, date: str, time: str, tableID: int):
         row = self.modify_database("cancel_reservation", (date, time, tableID))
         print(row[0])
 
-    # done
+    # done, view reservation history
     def view_reservation(self):
         table = self.read_database("view_reservation", (self.customerID,))
         if not table:
@@ -329,18 +330,18 @@ class Customer:
     # waiting list related methods
     ###########################
 
-    # done
+    # done, join a waiting list of no space
     def join_waiting_list(self, date: str, time: str, num_of_people: int):
         # input format (Y:M:D, H:00, n=4 max)
         row = self.modify_database("join_waiting_list", (date, time, num_of_people, self.customerID))
         print(row[0])
 
-    # done
+    # done, cancel one waiting 
     def cancel_waiting_list(self, waitingID: int):
         row = self.modify_database("cancel_waiting_list", (waitingID,))
         print(row[0])
 
-    # done
+    # done, view all waiting list history 
     def view_waiting_list(self):
         table = self.read_database("view_waiting_list", (self.customerID,))
         if not table:
@@ -348,7 +349,3 @@ class Customer:
             return
         col = ["Waiting ID", "Date", "Time", "Num Of People", "Status"]
         self.print_database(table, col)
-
-
-
-    

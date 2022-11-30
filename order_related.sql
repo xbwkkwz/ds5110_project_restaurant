@@ -18,7 +18,7 @@ if openTime_var < currentTime_var and currentTime_var < closeTime_var then
 	insert into orders (orderDate, orderTime, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID)
 	values
 	(currentDate_var, currentTime_var, "Received", false, numOfDish_var, subtotal_var, 0, subtotal_var, customerID_var);
-	select max(orderID) from orders;
+	select max(orderID) from orders where customerID = customerID_var;
 else
 	select 'error' as message;
 end if;

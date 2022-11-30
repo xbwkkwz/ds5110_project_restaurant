@@ -3,7 +3,7 @@
 
 -- create the view for the menu for customer
 create view menu_for_customer as
-select menu_category.categoryName, menu.menuID, menu.dishName, menu.dishDescription, menu.price
+select menu.menuID, menu_category.categoryName, menu.dishName, menu.price
 from menu
 natural join menu_category
 where dishStatus is true
