@@ -50,7 +50,7 @@ delimiter ;
 delimiter //
 create procedure employee_view_order_history ()
 begin
-select orderID, orderDate, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID, tableID
+select orderID, orderDate, convert(orderTime, char(8)), orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID, convert(tableID, char(2))
 from orders
 order by orderID ASC;
 end//
@@ -71,7 +71,7 @@ delimiter ;
 delimiter //
 create procedure employee_view_one_order (in orderID_var int)
 begin
-select orderID, orderDate, orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID, tableID
+select orderID, orderDate, convert(orderTime, char(8)), orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID, convert(tableID, char(2))
 from orders
 where orderID = orderID_var
 order by orderID ASC;

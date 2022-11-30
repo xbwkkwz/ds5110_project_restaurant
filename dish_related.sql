@@ -19,7 +19,7 @@ delimiter ;
 
 -- create a view for the menu for employee
 create view menu_for_employee as
-select mc.categoryName, m.menuID, m.dishName, m.dishDescription, m.price, m.dishStatus
+select m.menuID, mc.categoryName, m.dishName, m.dishDescription, m.price, m.dishStatus
 from menu as m
 natural join menu_category as mc
 order by menuID ASC;

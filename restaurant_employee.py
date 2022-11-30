@@ -107,6 +107,7 @@ def menu_loop():
             clear()
             e.view_all_orders()
             orderID = int(input("Select order ID: "))
+            e.view_all_tables()
             tableID = int(input("Select table ID: "))
             e.assign_table(orderID, tableID)
             pause_screen()
@@ -126,7 +127,7 @@ def menu_loop():
             clear()
             e.view_all_orders()
             orderID = int(input("Select order ID: "))
-            tips = int(input("Select tips: "))
+            tips = int(input("Input tips: "))
             e.update_tips(orderID, tips)
             pause_screen()
         elif option == 7: # create order queue
@@ -148,8 +149,8 @@ def menu_loop():
         elif option == 10: # assign waiter
             clear()
             e.view_all_reservations()
-            date = input("Select date (Y-M-D): ")
-            time = input("Select time (H:00): ")
+            date = input("Input date (ex: 2022-10-17): ")
+            time = input("Input time (ex: 18:00): ")
             e.view_all_tables()
             tableID = int(input("Select table ID: "))
             e.view_employee("Waiter")
@@ -159,8 +160,8 @@ def menu_loop():
         elif option == 11: # cancel reservation
             clear()
             e.view_all_reservations()
-            date = input("Select date (Y-M-D): ")
-            time = input("Select time (H:00): ")
+            date = input("Input date (ex: 2022-10-17): ")
+            time = input("Input time (ex: 18:00): ")
             tableID = int(input("Select table ID: "))
             e.cancel_reservation(date, time, tableID)
             pause_screen()
@@ -171,7 +172,7 @@ def menu_loop():
         elif option == 13: # cancel waiting
             clear()
             e.view_all_waiting_list()
-            waitingID = int(input("Select waiting ID: "))
+            waitingID = int(input("Select waiting list ID: "))
             e.cancel_waiting_list(waitingID)
             pause_screen()
         elif option == 14: # view all menu items
@@ -180,7 +181,7 @@ def menu_loop():
             pause_screen()
         elif option == 15: # add new menu category
             clear()
-            categoryName = input("Input category name: ")
+            categoryName = input("Input new category name: ")
             e.add_new_category(categoryName)
             pause_screen()
         elif option == 16: # add new dish
@@ -201,14 +202,14 @@ def menu_loop():
             clear()
             e.view_menu()
             menuID = int(input("Input dish ID: "))
-            newPrice = float(input("New price: "))
+            newPrice = float(input("Input new price: "))
             e.update_dish_price(menuID, newPrice)
             pause_screen()
         elif option == 19: # update dish description
             clear()
             e.view_menu()
             menuID = int(input("Input dish ID: "))
-            newDes = input("New description: ")
+            newDes = input("Input new description: ")
             e.update_dish_description(menuID, newDes)
             pause_screen()
         elif option == 20: # view ingredient stock
@@ -217,20 +218,22 @@ def menu_loop():
             pause_screen()
         elif option == 21: # add new ingredient
             clear()
-            ingredientName = input("Ingredient name: ")
+            ingredientName = input("Input new ingredient name: ")
             e.add_new_ingredient(ingredientName)
             pause_screen()
         elif option == 22: # view dish ingredient
             clear()
             e.view_menu()
-            menuID = int(input("Select menu ID: "))
+            menuID = int(input("Select dish ID: "))
             e.view_dish_ingredient(menuID)
             pause_screen()
         elif option == 23: # add dish ingredient
             clear()
-            dishName = input("Dish name: ")
-            ingredientName = input("Ingredient name: ")
-            quantity = int(input("Select quantity: "))
+            e.view_menu()
+            dishName = input("Input dish name: ")
+            e.view_ingredient_stock()
+            ingredientName = input("Input ingredient name: ")
+            quantity = int(input("Input quantity: "))
             e.add_dish_has_ingredient(dishName, ingredientName, quantity)
             pause_screen()
         elif option == 24: # view inventory
@@ -239,13 +242,13 @@ def menu_loop():
             pause_screen()
         elif option == 25: # add inventory
             clear()
-            ingredientName = input("Ingredient name: ")
-            quantity = int(input("Select quantity: "))
-            totalCost = float(input("Total cost: "))
+            ingredientName = input("Input ingredient name: ")
+            quantity = int(input("Input quantity: "))
+            totalCost = float(input("Input cost: "))
             e.view_employee("Manager")
             employeeID = int(input("Select employee ID: "))
-            purchaseDate = input("Purchase date: ")
-            expDate = input("Expiration date: ")
+            purchaseDate = input("Input purchase date: ")
+            expDate = input("Input expiration date: ")
             e.add_inventory(ingredientName, quantity, totalCost, employeeID, purchaseDate, expDate)
             pause_screen()
         elif option == 26: # view all business hour
@@ -255,8 +258,8 @@ def menu_loop():
         elif option == 27: # add business hour
             clear()
             businessDay = input("Input day of the week: ").capitalize()
-            openTime = input("Input Open Time (HH:00): ")
-            closeTime = input("Input Close Time (HH:00): ")
+            openTime = input("Input open time (ex: 11:00): ")
+            closeTime = input("Input close time (ex: 22:00): ")
             e.add_business_hour(businessDay, openTime, closeTime)
             pause_screen()
         elif option == 28: # update business hour
@@ -272,7 +275,7 @@ def menu_loop():
             pause_screen()
         elif option == 30: # add new table
             clear()
-            capacity = int(input("New table capacity (max 4): "))
+            capacity = int(input("Input table capacity (max 4): "))
             e.add_table(capacity)
             pause_screen()
         elif option == 31: # update table
@@ -310,14 +313,14 @@ def menu_loop():
             clear()
             e.view_employee(None)
             employeeID = int(input("Select employee ID: "))
-            salary = float(input("Salary: "))
+            salary = float(input("Input new salary: "))
             e.update_salary(employeeID, salary)
             pause_screen()
         elif option == 36: # rate employee
             clear()
             e.view_employee(None)
             employeeID = int(input("Select employee ID: "))
-            rating = input("Rating 1~5: ")
+            rating = input("Input rating (1~5): ")
             e.rate_employee(employeeID, rating)
             pause_screen()
         elif option == 37: # exit

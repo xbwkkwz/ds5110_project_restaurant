@@ -67,7 +67,7 @@ delimiter ;
 
 -- create a view for the reservation history
 create view reservation_history as
-select r.reservationDate, convert(rw.startTime, char(5)) as startTime, r.tableID, r.customerID, concat(c.firstName, ' ', c.lastName) as customerName, r.numOfPeople, r.reservationStatus, r.employeeID as waiterID, concat(e.firstName, ' ', e.lastName) as waiterName
+select r.reservationDate, convert(rw.startTime, char(5)) as startTime, r.tableID, r.customerID, concat(c.firstName, ' ', c.lastName) as customerName, r.numOfPeople, r.reservationStatus, convert(r.employeeID, char(2)) as waiterID, concat(e.firstName, ' ', e.lastName) as waiterName
 from reservation as r
 natural join reservation_window as rw
 natural join customer as c
