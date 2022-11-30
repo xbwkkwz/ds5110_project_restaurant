@@ -160,9 +160,15 @@ delimiter ;
 delimiter //
 create procedure create_order_queue (in orderID_var int, in employeeID_var int)
 begin
-insert into order_queue (orderID, employeeID)
-values (orderID_var, employeeID_var);
-select 'Saved.' as message;
+declare order_status_var varchar(64);
+select orderStatus into order_status_var from orders where orderID = orderID_var;
+if order_status_var = 'Canceled' then
+	select 'The order is canceled.' as message;
+else
+	insert into order_queue (orderID, employeeID)
+	values (orderID_var, employeeID_var);
+	select 'Saved.' as message;
+end if;
 end//
 delimiter ;
 
