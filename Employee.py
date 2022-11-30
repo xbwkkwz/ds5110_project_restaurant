@@ -19,7 +19,7 @@ class Employee:
     # done
     def __init__(self):
         self.conn = None
-        self.password = None
+        self.sql_password = None
         self.__sql_connect()
 
     # done, connect to the mySQL
@@ -32,7 +32,7 @@ class Employee:
                 password = in_password,
                 database = "restaurant"
             )
-            self.password = in_password
+            self.sql_password = in_password
         except Error as e:
             print(e)
 
@@ -42,7 +42,7 @@ class Employee:
             self.conn = connect(
                 host = "localhost",
                 user = "root",
-                password = self.password,
+                password = self.sql_password,
                 database = "restaurant"
             )
         except Error as e:

@@ -23,6 +23,7 @@ class Customer:
         self.phone = None
         self.__password = None
         self.cart = {} # format->{menuID: [dishName, price, quantity]}
+        self.conn = None
         self.sql_password = None
         self.__sql_connect()
 
