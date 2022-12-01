@@ -266,3 +266,14 @@ update ingredient set stock = stock + new.quantity where ingredientID = new.ingr
 end//
 delimiter ;
 
+-- create high freq ingredient
+delimiter //
+create procedure freq_ingredient ()
+begin
+select dhi.ingredientID, i.ingredientName, count(dhi.ingredientID) as freq
+from dish_has_ingredient as dhi
+natural join ingredient as i
+group by dhi.ingredientID, i.ingredientName
+order by freq DESC;
+end//
+delimiter ;

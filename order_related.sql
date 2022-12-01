@@ -196,4 +196,27 @@ select * from chef_cooking_queue;
 end//
 delimiter ;
 
+-- data for popular dish category
+delimiter //
+create procedure popular_category()
+begin
+select mc.categoryID, mc.categoryName, count(categoryID) as freq
+from menu_category as mc
+natural join menu as m
+natural join order_list
+group by mc.categoryID, mc.categoryName
+order by freq DESC;
+end//
+delimiter ;
 
+-- top 5 popular dish
+delimiter //
+create procedure popular_dish()
+begin
+select m.menuID, m.dishName, count(m.menuID) as freq
+from order_list
+natural join menu as m
+group by m.menuID, m.dishName 
+order by freq DESC;
+end//
+delimiter ;
