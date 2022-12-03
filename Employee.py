@@ -100,8 +100,12 @@ class Employee:
         if not table:
             print("No history.")
             return
+        # divided into several pages
+        n = 20
+        chunks = [table[i:i + n] for i in range(0, len(table), n)]
+        page = int(input(f"Select page 1~{len(chunks)}: ")) -1
         col = ["Order ID", "Date", "Time", "Status", "In Queue", "Num Of Dish", "Subtotal", "Tips", "Total", "Customer ID", "Table ID"]
-        self.print_database(table, col)
+        self.print_database(chunks[page], col)
 
     # done
     def __view_one_order(self, orderID: int):
