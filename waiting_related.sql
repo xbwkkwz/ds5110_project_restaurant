@@ -32,7 +32,7 @@ select wl.waitingID, wl.waitingDate, convert(rw.startTime, char(5)) as startTime
 from waiting_list as wl
 natural join reservation_window as rw
 natural join customer as c
-order by wl.waitingID ASC;
+order by wl.waitingDate DESC, startTime DESC;
 
 -- customer view waiting list history
 delimiter //

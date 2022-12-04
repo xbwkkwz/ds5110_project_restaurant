@@ -242,6 +242,7 @@ def menu_loop():
                 print("Sign in first.")
                 pause_screen()
                 continue
+            c.view_business_hour()
             date = input("Input date (ex: 2022-10-17): ")
             time = input("Input time (ex: 18:00): ")
             num_of_people = int(input("Num of people (max 4): "))
@@ -280,6 +281,7 @@ def menu_loop():
                 print("Sign in first.")
                 pause_screen()
                 continue
+            c.view_business_hour()
             date = input("Input date (ex: 2022-10-17): ")
             time = input("Input time (ex: 18:00): ")
             num_of_people = int(input("Num of people (max 4): "))

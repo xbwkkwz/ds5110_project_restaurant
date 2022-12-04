@@ -42,7 +42,7 @@ begin
 select orderID, orderDate, orderStatus, numOfDish, subtotal, tips, total
 from orders
 where customerID = customerID_var
-order by orderID ASC;
+order by orderID DESC;
 end//
 delimiter ;
 
@@ -52,7 +52,7 @@ create procedure employee_view_order_history ()
 begin
 select orderID, orderDate, convert(orderTime, char(8)), orderStatus, orderInQueue, numOfDish, subtotal, tips, total, customerID, convert(tableID, char(2))
 from orders
-order by orderID ASC;
+order by orderID DESC;
 end//
 delimiter ;
 

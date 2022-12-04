@@ -73,7 +73,7 @@ natural join reservation_window as rw
 natural join customer as c
 left join employee as e
 on r.employeeID = e.employeeID
-order by r.reservationDate;
+order by r.reservationDate DESC, startTime DESC;
 
 -- customer view reservation
 delimiter //
@@ -82,7 +82,7 @@ begin
 select rh.reservationDate, rh.startTime, rh.tableID, rh.numOfPeople, rh.reservationStatus
 from reservation_history as rh
 where customerID = customerID_var
-order by rh.reservationDate;
+order by rh.reservationDate DESC;
 end//
 delimiter ;
 

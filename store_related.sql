@@ -6,7 +6,8 @@ delimiter //
 create procedure view_business_hour ()
 begin
 select businessDay, convert(openTime, char(5)) as openTime, convert(CloseTime, char(5)) as closeTime
-from business_hour where dayStatus = true;
+from business_hour where dayStatus = true
+order by businessDay ASC;
 end//
 delimiter ;
 
