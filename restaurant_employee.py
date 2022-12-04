@@ -255,6 +255,7 @@ def menu_loop():
             pause_screen()
         elif option == 25: # add inventory
             clear()
+            e.view_ingredient_stock()
             ingredientName = input("Input ingredient name: ")
             quantity = int(input("Input quantity: "))
             totalCost = float(input("Input cost: "))
