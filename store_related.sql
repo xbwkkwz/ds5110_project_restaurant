@@ -56,7 +56,7 @@ if dayStatus_var = true then
 	update business_hour set dayStatus = false where timeID != timeID_var and businessDay = find_day(timeID_var);
     -- update the reservation window
     update reservation_window set windowStatus = false where 0 < windowID and businessDay = businessDay_var;
-    update reservation_window set windowStatus = true where 0 < windowID and openTime_var <= startTime and startTime <= closeTime_var;
+    update reservation_window set windowStatus = true where 0 < windowID and businessDay = businessDay_var and openTime_var <= startTime and startTime <= closeTime_var;
 else
 	update reservation_window set windowStatus = false where 0 < windowID and businessDay = businessDay_var;
 end if; 
