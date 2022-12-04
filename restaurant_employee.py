@@ -101,6 +101,8 @@ def menu_loop():
     # create one customer object
     e = Employee()
     pause_screen()
+    if not e.conn:
+        return
     option = 0
     while option != int(VALID_OPTIONS[-1]):
         # clear the screen

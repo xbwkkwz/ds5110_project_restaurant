@@ -83,6 +83,8 @@ def menu_loop():
     # create one customer object
     c = Customer()
     pause_screen()
+    if not c.conn:
+        return
     option = 0
     while option != int(VALID_OPTIONS[-1]):
         # clear the screen
