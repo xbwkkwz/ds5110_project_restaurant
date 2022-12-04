@@ -223,7 +223,8 @@ natural join employee as e;
 delimiter //
 create procedure view_inventory ()
 begin
-select * from ingredient_inventory;
+select * from ingredient_inventory
+order by inventoryID ASC;
 end//
 delimiter ;
 
