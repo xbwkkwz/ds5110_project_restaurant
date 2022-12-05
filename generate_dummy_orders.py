@@ -8,7 +8,7 @@ from random import gauss
 import pandas as pd
 import matplotlib.pyplot as plt
 
-num_customer = 52
+num_customer = 50
 num_menu = 43
 num_quantity = 2
 num_people = 4
