@@ -165,7 +165,7 @@ CREATE TABLE `dish_has_ingredient` (
 
 LOCK TABLES `dish_has_ingredient` WRITE;
 /*!40000 ALTER TABLE `dish_has_ingredient` DISABLE KEYS */;
-INSERT INTO `dish_has_ingredient` VALUES (1,1,10),(1,2,1),(2,3,10),(3,4,5),(3,5,5),(4,1,5),(4,5,5),(5,6,10),(6,7,10),(7,8,10),(7,9,5),(8,1,5),(8,8,10),(9,8,5),(9,10,1),(9,11,1),(9,12,1),(9,13,1),(10,3,6),(10,14,1),(11,7,6),(11,14,6),(12,1,5),(12,4,5),(12,6,5),(12,7,5),(12,15,1),(12,16,1),(12,17,1),(13,1,5),(13,18,1),(14,18,1),(14,19,1),(15,13,1),(15,18,1),(15,20,2),(15,21,1),(16,20,2),(16,22,1),(16,23,1),(17,10,1),(17,16,1),(17,20,2),(17,24,1),(18,10,1),(18,16,1),(18,20,2),(18,25,1),(19,1,5),(19,16,1),(19,17,1),(20,3,5),(20,17,1),(20,26,1),(21,1,3),(21,3,3),(21,16,1),(21,17,1),(22,6,5),(22,16,1),(22,17,1),(23,3,5),(23,17,1),(23,26,1),(24,16,1),(24,17,1),(24,27,5),(25,4,5),(25,16,1),(25,17,1),(26,4,5),(26,17,1),(26,26,1),(26,27,5),(26,28,5),(27,1,2),(27,3,2),(27,4,2),(27,5,2),(27,6,2),(27,7,2),(27,16,1),(27,17,1),(27,27,2),(28,29,1),(29,22,1),(30,1,5),(30,4,5),(30,27,5),(31,29,1),(32,25,1),(33,27,15),(34,24,1),(35,28,5),(36,30,2),(37,17,1),(38,18,1),(39,19,1),(39,31,1),(40,16,1),(40,32,10),(41,33,3),(42,34,1),(43,34,1),(43,35,2);
+INSERT INTO `dish_has_ingredient` VALUES (1,1,10),(1,2,1),(2,3,10),(3,4,5),(3,5,5),(4,1,5),(4,5,5),(5,6,10),(6,7,10),(7,8,10),(7,9,5),(8,1,5),(8,8,10),(9,8,5),(9,10,1),(9,11,1),(9,12,1),(9,13,1),(10,3,6),(10,14,1),(11,7,6),(11,14,6),(12,1,5),(12,4,5),(12,6,5),(12,7,5),(12,15,1),(12,16,1),(12,17,1),(13,1,5),(13,18,1),(14,18,1),(14,19,1),(15,13,1),(15,18,1),(15,20,2),(15,21,1),(16,20,2),(16,22,1),(16,23,1),(17,10,1),(17,16,1),(17,20,2),(17,24,1),(18,10,1),(18,16,1),(18,20,2),(18,25,1),(19,1,5),(19,16,1),(19,17,1),(20,3,5),(20,17,1),(20,26,1),(21,1,3),(21,3,3),(21,16,1),(21,17,1),(22,6,5),(22,16,1),(22,17,1),(23,3,5),(23,17,1),(23,26,1),(24,16,1),(24,17,1),(24,27,5),(25,4,5),(25,16,1),(25,17,1),(26,4,5),(26,17,1),(26,26,1),(26,27,5),(26,28,5),(27,1,2),(27,3,2),(27,4,2),(27,5,2),(27,6,2),(27,7,2),(27,16,1),(27,17,1),(27,27,2),(28,29,1),(29,22,1),(30,1,5),(30,4,5),(30,27,5),(31,29,1),(32,25,1),(33,27,15),(34,24,1),(35,28,5),(36,30,2),(37,17,1),(38,18,1),(39,19,1),(39,31,1),(40,16,1),(40,32,10),(41,33,3),(45,37,3);
 /*!40000 ALTER TABLE `dish_has_ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +249,7 @@ CREATE TABLE `ingredient` (
 
 LOCK TABLES `ingredient` WRITE;
 /*!40000 ALTER TABLE `ingredient` DISABLE KEYS */;
-INSERT INTO `ingredient` VALUES (1,500),(2,100),(3,488),(4,500),(5,500),(6,500),(7,500),(8,500),(9,500),(10,499),(11,500),(12,500),(13,500),(14,98),(15,100),(16,499),(17,500),(18,500),(19,500),(20,498),(21,500),(22,100),(23,100),(24,99),(25,100),(26,500),(27,500),(28,495),(29,100),(30,500),(31,500),(32,500),(33,500),(34,30),(35,10);
+INSERT INTO `ingredient` VALUES (1,500),(2,100),(3,488),(4,500),(5,500),(6,500),(7,500),(8,500),(9,500),(10,499),(11,500),(12,500),(13,500),(14,98),(15,100),(16,499),(17,500),(18,500),(19,500),(20,498),(21,500),(22,100),(23,100),(24,99),(25,100),(26,500),(27,500),(28,495),(29,100),(30,500),(31,500),(32,500),(33,500),(37,100);
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +284,7 @@ CREATE TABLE `ingredient_name` (
   `ingredientName` varchar(64) NOT NULL,
   PRIMARY KEY (`ingredientID`),
   UNIQUE KEY `ingredientName` (`ingredientName`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +293,7 @@ CREATE TABLE `ingredient_name` (
 
 LOCK TABLES `ingredient_name` WRITE;
 /*!40000 ALTER TABLE `ingredient_name` DISABLE KEYS */;
-INSERT INTO `ingredient_name` VALUES (19,'Alfredo sauce'),(18,'Black pasta'),(28,'Broccoli'),(1,'Calamari'),(12,'Carrot'),(31,'Cheese'),(3,'Cherrystone'),(26,'Clam sauce'),(14,'Cocktail sauce'),(9,'Crouton'),(11,'Cucumber'),(29,'Haddock'),(17,'Linguine'),(7,'Littleneck'),(15,'Lobster'),(23,'Marsala sauce'),(22,'Monkfish'),(20,'Mushroom'),(6,'Mussel'),(33,'Orange'),(21,'Pepper'),(32,'Pepperoni'),(30,'Potato'),(13,'Red onion'),(2,'Red sauce'),(8,'Romaine'),(24,'Salmon'),(27,'Scallop'),(5,'Scampi'),(4,'Shrimp'),(25,'Swordfish'),(34,'Test Food'),(35,'Test Food 2'),(10,'Tomato'),(16,'Tomato sauce');
+INSERT INTO `ingredient_name` VALUES (19,'Alfredo sauce'),(37,'Apple'),(18,'Black pasta'),(28,'Broccoli'),(1,'Calamari'),(12,'Carrot'),(31,'Cheese'),(3,'Cherrystone'),(26,'Clam sauce'),(14,'Cocktail sauce'),(9,'Crouton'),(11,'Cucumber'),(29,'Haddock'),(17,'Linguine'),(7,'Littleneck'),(15,'Lobster'),(23,'Marsala sauce'),(22,'Monkfish'),(20,'Mushroom'),(6,'Mussel'),(33,'Orange'),(21,'Pepper'),(32,'Pepperoni'),(30,'Potato'),(13,'Red onion'),(2,'Red sauce'),(8,'Romaine'),(24,'Salmon'),(27,'Scallop'),(5,'Scampi'),(4,'Shrimp'),(25,'Swordfish'),(10,'Tomato'),(16,'Tomato sauce');
 /*!40000 ALTER TABLE `ingredient_name` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,7 +319,7 @@ CREATE TABLE `inventory` (
   CONSTRAINT `inventory_fk_ingredientID` FOREIGN KEY (`ingredientID`) REFERENCES `ingredient` (`ingredientID`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `inventory_chk_1` CHECK ((`quantity` > 0)),
   CONSTRAINT `inventory_chk_2` CHECK ((`totalCost` > 0))
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,7 +328,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (1,1,500,100.00,21,'2022-10-01','2022-10-14'),(2,2,100,50.00,22,'2022-10-01','2023-09-30'),(3,3,500,100.00,21,'2022-10-01','2022-10-14'),(4,4,500,100.00,21,'2022-10-01','2022-10-14'),(5,5,500,100.00,21,'2022-10-01','2022-10-14'),(6,6,500,100.00,21,'2022-10-01','2022-10-14'),(7,7,500,100.00,21,'2022-10-01','2022-10-14'),(8,8,500,150.00,23,'2022-10-01','2022-10-14'),(9,9,500,50.00,22,'2022-10-01','2023-09-30'),(10,10,500,150.00,23,'2022-10-01','2022-10-14'),(11,11,500,150.00,23,'2022-10-01','2022-10-14'),(12,12,500,150.00,23,'2022-10-01','2022-10-14'),(13,13,500,150.00,23,'2022-10-01','2022-10-14'),(14,14,100,50.00,22,'2022-10-01','2022-09-30'),(15,15,100,200.00,21,'2022-10-01','2022-10-14'),(16,16,500,100.00,22,'2022-10-01','2022-09-30'),(17,17,500,100.00,22,'2022-10-01','2022-09-30'),(18,18,500,100.00,22,'2022-10-01','2022-09-30'),(19,19,500,100.00,22,'2022-10-01','2022-09-30'),(20,20,500,150.00,23,'2022-10-01','2022-10-14'),(21,21,500,150.00,23,'2022-10-01','2022-10-14'),(22,22,100,200.00,21,'2022-10-01','2022-10-14'),(23,23,100,50.00,22,'2022-10-01','2023-09-30'),(24,24,100,200.00,21,'2022-10-01','2022-10-14'),(25,25,100,200.00,21,'2022-10-01','2022-10-14'),(26,26,500,50.00,22,'2022-10-01','2023-09-30'),(27,27,500,200.00,21,'2022-10-01','2022-10-14'),(28,28,500,150.00,23,'2022-10-01','2022-10-14'),(29,29,100,200.00,21,'2022-10-01','2022-10-14'),(30,30,500,150.00,23,'2022-10-01','2022-10-14'),(31,31,500,150.00,22,'2022-10-01','2022-10-14'),(32,32,500,150.00,23,'2022-10-01','2022-10-14'),(33,33,500,150.00,23,'2022-10-01','2022-10-14'),(34,34,20,15.00,22,'2022-12-06','2022-12-17'),(35,34,10,10.00,23,'2022-12-06','2022-12-20'),(36,35,10,14.00,26,'2022-12-07','2022-12-19');
+INSERT INTO `inventory` VALUES (1,1,500,100.00,21,'2022-10-01','2022-10-14'),(2,2,100,50.00,22,'2022-10-01','2023-09-30'),(3,3,500,100.00,21,'2022-10-01','2022-10-14'),(4,4,500,100.00,21,'2022-10-01','2022-10-14'),(5,5,500,100.00,21,'2022-10-01','2022-10-14'),(6,6,500,100.00,21,'2022-10-01','2022-10-14'),(7,7,500,100.00,21,'2022-10-01','2022-10-14'),(8,8,500,150.00,23,'2022-10-01','2022-10-14'),(9,9,500,50.00,22,'2022-10-01','2023-09-30'),(10,10,500,150.00,23,'2022-10-01','2022-10-14'),(11,11,500,150.00,23,'2022-10-01','2022-10-14'),(12,12,500,150.00,23,'2022-10-01','2022-10-14'),(13,13,500,150.00,23,'2022-10-01','2022-10-14'),(14,14,100,50.00,22,'2022-10-01','2022-09-30'),(15,15,100,200.00,21,'2022-10-01','2022-10-14'),(16,16,500,100.00,22,'2022-10-01','2022-09-30'),(17,17,500,100.00,22,'2022-10-01','2022-09-30'),(18,18,500,100.00,22,'2022-10-01','2022-09-30'),(19,19,500,100.00,22,'2022-10-01','2022-09-30'),(20,20,500,150.00,23,'2022-10-01','2022-10-14'),(21,21,500,150.00,23,'2022-10-01','2022-10-14'),(22,22,100,200.00,21,'2022-10-01','2022-10-14'),(23,23,100,50.00,22,'2022-10-01','2023-09-30'),(24,24,100,200.00,21,'2022-10-01','2022-10-14'),(25,25,100,200.00,21,'2022-10-01','2022-10-14'),(26,26,500,50.00,22,'2022-10-01','2023-09-30'),(27,27,500,200.00,21,'2022-10-01','2022-10-14'),(28,28,500,150.00,23,'2022-10-01','2022-10-14'),(29,29,100,200.00,21,'2022-10-01','2022-10-14'),(30,30,500,150.00,23,'2022-10-01','2022-10-14'),(31,31,500,150.00,22,'2022-10-01','2022-10-14'),(32,32,500,150.00,23,'2022-10-01','2022-10-14'),(33,33,500,150.00,23,'2022-10-01','2022-10-14'),(38,37,100,50.00,24,'2022-12-06','2022-12-30');
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -367,7 +367,7 @@ CREATE TABLE `menu` (
   KEY `menu_fk_category` (`categoryID`),
   CONSTRAINT `menu_fk_category` FOREIGN KEY (`categoryID`) REFERENCES `menu_category` (`categoryID`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `menu_chk_1` CHECK ((`price` > 0))
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,7 +376,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,1,'Fried Calamari','Lemon & red sauce',16.50,1),(2,1,'Clams Casino','Broiled cherrystones, crispy topping',17.25,1),(3,1,'Shrimp Scampi','Garlic, lemon, butter, romano',17.50,1),(4,1,'Calamari Scampi','Garlic, lemon, butter, romano',17.50,1),(5,1,'Mussel Siciliano','Fennel, thyme, shallots, lemon, wine',16.00,1),(6,1,'Littleneck Siciliano','Fennel, thyme, shallots, lemon, wine',17.25,1),(7,1,'Caesar Salad','Romaine, croutons, romano',11.00,1),(8,1,'Calamari Salad','Classic marinated calamari served over a bed of greens',16.75,1),(9,1,'House Salad','Greens, tomatoes, cucumbers, carrots, red onion, balsamic viniagrette',9.75,1),(10,1,'Cherrystones','1/2 dozen raw, served with cocktail sauce',14.00,1),(11,1,'Littlenecks','1/2 dozen raw, served with cocktail sauce',14.00,1),(12,2,'Lobster Fra Diavolo','1.25 lb live lobster cut into pieces with littlenecks, mussels, shrimp and calamari simmered in a spicy seafood tomato sauce served over linguine',67.00,1),(13,3,'Aglio Olio','Ground calamari, olive oil, garlic, anchovy',28.00,1),(14,3,'Alfredo','Cream reduction, butter, romano',28.00,1),(15,3,'Puttanesca','Mushrooms, peppers, onions, olive anchovy butter',28.00,1),(16,4,'Monkfish Marsala','Tender medallions of monkfish simmered with mushrooms in a sweet marsala sauce',26.25,1),(17,4,'North End Style Salmon','Pan seared with sundried tomatoes & mushrooms in tomato basil sauce',28.50,1),(18,4,'North End Style Swordfish','Pan seared with sundried tomatoes & mushrooms in tomato basil sauce',30.25,1),(19,5,'Calamari','Signature seafood tomato sauce',26.75,1),(20,5,'Clams','Olive oil, garlic & clam sauce',29.00,1),(21,5,'Calamari & Clams Combo','Signature seafood tomato sauce',29.00,1),(22,5,'Mussel Marinara','Signature seafood tomato sauce',25.50,1),(23,5,'Vongole Neapolitan','Olive oil, garlic & clam sauce',30.00,1),(24,5,'Scallops','Signature seafood tomato sauce',29.75,1),(25,5,'Shrimp','Signature seafood tomato sauce',29.75,1),(26,5,'Shrimp, Scallops & Broccoli','Olive oil, garlic & clam sauce',31.00,1),(27,5,'Frutti Di Mare','Signature seafood tomato sauce',43.00,1),(28,6,'Fish Haddock Chips','Fresh filleted haddock',28.50,1),(29,6,'Fish Monkfish Chips','Fresh filleted monkfish',28.50,1),(30,6,'Fritto Misto','Shrimp, scallops, calamari, fish',36.75,1),(31,7,'Haddock',NULL,25.50,1),(32,7,'Swordfish',NULL,25.50,1),(33,7,'Scallops',NULL,26.50,1),(34,7,'Salmon',NULL,28.50,1),(35,8,'Broccoli Saute',NULL,8.50,1),(36,8,'French Fries',NULL,5.50,1),(37,8,'Linguine',NULL,8.00,1),(38,8,'Black Pasta',NULL,9.50,1),(39,9,'Cheese','10-inch with alfredo sauce',14.00,1),(40,9,'Pepperoni','10-inch with tomato sauce',16.00,1),(41,10,'Orange Juice','Not from concentrate',10.00,1),(42,11,'Dips','The dip for chips',3.00,0),(43,12,'Food 2',NULL,1.00,1);
+INSERT INTO `menu` VALUES (1,1,'Fried Calamari','Lemon & red sauce',16.50,1),(2,1,'Clams Casino','Broiled cherrystones, crispy topping',17.25,1),(3,1,'Shrimp Scampi','Garlic, lemon, butter, romano',17.50,1),(4,1,'Calamari Scampi','Garlic, lemon, butter, romano',17.50,1),(5,1,'Mussel Siciliano','Fennel, thyme, shallots, lemon, wine',16.00,1),(6,1,'Littleneck Siciliano','Fennel, thyme, shallots, lemon, wine',17.25,1),(7,1,'Caesar Salad','Romaine, croutons, romano',11.00,1),(8,1,'Calamari Salad','Classic marinated calamari served over a bed of greens',16.75,1),(9,1,'House Salad','Greens, tomatoes, cucumbers, carrots, red onion, balsamic viniagrette',9.75,1),(10,1,'Cherrystones','1/2 dozen raw, served with cocktail sauce',14.00,1),(11,1,'Littlenecks','1/2 dozen raw, served with cocktail sauce',14.00,1),(12,2,'Lobster Fra Diavolo','1.25 lb live lobster cut into pieces with littlenecks, mussels, shrimp and calamari simmered in a spicy seafood tomato sauce served over linguine',67.00,1),(13,3,'Aglio Olio','Ground calamari, olive oil, garlic, anchovy',28.00,1),(14,3,'Alfredo','Cream reduction, butter, romano',28.00,1),(15,3,'Puttanesca','Mushrooms, peppers, onions, olive anchovy butter',28.00,1),(16,4,'Monkfish Marsala','Tender medallions of monkfish simmered with mushrooms in a sweet marsala sauce',26.25,1),(17,4,'North End Style Salmon','Pan seared with sundried tomatoes & mushrooms in tomato basil sauce',28.50,1),(18,4,'North End Style Swordfish','Pan seared with sundried tomatoes & mushrooms in tomato basil sauce',30.25,1),(19,5,'Calamari','Signature seafood tomato sauce',26.75,1),(20,5,'Clams','Olive oil, garlic & clam sauce',29.00,1),(21,5,'Calamari & Clams Combo','Signature seafood tomato sauce',29.00,1),(22,5,'Mussel Marinara','Signature seafood tomato sauce',25.50,1),(23,5,'Vongole Neapolitan','Olive oil, garlic & clam sauce',30.00,1),(24,5,'Scallops','Signature seafood tomato sauce',29.75,1),(25,5,'Shrimp','Signature seafood tomato sauce',29.75,1),(26,5,'Shrimp, Scallops & Broccoli','Olive oil, garlic & clam sauce',31.00,1),(27,5,'Frutti Di Mare','Signature seafood tomato sauce',43.00,1),(28,6,'Fish Haddock Chips','Fresh filleted haddock',28.50,1),(29,6,'Fish Monkfish Chips','Fresh filleted monkfish',28.50,1),(30,6,'Fritto Misto','Shrimp, scallops, calamari, fish',36.75,1),(31,7,'Haddock',NULL,25.50,1),(32,7,'Swordfish',NULL,25.50,1),(33,7,'Scallops',NULL,26.50,1),(34,7,'Salmon',NULL,28.50,1),(35,8,'Broccoli Saute',NULL,8.50,1),(36,8,'French Fries',NULL,5.50,1),(37,8,'Linguine',NULL,8.00,1),(38,8,'Black Pasta',NULL,9.50,1),(39,9,'Cheese','10-inch with alfredo sauce',14.00,1),(40,9,'Pepperoni','10-inch with tomato sauce',16.00,1),(41,10,'Orange Juice','Not from concentrate',10.00,1),(45,10,'Apple Juice',NULL,5.00,1);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,7 +401,7 @@ CREATE TABLE `menu_category` (
 
 LOCK TABLES `menu_category` WRITE;
 /*!40000 ALTER TABLE `menu_category` DISABLE KEYS */;
-INSERT INTO `menu_category` VALUES (1,'Activate your taste buds'),(2,'Seafood chowder'),(3,'Fresh homemade black linguine made with squid ink'),(4,'Served a la carte'),(5,'Cooked from scratch & served in the pan'),(6,'Served lightly breaded with fries, onion rings, & tartar'),(7,'Crispy topping, olive oil, garlic, romano, breadcrumbs'),(8,'Extra and more'),(9,'Garlic-seasoned crust with a rich, buttery taste'),(10,'Refreshing taste'),(11,NULL),(12,NULL);
+INSERT INTO `menu_category` VALUES (1,'Activate your taste buds'),(2,'Seafood chowder'),(3,'Fresh homemade black linguine made with squid ink'),(4,'Served a la carte'),(5,'Cooked from scratch & served in the pan'),(6,'Served lightly breaded with fries, onion rings, & tartar'),(7,'Crispy topping, olive oil, garlic, romano, breadcrumbs'),(8,'Extra and more'),(9,'Garlic-seasoned crust with a rich, buttery taste'),(10,'Refreshing taste');
 /*!40000 ALTER TABLE `menu_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,7 +426,7 @@ CREATE TABLE `menu_category_name` (
 
 LOCK TABLES `menu_category_name` WRITE;
 /*!40000 ALTER TABLE `menu_category_name` DISABLE KEYS */;
-INSERT INTO `menu_category_name` VALUES (3,'Black Pasta'),(7,'Broiled'),(4,'Classics'),(10,'Drink'),(6,'Fried'),(2,'Lobster Fra Diavolo'),(11,'Other'),(9,'Pizza'),(5,'Seafood & Linguine'),(8,'Sides'),(1,'Starters'),(12,'Test Cate 2');
+INSERT INTO `menu_category_name` VALUES (3,'Black Pasta'),(7,'Broiled'),(4,'Classics'),(10,'Drink'),(6,'Fried'),(2,'Lobster Fra Diavolo'),(9,'Pizza'),(5,'Seafood & Linguine'),(8,'Sides'),(1,'Starters');
 /*!40000 ALTER TABLE `menu_category_name` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2343,4 +2343,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-06  0:17:13
+-- Dump completed on 2022-12-06 15:01:25
