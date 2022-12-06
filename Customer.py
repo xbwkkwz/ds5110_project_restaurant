@@ -38,6 +38,7 @@ class Customer:
                 database = "restaurant"
             )
             self.sql_password = in_password
+            print("Connected to the database.")
         except Error as e:
             print(e)
 

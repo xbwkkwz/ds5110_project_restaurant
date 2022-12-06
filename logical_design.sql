@@ -14,6 +14,7 @@ closeTime time not null, -- use 24 hour format
 dayStatus boolean not null default True -- True means visible as the current option, False means offline
 );
 
+/*
 -- create the customer table
 create table customer (
 customerID int primary key auto_increment,
@@ -23,7 +24,27 @@ email varchar(64) not null unique,
 phone varchar(64),
 customerPassword varchar(64) not null
 );
+*/
 
+-- create customer email table
+create table customer_email (
+customerID int primary key auto_increment,
+email varchar(64) not null unique
+);
+
+-- create the customer table
+create table customer (
+customerID int not null,
+firstName varchar(64) not null,
+lastName varchar(64) not null,
+phone varchar(64),
+customerPassword varchar(64) not null,
+primary key (customerID),
+constraint cstomer_fk_cusotmer_email
+	foreign key (customerID) references customer_email(customerID) on update cascade on delete cascade
+);
+
+/*
 -- create the empyoyee table
 create table employee (
 employeeID int primary key auto_increment,
@@ -35,6 +56,28 @@ ssn char(11) unique,
 salary decimal(9, 2) check (salary > 0),
 occupation enum('Waiter', 'Chef', 'Manager') not null,
 rating enum('1', '2', '3', '4', '5') -- 1 = bad, 5 = good
+);
+*/
+
+-- create employee email table
+create table employee_email (
+employeeID int primary key auto_increment,
+email varchar(64) not null unique
+);
+
+-- create the empyoyee table
+create table employee (
+employeeID int not null,
+firstName varchar(64) not null,
+lastName varchar(64) not null,
+phone varchar(64),
+ssn char(11) unique,
+salary decimal(9, 2) check (salary > 0),
+occupation enum('Waiter', 'Chef', 'Manager') not null,
+rating enum('1', '2', '3', '4', '5'), -- 1 = bad, 5 = good
+primary key (employeeID),
+constraint employee_fk_employee_email
+	foreign key (employeeID) references employee_email(employeeID) on update cascade on delete cascade
 );
 
 -- create the dining table table
@@ -86,11 +129,28 @@ constraint reservation_fk_employee
 	foreign key (employeeID) references employee(employeeID) on update cascade on delete set null
 );
 
+/*
 -- create the menu_category table
 create table menu_category (
 categoryID int primary key auto_increment,
 categoryName varchar(64) not null unique,
 categoryDescription varchar(512)
+);
+*/
+
+-- create the menu category name table
+create table menu_category_name (
+categoryID int primary key auto_increment,
+categoryName varchar(64) not null unique
+);
+
+-- create the menu_category table
+create table menu_category (
+categoryID int not null,
+categoryDescription varchar(512),
+primary key (categoryID),
+constraint menu_category_fk_mcn
+	foreign key (categoryID) references menu_category_name(categoryID) on update cascade on delete cascade
 );
 
 -- create the menu table
@@ -137,11 +197,28 @@ constraint list_fk_menu
 	foreign key (menuID) references menu(menuID) on update cascade on delete restrict
 );
 
+/*
 -- create the ingredient table
 create table ingredient (
 ingredientID int primary key auto_increment,
 ingredientName varchar(64) not null unique,
 stock int not null default 0 check (stock >= 0)
+);
+*/
+
+-- create ingredient name table
+create table ingredient_name (
+ingredientID int primary key auto_increment,
+ingredientName varchar(64) not null unique
+);
+
+-- create the ingredient table
+create table ingredient (
+ingredientID int not null,
+stock int not null default 0 check (stock >= 0),
+primary key (ingredientID),
+constraint ingredient_fk_ingredient_name
+	foreign key (ingredientID) references ingredient_name (ingredientID) on update cascade on delete cascade
 );
 
 -- create the dish_has_ingredient table

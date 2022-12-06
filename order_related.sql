@@ -200,11 +200,12 @@ delimiter ;
 delimiter //
 create procedure popular_category()
 begin
-select mc.categoryID, mc.categoryName, count(categoryID) as freq
-from menu_category as mc
+select mc.categoryID, mcn.categoryName, count(mc.categoryID) as freq
+from menu_category_name as mcn
+natural join menu_category as mc
 natural join menu as m
 natural join order_list
-group by mc.categoryID, mc.categoryName
+group by mc.categoryID, mcn.categoryName
 order by freq DESC;
 end//
 delimiter ;

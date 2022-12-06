@@ -223,6 +223,7 @@ values
 (167, 'Sunday', '22:00', false),
 (168, 'Sunday', '23:00', false);
 
+/*
 -- add data to the menu category
 insert into menu_category (categoryID, categoryName, categoryDescription)
 values
@@ -236,6 +237,35 @@ values
 (8, 'Sides', 'Extra and more'),
 (9, 'Pizza', 'Garlic-seasoned crust with a rich, buttery taste'),
 (10, 'Drink', 'Refreshing taste');
+*/
+
+-- add data to the menu category
+insert into menu_category_name (categoryID, categoryName)
+values
+(1, 'Starters'),
+(2, 'Lobster Fra Diavolo'),
+(3, 'Black Pasta'),
+(4, 'Classics'),
+(5, 'Seafood & Linguine'),
+(6, 'Fried'),
+(7, 'Broiled'),
+(8, 'Sides'),
+(9, 'Pizza'),
+(10, 'Drink');
+
+-- add data to the menu category
+insert into menu_category (categoryID, categoryDescription)
+values
+(1, 'Activate your taste buds'),
+(2, 'Seafood chowder'),
+(3, 'Fresh homemade black linguine made with squid ink'),
+(4, 'Served a la carte'),
+(5, 'Cooked from scratch & served in the pan'),
+(6, 'Served lightly breaded with fries, onion rings, & tartar'),
+(7, 'Crispy topping, olive oil, garlic, romano, breadcrumbs'),
+(8, 'Extra and more'),
+(9, 'Garlic-seasoned crust with a rich, buttery taste'),
+(10, 'Refreshing taste');
 
 -- add data to the menu
 -- starters
@@ -310,6 +340,7 @@ insert into menu (menuID, categoryID, dishName, dishDescription, price, dishStat
 values
 (41, 10, 'Orange Juice', 'Not from concentrate', 10.00, true);
 
+/*
 -- add data to the ingredient table
 insert into ingredient (ingredientID, ingredientName, stock)
 values
@@ -346,6 +377,80 @@ values
 (31, 'Cheese', 500),
 (32, 'Pepperoni', 500),
 (33, 'Orange', 500);
+*/
+
+-- add data to the ingredient_name table
+insert into ingredient_name (ingredientID, ingredientName) values
+(1, 'Calamari'),
+(2, 'Red sauce'),
+(3, 'Cherrystone'),
+(4, 'Shrimp'),
+(5, 'Scampi'),
+(6, 'Mussel'),
+(7, 'Littleneck'),
+(8, 'Romaine'),
+(9, 'Crouton'),
+(10, 'Tomato'),
+(11, 'Cucumber'),
+(12, 'Carrot'),
+(13, 'Red onion'),
+(14, 'Cocktail sauce'),
+(15, 'Lobster'),
+(16, 'Tomato sauce'),
+(17, 'Linguine'),
+(18, 'Black pasta'),
+(19, 'Alfredo sauce'),
+(20, 'Mushroom'),
+(21, 'Pepper'),
+(22, 'Monkfish'),
+(23, 'Marsala sauce'),
+(24, 'Salmon'),
+(25, 'Swordfish'),
+(26, 'Clam sauce'),
+(27, 'Scallop'),
+(28, 'Broccoli'),
+(29, 'Haddock'),
+(30, 'Potato'),
+(31, 'Cheese'),
+(32, 'Pepperoni'),
+(33, 'Orange');
+
+-- add data to the ingredient table
+insert into ingredient (ingredientID, stock)
+values
+(1, 500),
+(2, 100),
+(3, 500),
+(4, 500),
+(5, 500),
+(6, 500),
+(7, 500),
+(8, 500),
+(9, 500),
+(10, 500),
+(11, 500),
+(12, 500),
+(13, 500),
+(14, 100),
+(15, 100),
+(16, 500),
+(17, 500),
+(18, 500),
+(19, 500),
+(20, 500),
+(21, 500),
+(22, 100),
+(23, 100),
+(24, 100),
+(25,  100),
+(26,  500),
+(27,  500),
+(28,  500),
+(29,  100),
+(30,  500),
+(31,  500),
+(32, 500),
+(33, 500);
 
 -- add data to the dish_has_ingredient table
 insert into dish_has_ingredient (menuID, ingredientID, quantity)

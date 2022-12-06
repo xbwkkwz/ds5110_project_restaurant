@@ -33,6 +33,7 @@ class Employee:
                 database = "restaurant"
             )
             self.sql_password = in_password
+            print("Connected to the database.")
         except Error as e:
             print(e)
 
@@ -250,6 +251,9 @@ class Employee:
     # done, view the composition of a dish
     def view_dish_ingredient(self, menuID: int):
         table = self.read_database("view_dish_ingredient", (menuID,))
+        if not table:
+            print("No information about this dish.")
+            return
         col = ["Ingredient ID", "Ingredient Name", "Quantity"]
         self.print_database(table, col)
 

@@ -9,10 +9,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 num_customer = 50
-num_menu = 43
+num_menu = 41
 num_quantity = 2
 num_people = 4
-num_orders = 15
+num_orders = 100
 
 c = Customer()
 
@@ -83,11 +83,11 @@ def plot_data4():
     plt.show()
 
 def main():
-    # generate_orders()
+    generate_orders()
     # plot_data1()
     # plot_data2()
-    #plot_data3()
-    plot_data4()
+    # plot_data3()
+    # plot_data4()
 
 if __name__ == "__main__":
     main()
