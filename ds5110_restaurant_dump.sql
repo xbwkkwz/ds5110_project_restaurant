@@ -40,7 +40,7 @@ CREATE TABLE `business_hour` (
 
 LOCK TABLES `business_hour` WRITE;
 /*!40000 ALTER TABLE `business_hour` DISABLE KEYS */;
-INSERT INTO `business_hour` VALUES (1,'Monday','11:00:00','20:00:00',0),(2,'Tuesday','11:00:00','20:00:00',0),(3,'Wednesday','11:00:00','20:00:00',0),(4,'Thursday','11:00:00','20:00:00',0),(5,'Friday','11:00:00','20:00:00',0),(6,'Saturday','11:00:00','20:00:00',0),(7,'Sunday','11:00:00','20:00:00',0),(8,'Monday','11:00:00','22:00:00',1),(9,'Tuesday','11:00:00','22:00:00',1),(10,'Wednesday','11:00:00','22:00:00',1),(11,'Thursday','11:00:00','22:00:00',1),(12,'Friday','11:00:00','22:00:00',1),(13,'Saturday','11:00:00','22:00:00',1),(14,'Sunday','11:00:00','22:00:00',1),(15,'Monday','12:00:00','22:00:00',0),(16,'Tuesday','12:00:00','22:00:00',0),(17,'Wednesday','12:00:00','22:00:00',0),(18,'Thursday','12:00:00','22:00:00',0),(19,'Friday','12:00:00','22:00:00',0),(20,'Saturday','12:00:00','22:00:00',0),(21,'Sunday','12:00:00','22:00:00',0),(22,'Monday','06:00:00','24:00:00',0);
+INSERT INTO `business_hour` VALUES (1,'Monday','11:00:00','20:00:00',0),(2,'Tuesday','11:00:00','20:00:00',1),(3,'Wednesday','11:00:00','20:00:00',1),(4,'Thursday','11:00:00','20:00:00',1),(5,'Friday','11:00:00','20:00:00',1),(6,'Saturday','11:00:00','20:00:00',1),(7,'Sunday','11:00:00','20:00:00',1),(8,'Monday','11:00:00','22:00:00',0),(9,'Tuesday','11:00:00','22:00:00',0),(10,'Wednesday','11:00:00','22:00:00',0),(11,'Thursday','11:00:00','22:00:00',0),(12,'Friday','11:00:00','22:00:00',0),(13,'Saturday','11:00:00','22:00:00',0),(14,'Sunday','11:00:00','22:00:00',0),(15,'Monday','12:00:00','22:00:00',0),(16,'Tuesday','12:00:00','22:00:00',0),(17,'Wednesday','12:00:00','22:00:00',0),(18,'Thursday','12:00:00','22:00:00',0),(19,'Friday','12:00:00','22:00:00',0),(20,'Saturday','12:00:00','22:00:00',0),(21,'Sunday','12:00:00','22:00:00',0),(22,'Monday','11:00:00','23:30:00',1);
 /*!40000 ALTER TABLE `business_hour` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,15 +69,14 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
-  `customerID` int NOT NULL AUTO_INCREMENT,
+  `customerID` int NOT NULL,
   `firstName` varchar(64) NOT NULL,
   `lastName` varchar(64) NOT NULL,
-  `email` varchar(64) NOT NULL,
   `phone` varchar(64) DEFAULT NULL,
   `customerPassword` varchar(64) NOT NULL,
   PRIMARY KEY (`customerID`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `cstomer_fk_cusotmer_email` FOREIGN KEY (`customerID`) REFERENCES `customer_email` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,8 +85,33 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Lisa','Weiss','kathleenwilson@gmail.com','(733)974-9551','90YCI_zp+5'),(2,'Connie','Barron','jhendricks@gmail.com','(467)355-5798','%L8NX%m$#M'),(3,'Debbie','Andrews','taraweaver@gmail.com','(706)880-6619','a(v9StJgBn'),(4,'Anthony','Blair','ksmith@gmail.com','(410)842-5750','d@5GeBbguZ'),(5,'David','Brady','michellegilmore@gmail.com','(435)998-7637','Pca3uJhJk@'),(6,'Calvin','Frederick','sarahrobinson@gmail.com','(753)458-3488','MZM(7Wv_R('),(7,'Jeremy','Bennett','william82@gmail.com','(647)619-7925','Ju)JXhAr!0'),(8,'Bryan','Wyatt','carol05@gmail.com','(915)550-3241','^Tlc$eSnt2'),(9,'John','Wilson','tonyrobinson@gmail.com','(130)417-8981','a6a3Nsjv*i'),(10,'Mr.','Patrick','amyweiss@gmail.com','(423)569-9757','*Y4jzZ2ciA'),(11,'Brandy','Washington','xtaylor@gmail.com','(110)166-0077','+U9ZhCa1RC'),(12,'Willie','Oneill','alyssa90@gmail.com','(241)549-9414','SJ0Cd3iv(U'),(13,'Jasmine','Hunt','larryberg@gmail.com','(721)551-6340','%E3FrgxN!N'),(14,'Andre','Robinson','lauren71@gmail.com','(265)441-5210',')hMqhT$S7t'),(15,'David','Gonzalez','haileyrichmond@gmail.com','(842)134-2808','54AK9Cgn&^'),(16,'Colleen','Ballard','bushrobert@gmail.com','(942)458-5561','+&I4cyZu6d'),(17,'Brittany','Richardson','sloanlauren@gmail.com','(434)859-0773','@J#)3Sxj+*'),(18,'Alexandria','Escobar','nathanross@gmail.com','(499)145-3737','+56ouLiQQd'),(19,'Shari','Day','carlos15@gmail.com','(446)007-4958','I(3SmXwiJq'),(20,'Peter','Nixon','crystal53@gmail.com','(979)001-0926','e*$3OqJn3c'),(21,'Johnny','Wilkerson','nelsonmichael@gmail.com','(806)653-7737','04kEFY0D$v'),(22,'Ryan','Barker','watsoneric@gmail.com','(959)213-1616','3^&OUQ$o@B'),(23,'Adam','Solomon','vlewis@gmail.com','(598)799-3699','x_1Orn*Zs1'),(24,'Mary','Knight','williamsnicole@gmail.com','(931)153-4196','pte7NZBb+7'),(25,'Michael','Blake','ooconnor@gmail.com','(130)435-4325','o6&Syx0J$G'),(26,'Tyler','Young','ccunningham@gmail.com','(709)176-6942','3+7B92hjJv'),(27,'Robert','Hill','michael16@gmail.com','(535)608-1775',')QQ7HsH4f*'),(28,'Jennifer','Gonzales','tarellano@gmail.com','(759)026-8555','6208MhzC#T'),(29,'Renee','Davis','nvillarreal@gmail.com','(219)981-6707','1$+w4QXjbZ'),(30,'John','Hooper','corygraves@gmail.com','(968)822-2813','p3qb_Xoi_f'),(31,'Tamara','Burton','bvargas@gmail.com','(566)667-8001','#%0*WE!aB+'),(32,'Ronald','Stewart','sampsonashley@gmail.com','(850)336-4532','%8AVCKcvU7'),(33,'Lynn','Pope','marissacunningham@gmail.com','(535)186-6467','S73HEBv*J+'),(34,'Carlos','Green','ortegabrian@gmail.com','(897)768-5684','%97l8mHg@z'),(35,'Mary','Graham','zthompson@gmail.com','(862)589-6226','_5kTC0mvGe'),(36,'Melissa','Johnson','christineross@gmail.com','(849)108-3147','2FBh#Koe+1'),(37,'Gerald','Jones','roweleonard@gmail.com','(841)809-4096','C9Q5TD$q(@'),(38,'Austin','Rodriguez','jessica66@gmail.com','(643)069-5943','4o(1sPlz#l'),(39,'Victor','Stein','jsmith@gmail.com','(547)377-2724','(9(jX^3gRr'),(40,'Kelly','Ford','cynthiawalker@gmail.com','(664)807-9105','a+Z1HtYiJb'),(41,'Paul','Lawrence','robert27@gmail.com','(777)165-2747','iXQ7Tzvk&7'),(42,'Daniel','Burton','kayla13@gmail.com','(949)751-9481','*6qaHPe*EU'),(43,'Sarah','Davis','sydney45@gmail.com','(503)770-8955','@2Q4*2Ym8Y'),(44,'Kevin','Valencia','randolphkristin@gmail.com','(501)068-0885','A%O21Ho06k'),(45,'Daniel','Smith','bhill@gmail.com','(218)906-1953','_^4JpS8f%o'),(46,'Heather','Medina','lirwin@gmail.com','(301)950-9814','&*$9Zlowao'),(47,'Lance','Conner','idickson@gmail.com','(994)364-2247','@QtWmEEc4c'),(48,'Nicholas','Reed','sergio98@gmail.com','(350)872-3886','m%4Y9QbJP$'),(49,'Brian','Wang','jody80@gmail.com','(287)714-1299','j$59DQgeg!'),(50,'Jason','Dickerson','echen@gmail.com','(378)688-1592','%7QKZkzf+C'),(51,'Bowen','Xu','xu.bowen@neu.edu','6123456789','123456'),(52,'Peppa','Pig','test@neu.edu','6123456789','123456');
+INSERT INTO `customer` VALUES (1,'Joseph','Carter','(521)898-4758','3#)!O0WZLg'),(2,'George','Green','(926)440-5474','qZZe14Ap!W'),(3,'Benjamin','Hardin','(675)314-7341','cv#8QbpU&B'),(4,'James','Delacruz','(172)443-5148','W30oBwJ%_)'),(5,'Ashley','Morris','(320)824-8276','K#!!3Gzio8'),(6,'Joel','Reed','(723)303-6661','k_r2KmJuFx'),(7,'April','Serrano','(985)778-6923','g_6JjICawu'),(8,'Debra','Meyer','(225)866-9361','))I1FzOiVY'),(9,'Amanda','Sanchez','(278)662-6820','j7KFJMd&%v'),(10,'Bethany','Lopez','(983)825-3437','_)4xLsevo&'),(11,'James','Mathews','(792)278-0210','48Pp8QwnL@'),(12,'Jennifer','Smith','(831)472-9937','*3kmm*Se0x'),(13,'Catherine','Nelson','(279)737-5928','13DZZbDG(K'),(14,'Robert','Williams','(986)149-2581','+DUNxYuwt6'),(15,'Maria','Jenkins','(178)936-6048','(e1bJxil57'),(16,'James','Stewart','(733)625-0386','*f+9CxiE@e'),(17,'Joshua','Henderson','(906)657-4216','s@Y6OcpnCi'),(18,'Michelle','Grant','(187)859-0508','a_4D0J4dKa'),(19,'David','Pierce','(272)420-4572','%aNM*xJVd0'),(20,'Tami','Perez','(978)645-3392','4mx#ANUd&7'),(21,'Michael','Rodriguez','(116)356-9790','%4cH&nK*4t'),(22,'Randall','Livingston','(377)262-9166','*_2N1j*sM('),(23,'Tina','Powell','(495)700-4738','5d!6JuYMsk'),(24,'Catherine','Pena','(515)876-1170','@7VoZNVpCt'),(25,'Tyler','Taylor','(789)228-6215','CR6OBxo!z!'),(26,'Gerald','Carr','(400)064-3117','VpVUa9_I%1'),(27,'James','King','(226)014-1097',')71wS1ef($'),(28,'Luis','Smith','(343)979-2416',')1GW+Ofw%s'),(29,'Kayla','Henderson','(370)438-8891','o+0xXIMfs9'),(30,'Aaron','Oliver','(182)922-2970','58p)ImN3+g'),(31,'Rebecca','Perez','(793)929-9788','^)35Wvk85i'),(32,'Gina','Kerr','(901)858-6871','+M2xVTm*C@'),(33,'Shannon','James','(713)804-0269','Y^7V0U3Oln'),(34,'Robert','Washington','(144)439-2900','*2*Kr$Lj$d'),(35,'Gary','Roberts','(958)402-4285','$dS1Nz#zT5'),(36,'Alexis','Rodriguez','(186)828-1262','*4j9)MQtyO'),(37,'Christopher','Williams','(757)636-3790','+HvDIv4p(7'),(38,'Paul','Gray','(547)982-7714','yx1P9a#hp%'),(39,'Thomas','Rivera','(591)807-2376','v2O7R*ma)V'),(40,'Gloria','Moore','(968)209-9945','c!(2)vOb(4'),(41,'Mrs.','Elizabeth','(724)463-0424','@A&9BmoO8R'),(42,'Kevin','Le','(137)987-8200','F%5ihaXuAa'),(43,'Amy','Lane','(948)728-5281','!B6TwAZqjg'),(44,'Valerie','Rojas','(796)872-0074','1+Tk9Dom*8'),(45,'Samantha','Mitchell','(654)646-6425','#2x0XzR7y*'),(46,'Wanda','Hernandez','(625)592-5550','X_O2UwvEMU'),(47,'Eric','Gonzalez','(634)376-5721','0g_$4TJfhS'),(48,'Matthew','Baker','(877)460-3700','(yK#!Z*oX7'),(49,'Bryan','Cowan','(241)329-3198','@c1LpTIv0y'),(50,'Erin','Thomas','(395)208-3182','z3KI@jP%*Q'),(53,'Bowen','Xu','(612)345-6789','123456');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customer_email`
+--
+
+DROP TABLE IF EXISTS `customer_email`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customer_email` (
+  `customerID` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(64) NOT NULL,
+  PRIMARY KEY (`customerID`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer_email`
+--
+
+LOCK TABLES `customer_email` WRITE;
+/*!40000 ALTER TABLE `customer_email` DISABLE KEYS */;
+INSERT INTO `customer_email` VALUES (12,'alvarezcheryl@gmail.com'),(34,'andrew93@gmail.com'),(50,'billywilliams@gmail.com'),(15,'brad95@gmail.com'),(24,'brandon42@gmail.com'),(33,'brian72@gmail.com'),(8,'caseylisa@gmail.com'),(44,'cheryl94@gmail.com'),(46,'christine08@gmail.com'),(45,'cookthomas@gmail.com'),(23,'cward@gmail.com'),(29,'cynthia39@gmail.com'),(19,'danielstephanie@gmail.com'),(48,'david11@gmail.com'),(42,'davidwhite@gmail.com'),(3,'debra39@gmail.com'),(1,'ekim@gmail.com'),(14,'hardingkelsey@gmail.com'),(16,'hodgesjason@gmail.com'),(10,'ichavez@gmail.com'),(11,'jason88@gmail.com'),(28,'jennifer16@gmail.com'),(27,'johnsonjeffrey@gmail.com'),(35,'jonescrystal@gmail.com'),(41,'julieodom@gmail.com'),(21,'kellismith@gmail.com'),(31,'kimberlyjordan@gmail.com'),(43,'lhull@gmail.com'),(37,'lopezjessica@gmail.com'),(7,'macdonaldbrandi@gmail.com'),(9,'mary33@gmail.com'),(17,'maynardmichael@gmail.com'),(2,'melissa97@gmail.com'),(38,'michael10@gmail.com'),(36,'michaelramos@gmail.com'),(22,'nathan04@gmail.com'),(49,'noah51@gmail.com'),(39,'pamelamontgomery@gmail.com'),(4,'paula26@gmail.com'),(47,'pchambers@gmail.com'),(30,'pprice@gmail.com'),(26,'rodriguezmargaret@gmail.com'),(40,'rvaldez@gmail.com'),(20,'sabrina88@gmail.com'),(6,'simonandrew@gmail.com'),(25,'tfox@gmail.com'),(13,'timothy80@gmail.com'),(5,'vanessasimmons@gmail.com'),(32,'wkennedy@gmail.com'),(18,'woodardmadison@gmail.com'),(53,'xu.bowen@neu.edu');
+/*!40000 ALTER TABLE `customer_email` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -112,7 +136,7 @@ CREATE TABLE `dining_table` (
 
 LOCK TABLES `dining_table` WRITE;
 /*!40000 ALTER TABLE `dining_table` DISABLE KEYS */;
-INSERT INTO `dining_table` VALUES (1,1,1),(2,1,1),(3,1,1),(4,1,1),(5,1,1),(6,2,1),(7,2,1),(8,2,1),(9,2,1),(10,2,1),(11,2,1),(12,2,1),(13,2,1),(14,2,1),(15,2,1),(16,4,1),(17,4,1),(18,4,1),(19,4,1),(20,4,1),(21,4,1);
+INSERT INTO `dining_table` VALUES (1,1,1),(2,1,1),(3,1,1),(4,1,1),(5,1,1),(6,2,1),(7,2,1),(8,2,1),(9,2,1),(10,2,1),(11,2,1),(12,2,1),(13,2,1),(14,2,1),(15,2,1),(16,4,1),(17,4,1),(18,4,1),(19,4,1),(20,4,1),(21,3,0);
 /*!40000 ALTER TABLE `dining_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +165,7 @@ CREATE TABLE `dish_has_ingredient` (
 
 LOCK TABLES `dish_has_ingredient` WRITE;
 /*!40000 ALTER TABLE `dish_has_ingredient` DISABLE KEYS */;
-INSERT INTO `dish_has_ingredient` VALUES (1,1,10),(1,2,1),(2,3,10),(3,4,5),(3,5,5),(4,1,5),(4,5,5),(5,6,10),(6,7,10),(7,8,10),(7,9,5),(8,1,5),(8,8,10),(9,8,5),(9,10,1),(9,11,1),(9,12,1),(9,13,1),(10,3,6),(10,14,1),(11,7,6),(11,14,6),(12,1,5),(12,4,5),(12,6,5),(12,7,5),(12,15,1),(12,16,1),(12,17,1),(13,1,5),(13,18,1),(14,18,1),(14,19,1),(15,13,1),(15,18,1),(15,20,2),(15,21,1),(16,20,2),(16,22,1),(16,23,1),(17,10,1),(17,16,1),(17,20,2),(17,24,1),(18,10,1),(18,16,1),(18,20,2),(18,25,1),(19,1,5),(19,16,1),(19,17,1),(20,3,5),(20,17,1),(20,26,1),(21,1,3),(21,3,3),(21,16,1),(21,17,1),(22,6,5),(22,16,1),(22,17,1),(23,3,5),(23,17,1),(23,26,1),(24,16,1),(24,17,1),(24,27,5),(25,4,5),(25,16,1),(25,17,1),(26,4,5),(26,17,1),(26,26,1),(26,27,5),(26,28,5),(27,1,2),(27,3,2),(27,4,2),(27,5,2),(27,6,2),(27,7,2),(27,16,1),(27,17,1),(27,27,2),(28,29,1),(29,22,1),(30,1,5),(30,4,5),(30,27,5),(31,29,1),(32,25,1),(33,27,15),(34,24,1),(35,28,5),(36,30,2),(37,17,1),(38,18,1),(39,19,1),(39,31,1),(40,16,1),(40,32,10),(41,33,3),(42,34,3),(43,36,1);
+INSERT INTO `dish_has_ingredient` VALUES (1,1,10),(1,2,1),(2,3,10),(3,4,5),(3,5,5),(4,1,5),(4,5,5),(5,6,10),(6,7,10),(7,8,10),(7,9,5),(8,1,5),(8,8,10),(9,8,5),(9,10,1),(9,11,1),(9,12,1),(9,13,1),(10,3,6),(10,14,1),(11,7,6),(11,14,6),(12,1,5),(12,4,5),(12,6,5),(12,7,5),(12,15,1),(12,16,1),(12,17,1),(13,1,5),(13,18,1),(14,18,1),(14,19,1),(15,13,1),(15,18,1),(15,20,2),(15,21,1),(16,20,2),(16,22,1),(16,23,1),(17,10,1),(17,16,1),(17,20,2),(17,24,1),(18,10,1),(18,16,1),(18,20,2),(18,25,1),(19,1,5),(19,16,1),(19,17,1),(20,3,5),(20,17,1),(20,26,1),(21,1,3),(21,3,3),(21,16,1),(21,17,1),(22,6,5),(22,16,1),(22,17,1),(23,3,5),(23,17,1),(23,26,1),(24,16,1),(24,17,1),(24,27,5),(25,4,5),(25,16,1),(25,17,1),(26,4,5),(26,17,1),(26,26,1),(26,27,5),(26,28,5),(27,1,2),(27,3,2),(27,4,2),(27,5,2),(27,6,2),(27,7,2),(27,16,1),(27,17,1),(27,27,2),(28,29,1),(29,22,1),(30,1,5),(30,4,5),(30,27,5),(31,29,1),(32,25,1),(33,27,15),(34,24,1),(35,28,5),(36,30,2),(37,17,1),(38,18,1),(39,19,1),(39,31,1),(40,16,1),(40,32,10),(41,33,3),(42,34,1),(43,34,1),(43,35,2);
 /*!40000 ALTER TABLE `dish_has_ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,20 +177,19 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `employee` (
-  `employeeID` int NOT NULL AUTO_INCREMENT,
+  `employeeID` int NOT NULL,
   `firstName` varchar(64) NOT NULL,
   `lastName` varchar(64) NOT NULL,
-  `email` varchar(64) NOT NULL,
   `phone` varchar(64) DEFAULT NULL,
   `ssn` char(11) DEFAULT NULL,
   `salary` decimal(9,2) DEFAULT NULL,
   `occupation` enum('Waiter','Chef','Manager') NOT NULL,
   `rating` enum('1','2','3','4','5') DEFAULT NULL,
   PRIMARY KEY (`employeeID`),
-  UNIQUE KEY `email` (`email`),
   UNIQUE KEY `ssn` (`ssn`),
+  CONSTRAINT `employee_fk_employee_email` FOREIGN KEY (`employeeID`) REFERENCES `employee_email` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `employee_chk_1` CHECK ((`salary` > 0))
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,8 +198,33 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'Michael','Graham','rodriguezelizabeth@gmail.com','(801)132-0784','818-24-4107',60000.00,'Waiter','5'),(2,'Adam','Garcia','stacymiles@gmail.com','(530)958-0822','864-43-8965',60000.00,'Waiter','5'),(3,'Jose','Webster','greenevincent@gmail.com','(158)198-5390','293-21-5498',60000.00,'Waiter','5'),(4,'Alicia','Miller','schultzmelissa@gmail.com','(295)487-1651','805-40-3847',60000.00,'Waiter','5'),(5,'Joe','Alexander','gonzalesrobert@gmail.com','(737)908-4629','640-28-2567',60000.00,'Waiter','5'),(6,'Aaron','Williams','nicholasandrews@gmail.com','(762)854-8079','806-66-4299',60000.00,'Waiter','5'),(7,'Richard','Salinas','perezcarlos@gmail.com','(281)732-2882','826-01-9601',60000.00,'Waiter','5'),(8,'Richard','Snow','cynthiawalker@gmail.com','(643)525-7650','226-59-2275',60000.00,'Waiter','5'),(9,'Melissa','Payne','hoffmanryan@gmail.com','(116)185-5610','283-72-4520',60000.00,'Waiter','5'),(10,'Andrea','Carter','dawn84@gmail.com','(111)218-4560','690-90-1794',60000.00,'Waiter','5'),(11,'Timothy','Cox','sean89@gmail.com','(122)125-9422','650-01-6229',90000.00,'Chef','5'),(12,'Richard','Brown','rbernard@gmail.com','(412)232-7097','071-74-8765',90000.00,'Chef','5'),(13,'Jacqueline','Craig','cramos@gmail.com','(401)177-6248','825-93-0956',90000.00,'Chef','5'),(14,'Marcus','Skinner','harold83@gmail.com','(462)595-2167','625-11-8900',90000.00,'Chef','5'),(15,'John','Johnson','hbutler@gmail.com','(436)319-9113','084-09-0648',90000.00,'Chef','5'),(16,'Richard','Perez','sotobrandon@gmail.com','(811)999-3004','190-25-8473',90000.00,'Chef','5'),(17,'Lindsay','Williams','alexisbaldwin@gmail.com','(219)154-6781','639-53-0881',90000.00,'Chef','5'),(18,'Lauren','Erickson','dthomas@gmail.com','(996)233-4203','201-19-5475',90000.00,'Chef','5'),(19,'Nichole','Vazquez','debrasmith@gmail.com','(466)123-2439','046-02-0340',90000.00,'Chef','5'),(20,'Tony','Garcia','darlenejackson@gmail.com','(438)261-4437','851-77-0850',90000.00,'Chef','5'),(21,'Jason','Shepherd','ngonzales@gmail.com','(786)143-2537','599-77-1099',120000.00,'Manager','5'),(22,'Rebecca','Hendrix','coxalexandria@gmail.com','(641)787-9949','579-35-6854',120000.00,'Manager','5'),(23,'Jake','Barker','krystalpatrick@gmail.com','(829)060-5443','670-80-4243',120000.00,'Manager','5'),(24,'Brent','Elliott','schroederamanda@gmail.com','(114)416-2362','343-80-0053',120000.00,'Manager','5'),(25,'Caroline','Martinez','ajohnson@gmail.com','(514)283-4189','075-49-7640',120000.00,'Manager','5'),(26,'Richard','Thompson','pmartinez@gmail.com','(297)527-8405','779-76-4959',120000.00,'Manager','5'),(27,'Michele','Leon','jennifer64@gmail.com','(103)035-3404','790-88-7043',120000.00,'Manager','5'),(28,'Michaela','Castaneda','tanyacobb@gmail.com','(683)044-3206','359-29-2613',120000.00,'Manager','5'),(29,'Jennifer','Cooke','lisacook@gmail.com','(737)539-7003','864-74-4429',120000.00,'Manager','5'),(30,'Vanessa','Baxter','valerie67@gmail.com','(370)129-2863','373-92-4587',120000.00,'Manager','5'),(32,'Peppa','Pig','peppa.pig@neu.edu','6123456789','134-56-8667',110000.00,'Chef','5');
+INSERT INTO `employee` VALUES (1,'Joseph','Avila','(723)994-2069','243-24-7849',60000.00,'Waiter','5'),(2,'Bailey','Gray','(589)185-1918','485-78-0762',60000.00,'Waiter','5'),(3,'Molly','Cooper','(801)347-2516','061-70-8553',60000.00,'Waiter','5'),(4,'Calvin','Green','(680)852-5000','207-66-3182',60000.00,'Waiter','5'),(5,'Julie','Gonzalez','(728)675-9196','014-40-6080',60000.00,'Waiter','5'),(6,'Dwayne','Craig','(564)556-4824','768-56-2830',60000.00,'Waiter','5'),(7,'Phyllis','Simmons','(104)955-7538','172-10-2608',60000.00,'Waiter','5'),(8,'April','Torres','(591)807-9083','106-56-1224',60000.00,'Waiter','5'),(9,'April','Morgan','(975)937-8453','206-40-0183',60000.00,'Waiter','5'),(10,'Grant','Johnson','(819)963-2554','143-64-7072',60000.00,'Waiter','5'),(11,'Melissa','Anderson','(275)907-3446','131-18-4571',90000.00,'Chef','5'),(12,'Meredith','Torres','(218)615-2541','629-23-9953',90000.00,'Chef','5'),(13,'Margaret','Freeman','(773)823-6263','779-16-7826',90000.00,'Chef','5'),(14,'Emily','Soto','(448)567-0297','792-06-4786',90000.00,'Chef','5'),(15,'Samuel','Jacobson','(642)336-8719','723-03-5606',90000.00,'Chef','5'),(16,'Chad','White','(858)625-3706','156-84-5935',90000.00,'Chef','5'),(17,'Bryan','Tucker','(381)750-4583','756-39-4600',90000.00,'Chef','5'),(18,'Amanda','Jones','(672)181-7800','700-76-1575',90000.00,'Chef','5'),(19,'Justin','Johnson','(855)406-2978','292-33-1036',90000.00,'Chef','5'),(20,'Elijah','Johnson','(641)057-8086','599-10-3880',90000.00,'Chef','5'),(21,'Nathan','Campbell','(538)549-5281','089-90-5921',120000.00,'Manager','5'),(22,'Christopher','Taylor','(386)009-8767','443-77-0127',120000.00,'Manager','5'),(23,'Brenda','Boyer','(343)785-5315','715-01-8980',120000.00,'Manager','5'),(24,'Benjamin','Ramirez','(225)379-0401','577-74-2776',120000.00,'Manager','5'),(25,'Jonathan','Gross','(266)521-8717','300-97-6471',120000.00,'Manager','5'),(26,'Nancy','Mcintyre','(623)187-1135','683-09-8650',120000.00,'Manager','5'),(27,'Daniel','Hogan','(394)632-3360','078-49-2848',120000.00,'Manager','5'),(28,'Calvin','Huynh','(112)422-0162','888-30-7914',120000.00,'Manager','5'),(29,'Anthony','Johnson','(403)163-8743','362-24-0467',120000.00,'Manager','5'),(30,'Jennifer','Garner','(563)673-2879','063-90-3888',120000.00,'Manager','5'),(31,'Peppa','Pig','(612)345-6789','123-45-6789',100000.00,'Chef','4');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employee_email`
+--
+
+DROP TABLE IF EXISTS `employee_email`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `employee_email` (
+  `employeeID` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(64) NOT NULL,
+  PRIMARY KEY (`employeeID`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employee_email`
+--
+
+LOCK TABLES `employee_email` WRITE;
+/*!40000 ALTER TABLE `employee_email` DISABLE KEYS */;
+INSERT INTO `employee_email` VALUES (18,'aaron21@gmail.com'),(14,'bethanyrandall@gmail.com'),(3,'brenda82@gmail.com'),(7,'carolyn02@gmail.com'),(17,'chelsea54@gmail.com'),(16,'christine61@gmail.com'),(26,'cmartin@gmail.com'),(4,'diazrichard@gmail.com'),(13,'emilyduncan@gmail.com'),(19,'epatterson@gmail.com'),(30,'gina14@gmail.com'),(20,'jeanettebennett@gmail.com'),(28,'joebarton@gmail.com'),(25,'laurawilkerson@gmail.com'),(1,'laurenvance@gmail.com'),(27,'megancrawford@gmail.com'),(6,'mhurley@gmail.com'),(12,'milesanna@gmail.com'),(5,'moranrandy@gmail.com'),(15,'morgankrystal@gmail.com'),(9,'perrygordon@gmail.com'),(31,'pig.peppa@neu.edu'),(8,'pmartin@gmail.com'),(22,'rebecca36@gmail.com'),(2,'salinaskelli@gmail.com'),(11,'scott50@gmail.com'),(29,'tylernelson@gmail.com'),(24,'ugray@gmail.com'),(23,'wdavila@gmail.com'),(10,'ywallace@gmail.com'),(21,'zjones@gmail.com');
+/*!40000 ALTER TABLE `employee_email` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -187,13 +235,12 @@ DROP TABLE IF EXISTS `ingredient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ingredient` (
-  `ingredientID` int NOT NULL AUTO_INCREMENT,
-  `ingredientName` varchar(64) NOT NULL,
+  `ingredientID` int NOT NULL,
   `stock` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`ingredientID`),
-  UNIQUE KEY `ingredientName` (`ingredientName`),
+  CONSTRAINT `ingredient_fk_ingredient_name` FOREIGN KEY (`ingredientID`) REFERENCES `ingredient_name` (`ingredientID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ingredient_chk_1` CHECK ((`stock` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +249,7 @@ CREATE TABLE `ingredient` (
 
 LOCK TABLES `ingredient` WRITE;
 /*!40000 ALTER TABLE `ingredient` DISABLE KEYS */;
-INSERT INTO `ingredient` VALUES (1,'Calamari',467),(2,'Red sauce',98),(3,'Cherrystone',497),(4,'Shrimp',490),(5,'Scampi',500),(6,'Mussel',500),(7,'Littleneck',500),(8,'Romaine',500),(9,'Crouton',500),(10,'Tomato',499),(11,'Cucumber',500),(12,'Carrot',500),(13,'Red onion',500),(14,'Cocktail sauce',100),(15,'Lobster',100),(16,'Tomato sauce',498),(17,'Linguine',499),(18,'Black pasta',499),(19,'Alfredo sauce',499),(20,'Mushroom',492),(21,'Pepper',500),(22,'Monkfish',97),(23,'Marsala sauce',97),(24,'Salmon',100),(25,'Swordfish',99),(26,'Clam sauce',500),(27,'Scallop',490),(28,'Broccoli',500),(29,'Haddock',100),(30,'Potato',500),(31,'Cheese',500),(32,'Pepperoni',500),(33,'Orange',500),(34,'Apple',500),(36,'Test ingredient',99);
+INSERT INTO `ingredient` VALUES (1,500),(2,100),(3,488),(4,500),(5,500),(6,500),(7,500),(8,500),(9,500),(10,499),(11,500),(12,500),(13,500),(14,98),(15,100),(16,499),(17,500),(18,500),(19,500),(20,498),(21,500),(22,100),(23,100),(24,99),(25,100),(26,500),(27,500),(28,495),(29,100),(30,500),(31,500),(32,500),(33,500),(34,30),(35,10);
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,6 +273,31 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `ingredient_name`
+--
+
+DROP TABLE IF EXISTS `ingredient_name`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ingredient_name` (
+  `ingredientID` int NOT NULL AUTO_INCREMENT,
+  `ingredientName` varchar(64) NOT NULL,
+  PRIMARY KEY (`ingredientID`),
+  UNIQUE KEY `ingredientName` (`ingredientName`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ingredient_name`
+--
+
+LOCK TABLES `ingredient_name` WRITE;
+/*!40000 ALTER TABLE `ingredient_name` DISABLE KEYS */;
+INSERT INTO `ingredient_name` VALUES (19,'Alfredo sauce'),(18,'Black pasta'),(28,'Broccoli'),(1,'Calamari'),(12,'Carrot'),(31,'Cheese'),(3,'Cherrystone'),(26,'Clam sauce'),(14,'Cocktail sauce'),(9,'Crouton'),(11,'Cucumber'),(29,'Haddock'),(17,'Linguine'),(7,'Littleneck'),(15,'Lobster'),(23,'Marsala sauce'),(22,'Monkfish'),(20,'Mushroom'),(6,'Mussel'),(33,'Orange'),(21,'Pepper'),(32,'Pepperoni'),(30,'Potato'),(13,'Red onion'),(2,'Red sauce'),(8,'Romaine'),(24,'Salmon'),(27,'Scallop'),(5,'Scampi'),(4,'Shrimp'),(25,'Swordfish'),(34,'Test Food'),(35,'Test Food 2'),(10,'Tomato'),(16,'Tomato sauce');
+/*!40000 ALTER TABLE `ingredient_name` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `inventory`
 --
 
@@ -247,7 +319,7 @@ CREATE TABLE `inventory` (
   CONSTRAINT `inventory_fk_ingredientID` FOREIGN KEY (`ingredientID`) REFERENCES `ingredient` (`ingredientID`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `inventory_chk_1` CHECK ((`quantity` > 0)),
   CONSTRAINT `inventory_chk_2` CHECK ((`totalCost` > 0))
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,7 +328,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (1,1,500,100.00,21,'2022-10-01','2022-10-14'),(2,2,100,50.00,22,'2022-10-01','2023-09-30'),(3,3,500,100.00,21,'2022-10-01','2022-10-14'),(4,4,500,100.00,21,'2022-10-01','2022-10-14'),(5,5,500,100.00,21,'2022-10-01','2022-10-14'),(6,6,500,100.00,21,'2022-10-01','2022-10-14'),(7,7,500,100.00,21,'2022-10-01','2022-10-14'),(8,8,500,150.00,23,'2022-10-01','2022-10-14'),(9,9,500,50.00,22,'2022-10-01','2023-09-30'),(10,10,500,150.00,23,'2022-10-01','2022-10-14'),(11,11,500,150.00,23,'2022-10-01','2022-10-14'),(12,12,500,150.00,23,'2022-10-01','2022-10-14'),(13,13,500,150.00,23,'2022-10-01','2022-10-14'),(14,14,100,50.00,22,'2022-10-01','2022-09-30'),(15,15,100,200.00,21,'2022-10-01','2022-10-14'),(16,16,500,100.00,22,'2022-10-01','2022-09-30'),(17,17,500,100.00,22,'2022-10-01','2022-09-30'),(18,18,500,100.00,22,'2022-10-01','2022-09-30'),(19,19,500,100.00,22,'2022-10-01','2022-09-30'),(20,20,500,150.00,23,'2022-10-01','2022-10-14'),(21,21,500,150.00,23,'2022-10-01','2022-10-14'),(22,22,100,200.00,21,'2022-10-01','2022-10-14'),(23,23,100,50.00,22,'2022-10-01','2023-09-30'),(24,24,100,200.00,21,'2022-10-01','2022-10-14'),(25,25,100,200.00,21,'2022-10-01','2022-10-14'),(26,26,500,50.00,22,'2022-10-01','2023-09-30'),(27,27,500,200.00,21,'2022-10-01','2022-10-14'),(28,28,500,150.00,23,'2022-10-01','2022-10-14'),(29,29,100,200.00,21,'2022-10-01','2022-10-14'),(30,30,500,150.00,23,'2022-10-01','2022-10-14'),(31,31,500,150.00,22,'2022-10-01','2022-10-14'),(32,32,500,150.00,23,'2022-10-01','2022-10-14'),(33,33,500,150.00,23,'2022-10-01','2022-10-14'),(54,34,500,150.00,21,'2022-11-16','2022-11-30'),(55,36,100,157.00,27,'2022-11-29','2022-12-30');
+INSERT INTO `inventory` VALUES (1,1,500,100.00,21,'2022-10-01','2022-10-14'),(2,2,100,50.00,22,'2022-10-01','2023-09-30'),(3,3,500,100.00,21,'2022-10-01','2022-10-14'),(4,4,500,100.00,21,'2022-10-01','2022-10-14'),(5,5,500,100.00,21,'2022-10-01','2022-10-14'),(6,6,500,100.00,21,'2022-10-01','2022-10-14'),(7,7,500,100.00,21,'2022-10-01','2022-10-14'),(8,8,500,150.00,23,'2022-10-01','2022-10-14'),(9,9,500,50.00,22,'2022-10-01','2023-09-30'),(10,10,500,150.00,23,'2022-10-01','2022-10-14'),(11,11,500,150.00,23,'2022-10-01','2022-10-14'),(12,12,500,150.00,23,'2022-10-01','2022-10-14'),(13,13,500,150.00,23,'2022-10-01','2022-10-14'),(14,14,100,50.00,22,'2022-10-01','2022-09-30'),(15,15,100,200.00,21,'2022-10-01','2022-10-14'),(16,16,500,100.00,22,'2022-10-01','2022-09-30'),(17,17,500,100.00,22,'2022-10-01','2022-09-30'),(18,18,500,100.00,22,'2022-10-01','2022-09-30'),(19,19,500,100.00,22,'2022-10-01','2022-09-30'),(20,20,500,150.00,23,'2022-10-01','2022-10-14'),(21,21,500,150.00,23,'2022-10-01','2022-10-14'),(22,22,100,200.00,21,'2022-10-01','2022-10-14'),(23,23,100,50.00,22,'2022-10-01','2023-09-30'),(24,24,100,200.00,21,'2022-10-01','2022-10-14'),(25,25,100,200.00,21,'2022-10-01','2022-10-14'),(26,26,500,50.00,22,'2022-10-01','2023-09-30'),(27,27,500,200.00,21,'2022-10-01','2022-10-14'),(28,28,500,150.00,23,'2022-10-01','2022-10-14'),(29,29,100,200.00,21,'2022-10-01','2022-10-14'),(30,30,500,150.00,23,'2022-10-01','2022-10-14'),(31,31,500,150.00,22,'2022-10-01','2022-10-14'),(32,32,500,150.00,23,'2022-10-01','2022-10-14'),(33,33,500,150.00,23,'2022-10-01','2022-10-14'),(34,34,20,15.00,22,'2022-12-06','2022-12-17'),(35,34,10,10.00,23,'2022-12-06','2022-12-20'),(36,35,10,14.00,26,'2022-12-07','2022-12-19');
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -304,7 +376,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,1,'Fried Calamari','Lemon & red sauce',16.50,1),(2,1,'Clams Casino','Broiled cherrystones, crispy topping',17.25,1),(3,1,'Shrimp Scampi','Garlic, lemon, butter, romano',17.50,1),(4,1,'Calamari Scampi','Garlic, lemon, butter, romano',17.50,1),(5,1,'Mussel Siciliano','Fennel, thyme, shallots, lemon, wine',16.00,1),(6,1,'Littleneck Siciliano','Fennel, thyme, shallots, lemon, wine',17.25,1),(7,1,'Caesar Salad','Romaine, croutons, romano',11.00,1),(8,1,'Calamari Salad','Classic marinated calamari served over a bed of greens',16.75,1),(9,1,'House Salad','Greens, tomatoes, cucumbers, carrots, red onion, balsamic viniagrette',9.75,1),(10,1,'Cherrystones','1/2 dozen raw, served with cocktail sauce',14.00,1),(11,1,'Littlenecks','1/2 dozen raw, served with cocktail sauce',14.00,1),(12,2,'Lobster Fra Diavolo','1.25 lb live lobster cut into pieces with littlenecks, mussels, shrimp and calamari simmered in a spicy seafood tomato sauce served over linguine',67.00,1),(13,3,'Aglio Olio','Ground calamari, olive oil, garlic, anchovy',28.00,1),(14,3,'Alfredo','Cream reduction, butter, romano',28.00,1),(15,3,'Puttanesca','Mushrooms, peppers, onions, olive anchovy butter',28.00,1),(16,4,'Monkfish Marsala','Tender medallions of monkfish simmered with mushrooms in a sweet marsala sauce',26.25,1),(17,4,'North End Style Salmon','Pan seared with sundried tomatoes & mushrooms in tomato basil sauce',28.50,1),(18,4,'North End Style Swordfish','Pan seared with sundried tomatoes & mushrooms in tomato basil sauce',30.25,1),(19,5,'Calamari','Signature seafood tomato sauce',26.75,1),(20,5,'Clams','Olive oil, garlic & clam sauce',29.00,1),(21,5,'Calamari & Clams Combo','Signature seafood tomato sauce',29.00,1),(22,5,'Mussel Marinara','Signature seafood tomato sauce',25.50,1),(23,5,'Vongole Neapolitan','Olive oil, garlic & clam sauce',30.00,1),(24,5,'Scallops','Signature seafood tomato sauce',29.75,1),(25,5,'Shrimp','Signature seafood tomato sauce',29.75,1),(26,5,'Shrimp, Scallops & Broccoli','Olive oil, garlic & clam sauce',31.00,1),(27,5,'Frutti Di Mare','Signature seafood tomato sauce',43.00,1),(28,6,'Fish Haddock Chips','Fresh filleted haddock',28.50,1),(29,6,'Fish Monkfish Chips','Fresh filleted monkfish',28.50,1),(30,6,'Fritto Misto','Shrimp, scallops, calamari, fish',36.75,1),(31,7,'Haddock',NULL,25.50,1),(32,7,'Swordfish',NULL,25.50,1),(33,7,'Scallops',NULL,26.50,1),(34,7,'Salmon',NULL,28.50,1),(35,8,'Broccoli Saute',NULL,8.50,1),(36,8,'French Fries',NULL,5.50,1),(37,8,'Linguine',NULL,8.00,1),(38,8,'Black Pasta',NULL,9.50,1),(39,9,'Cheese','10-inch with alfredo sauce',14.00,1),(40,9,'Pepperoni','10-inch with tomato sauce',16.00,1),(41,10,'Orange Juice','Not from concentrate',10.00,1),(42,10,'Apple Juice',NULL,10.00,1),(43,15,'Test Food','This will go to the description',10.00,1);
+INSERT INTO `menu` VALUES (1,1,'Fried Calamari','Lemon & red sauce',16.50,1),(2,1,'Clams Casino','Broiled cherrystones, crispy topping',17.25,1),(3,1,'Shrimp Scampi','Garlic, lemon, butter, romano',17.50,1),(4,1,'Calamari Scampi','Garlic, lemon, butter, romano',17.50,1),(5,1,'Mussel Siciliano','Fennel, thyme, shallots, lemon, wine',16.00,1),(6,1,'Littleneck Siciliano','Fennel, thyme, shallots, lemon, wine',17.25,1),(7,1,'Caesar Salad','Romaine, croutons, romano',11.00,1),(8,1,'Calamari Salad','Classic marinated calamari served over a bed of greens',16.75,1),(9,1,'House Salad','Greens, tomatoes, cucumbers, carrots, red onion, balsamic viniagrette',9.75,1),(10,1,'Cherrystones','1/2 dozen raw, served with cocktail sauce',14.00,1),(11,1,'Littlenecks','1/2 dozen raw, served with cocktail sauce',14.00,1),(12,2,'Lobster Fra Diavolo','1.25 lb live lobster cut into pieces with littlenecks, mussels, shrimp and calamari simmered in a spicy seafood tomato sauce served over linguine',67.00,1),(13,3,'Aglio Olio','Ground calamari, olive oil, garlic, anchovy',28.00,1),(14,3,'Alfredo','Cream reduction, butter, romano',28.00,1),(15,3,'Puttanesca','Mushrooms, peppers, onions, olive anchovy butter',28.00,1),(16,4,'Monkfish Marsala','Tender medallions of monkfish simmered with mushrooms in a sweet marsala sauce',26.25,1),(17,4,'North End Style Salmon','Pan seared with sundried tomatoes & mushrooms in tomato basil sauce',28.50,1),(18,4,'North End Style Swordfish','Pan seared with sundried tomatoes & mushrooms in tomato basil sauce',30.25,1),(19,5,'Calamari','Signature seafood tomato sauce',26.75,1),(20,5,'Clams','Olive oil, garlic & clam sauce',29.00,1),(21,5,'Calamari & Clams Combo','Signature seafood tomato sauce',29.00,1),(22,5,'Mussel Marinara','Signature seafood tomato sauce',25.50,1),(23,5,'Vongole Neapolitan','Olive oil, garlic & clam sauce',30.00,1),(24,5,'Scallops','Signature seafood tomato sauce',29.75,1),(25,5,'Shrimp','Signature seafood tomato sauce',29.75,1),(26,5,'Shrimp, Scallops & Broccoli','Olive oil, garlic & clam sauce',31.00,1),(27,5,'Frutti Di Mare','Signature seafood tomato sauce',43.00,1),(28,6,'Fish Haddock Chips','Fresh filleted haddock',28.50,1),(29,6,'Fish Monkfish Chips','Fresh filleted monkfish',28.50,1),(30,6,'Fritto Misto','Shrimp, scallops, calamari, fish',36.75,1),(31,7,'Haddock',NULL,25.50,1),(32,7,'Swordfish',NULL,25.50,1),(33,7,'Scallops',NULL,26.50,1),(34,7,'Salmon',NULL,28.50,1),(35,8,'Broccoli Saute',NULL,8.50,1),(36,8,'French Fries',NULL,5.50,1),(37,8,'Linguine',NULL,8.00,1),(38,8,'Black Pasta',NULL,9.50,1),(39,9,'Cheese','10-inch with alfredo sauce',14.00,1),(40,9,'Pepperoni','10-inch with tomato sauce',16.00,1),(41,10,'Orange Juice','Not from concentrate',10.00,1),(42,11,'Dips','The dip for chips',3.00,0),(43,12,'Food 2',NULL,1.00,1);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,12 +388,11 @@ DROP TABLE IF EXISTS `menu_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `menu_category` (
-  `categoryID` int NOT NULL AUTO_INCREMENT,
-  `categoryName` varchar(64) NOT NULL,
+  `categoryID` int NOT NULL,
   `categoryDescription` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`categoryID`),
-  UNIQUE KEY `categoryName` (`categoryName`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `menu_category_fk_mcn` FOREIGN KEY (`categoryID`) REFERENCES `menu_category_name` (`categoryID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,8 +401,33 @@ CREATE TABLE `menu_category` (
 
 LOCK TABLES `menu_category` WRITE;
 /*!40000 ALTER TABLE `menu_category` DISABLE KEYS */;
-INSERT INTO `menu_category` VALUES (1,'Starters','Activate your taste buds'),(2,'Lobster Fra Diavolo','Seafood chowder'),(3,'Black Pasta','Fresh homemade black linguine made with squid ink'),(4,'Classics','Served a la carte'),(5,'Seafood & Linguine','Cooked from scratch & served in the pan'),(6,'Fried','Served lightly breaded with fries, onion rings, & tartar'),(7,'Broiled','Crispy topping, olive oil, garlic, romano, breadcrumbs'),(8,'Sides','Extra and more'),(9,'Pizza','Garlic-seasoned crust with a rich, buttery taste'),(10,'Drink','Refreshing taste'),(15,'Other',NULL);
+INSERT INTO `menu_category` VALUES (1,'Activate your taste buds'),(2,'Seafood chowder'),(3,'Fresh homemade black linguine made with squid ink'),(4,'Served a la carte'),(5,'Cooked from scratch & served in the pan'),(6,'Served lightly breaded with fries, onion rings, & tartar'),(7,'Crispy topping, olive oil, garlic, romano, breadcrumbs'),(8,'Extra and more'),(9,'Garlic-seasoned crust with a rich, buttery taste'),(10,'Refreshing taste'),(11,NULL),(12,NULL);
 /*!40000 ALTER TABLE `menu_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menu_category_name`
+--
+
+DROP TABLE IF EXISTS `menu_category_name`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `menu_category_name` (
+  `categoryID` int NOT NULL AUTO_INCREMENT,
+  `categoryName` varchar(64) NOT NULL,
+  PRIMARY KEY (`categoryID`),
+  UNIQUE KEY `categoryName` (`categoryName`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu_category_name`
+--
+
+LOCK TABLES `menu_category_name` WRITE;
+/*!40000 ALTER TABLE `menu_category_name` DISABLE KEYS */;
+INSERT INTO `menu_category_name` VALUES (3,'Black Pasta'),(7,'Broiled'),(4,'Classics'),(10,'Drink'),(6,'Fried'),(2,'Lobster Fra Diavolo'),(11,'Other'),(9,'Pizza'),(5,'Seafood & Linguine'),(8,'Sides'),(1,'Starters'),(12,'Test Cate 2');
+/*!40000 ALTER TABLE `menu_category_name` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -409,7 +505,7 @@ CREATE TABLE `order_list` (
 
 LOCK TABLES `order_list` WRITE;
 /*!40000 ALTER TABLE `order_list` DISABLE KEYS */;
-INSERT INTO `order_list` VALUES (1,1,19,1),(2,1,31,1),(2,2,36,1),(3,1,39,1),(4,1,31,1),(4,2,36,1),(5,1,13,1),(5,2,14,1),(5,3,24,1),(5,4,19,1),(6,1,22,1),(6,2,26,1),(7,1,13,1),(7,2,14,1),(7,3,24,1),(7,4,19,1),(8,1,1,1),(8,2,15,1),(8,3,17,1),(8,4,25,1),(9,1,40,1),(9,2,34,1),(9,3,30,1),(9,4,16,1),(10,1,2,1),(10,2,12,1),(10,3,18,1),(10,4,20,1),(11,1,9,1),(11,2,21,1),(11,3,26,1),(11,4,29,1),(12,1,28,1),(13,1,2,1),(13,2,20,1),(14,1,27,1),(14,2,30,1),(15,1,30,2),(16,1,30,3),(17,1,1,2),(18,1,29,1),(18,2,32,1),(19,1,14,1),(19,2,18,1),(20,1,21,1),(21,1,38,2),(22,1,16,2),(23,1,16,1),(24,1,24,1),(25,1,43,2),(26,1,27,1),(26,2,33,1),(27,1,43,1),(28,1,23,2),(28,2,6,2),(29,1,15,1),(29,2,42,1),(29,3,10,2),(30,1,15,2),(31,1,36,1),(31,2,24,1),(31,3,40,2),(32,1,23,1),(32,2,25,2),(33,1,25,1),(33,2,38,2),(34,1,15,1),(34,2,4,2),(34,3,10,2),(35,1,16,2),(35,2,28,1),(36,1,26,2),(37,1,21,2),(37,2,26,1),(38,1,23,2),(38,2,31,2),(39,1,10,1),(39,2,29,2),(40,1,34,1),(41,1,41,1),(42,1,25,1),(42,2,20,2),(42,3,2,1),(42,4,4,2),(43,1,22,2),(44,1,17,2),(45,1,24,1),(46,1,35,2),(46,2,30,2),(47,1,18,2),(47,2,2,1),(47,3,29,1),(48,1,8,1),(48,2,10,1),(48,3,32,1),(49,1,36,1),(50,1,11,1),(50,2,32,1),(51,1,23,1),(51,2,18,1),(51,3,16,2),(52,1,18,2),(53,1,6,1),(53,2,36,1),(54,1,39,3),(54,2,28,2),(54,3,26,1),(55,1,24,2),(55,2,14,1),(55,3,43,2),(56,1,19,1),(56,2,23,2),(56,3,28,1),(56,4,3,2),(57,1,36,1),(57,2,3,2),(57,3,41,1),(58,1,8,1),(58,2,26,2),(59,1,7,2),(59,2,36,2),(60,1,19,1),(60,2,21,2),(60,3,41,1),(61,1,24,2),(61,2,2,1),(61,3,3,2),(62,1,37,1),(62,2,22,1),(62,3,18,2),(63,1,11,4),(63,2,33,2),(64,1,33,1),(64,2,39,5),(65,1,9,2),(65,2,17,1),(66,1,10,2),(66,2,1,2),(67,1,27,2),(68,1,29,1),(68,2,4,2),(68,3,34,2),(69,1,8,2),(70,1,30,1),(70,2,8,2),(70,3,1,1),(71,1,38,1),(71,2,2,1),(71,3,15,2),(71,4,34,2),(71,5,21,1),(72,1,41,1),(72,2,24,2),(72,3,36,2),(73,1,39,2),(74,1,22,2),(74,2,11,2),(74,3,37,2),(75,1,34,1),(75,2,25,1),(76,1,39,2),(76,2,20,1),(77,1,12,2),(77,2,41,2),(77,3,8,2),(78,1,11,2),(79,1,11,1),(79,2,43,1),(80,1,20,2),(80,2,42,1),(80,3,37,2),(81,1,8,1),(82,1,32,2),(82,2,40,1),(82,3,9,1),(83,1,17,1),(84,1,25,1),(84,2,40,2),(85,1,26,1),(85,2,8,1),(86,1,12,1),(87,1,32,2),(87,2,43,1),(87,3,13,2),(88,1,22,2),(89,1,30,1),(89,2,4,1),(89,3,23,1),(90,1,15,2),(91,1,33,1),(91,2,20,1),(92,1,38,1),(93,1,25,2),(93,2,10,2),(93,3,8,2),(94,1,1,1),(94,2,35,1),(94,3,12,1),(95,1,34,1),(95,2,12,2),(96,1,22,1),(97,1,18,1),(97,2,12,2),(97,3,39,1),(98,1,2,2),(98,2,14,1),(98,3,26,2),(99,1,13,1),(99,2,15,1),(99,3,21,1),(100,1,35,2),(101,1,38,2),(101,2,5,1),(101,3,4,1);
+INSERT INTO `order_list` VALUES (1,1,19,1),(2,1,31,1),(2,2,36,1),(3,1,39,1),(4,1,31,1),(4,2,36,1),(5,1,13,1),(5,2,14,1),(5,3,24,1),(5,4,19,1),(6,1,22,1),(6,2,26,1),(7,1,13,1),(7,2,14,1),(7,3,24,1),(7,4,19,1),(8,1,1,1),(8,2,15,1),(8,3,17,1),(8,4,25,1),(9,1,40,1),(9,2,34,1),(9,3,30,1),(9,4,16,1),(10,1,2,1),(10,2,12,1),(10,3,18,1),(10,4,20,1),(11,1,9,1),(11,2,21,1),(11,3,26,1),(11,4,29,1),(12,1,28,1),(13,1,6,4),(13,2,5,1),(13,3,40,1),(14,1,14,2),(14,2,39,1),(14,3,35,1),(14,4,22,1),(15,1,32,1),(15,2,40,1),(16,1,9,1),(16,2,22,1),(17,1,25,1),(17,2,5,1),(18,1,10,2),(18,2,27,1),(19,1,24,2),(19,2,3,1),(20,1,39,1),(20,2,26,2),(21,1,15,1),(21,2,20,2),(22,1,24,2),(22,2,16,2),(23,1,29,2),(23,2,40,1),(24,1,16,2),(24,2,1,1),(24,3,6,1),(25,1,40,4),(25,2,24,1),(26,1,20,2),(26,2,11,2),(27,1,21,2),(28,1,12,1),(29,1,30,2),(29,2,27,2),(29,3,38,1),(30,1,17,1),(30,2,26,1),(31,1,13,1),(31,2,8,1),(31,3,27,1),(32,1,26,2),(33,1,26,1),(33,2,21,2),(33,3,25,2),(34,1,28,2),(34,2,22,1),(34,3,40,2),(35,1,25,2),(35,2,9,1),(35,3,17,2),(35,4,12,2),(36,1,22,2),(37,1,13,1),(37,2,20,2),(37,3,21,1),(37,4,39,2),(38,1,36,2),(38,2,30,2),(39,1,20,1),(39,2,23,2),(40,1,36,2),(41,1,34,2),(42,1,41,1),(42,2,33,1),(42,3,34,1),(43,1,17,1),(43,2,19,2),(44,1,32,4),(44,2,1,1),(44,3,23,1),(45,1,5,2),(46,1,10,1),(46,2,20,1),(46,3,30,1),(47,1,31,2),(47,2,9,2),(48,1,26,1),(48,2,14,1),(48,3,25,1),(49,1,35,2),(50,1,32,1),(50,2,17,1),(51,1,10,1),(51,2,37,1),(51,3,4,1),(52,1,36,2),(52,2,20,2),(52,3,38,2),(53,1,36,2),(54,1,3,2),(54,2,36,2),(55,1,41,2),(56,1,11,1),(56,2,10,1),(56,3,27,2),(56,4,13,2),(57,1,9,2),(57,2,19,1),(58,1,16,2),(58,2,34,2),(59,1,24,1),(60,1,25,5),(60,2,4,2),(61,1,7,1),(62,1,19,1),(62,2,29,2),(62,3,31,1),(63,1,37,2),(63,2,27,1),(64,1,12,2),(64,2,35,2),(64,3,10,2),(65,1,10,1),(65,2,3,1),(66,1,35,2),(66,2,32,1),(66,3,21,1),(67,1,19,2),(67,2,16,2),(68,1,31,2),(68,2,18,1),(68,3,24,1),(69,1,37,2),(69,2,2,2),(70,1,12,2),(70,2,21,2),(71,1,10,1),(71,2,1,2),(72,1,11,1),(72,2,25,1),(73,1,25,2),(74,1,29,1),(75,1,11,1),(76,1,30,1),(76,2,38,2),(77,1,2,1),(78,1,19,2),(79,1,14,2),(79,2,26,1),(80,1,19,2),(80,2,12,2),(81,1,8,1),(81,2,26,2),(82,1,31,1),(82,2,33,1),(83,1,6,2),(83,2,38,1),(84,1,31,1),(84,2,12,1),(84,3,29,2),(85,1,21,2),(86,1,7,2),(86,2,29,1),(86,3,30,1),(87,1,2,2),(88,1,34,2),(88,2,15,2),(88,3,21,1),(89,1,35,1),(89,2,14,2),(90,1,9,3),(90,2,31,2),(90,3,36,1),(91,1,34,2),(91,2,6,2),(91,3,41,2),(92,1,38,2),(92,2,4,2),(92,3,13,2),(93,1,29,1),(93,2,15,1),(94,1,34,1),(94,2,18,1),(94,3,9,1),(95,1,13,1),(96,1,1,1),(96,2,33,1),(97,1,8,2),(97,2,12,2),(98,1,25,1),(98,2,39,1),(99,1,25,1),(99,2,35,2),(100,1,1,2),(100,2,15,2),(101,1,19,1),(101,2,15,2),(102,1,10,2),(102,2,35,1),(102,3,17,1),(103,1,19,2),(103,2,34,2);
 /*!40000 ALTER TABLE `order_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -429,7 +525,7 @@ CREATE TABLE `order_queue` (
   KEY `queue_fk_employee` (`employeeID`),
   CONSTRAINT `queue_fk_employee` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `queue_fk_orders` FOREIGN KEY (`orderID`) REFERENCES `orders` (`orderID`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -438,26 +534,9 @@ CREATE TABLE `order_queue` (
 
 LOCK TABLES `order_queue` WRITE;
 /*!40000 ALTER TABLE `order_queue` DISABLE KEYS */;
-INSERT INTO `order_queue` VALUES (1,1,11),(2,2,12),(3,3,13),(4,4,14),(5,5,15),(6,6,16),(7,7,17),(8,8,18),(9,9,19),(10,10,20),(11,11,11),(12,12,12),(24,14,11),(25,16,12),(30,17,13),(31,19,17),(32,20,32),(33,22,17),(34,23,20),(35,15,13),(36,27,15);
+INSERT INTO `order_queue` VALUES (1,1,11),(2,2,12),(3,3,13),(4,4,14),(5,5,15),(6,6,16),(7,7,17),(8,8,18),(9,9,19),(10,10,20),(11,11,11),(12,12,12),(13,102,11);
 /*!40000 ALTER TABLE `order_queue` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `update_queue_status` AFTER INSERT ON `order_queue` FOR EACH ROW begin
-update orders set orderInQueue = true where orderID = NEW.orderID;
-end */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -482,6 +561,23 @@ while row_not_found = false do
 	update ingredient set stock = calculate_stock(orderID_var, menuID_var, ingredientID_var) where ingredientID = ingredientID_var;
 end while;
 close ingredient_cursor;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `update_queue_status` AFTER INSERT ON `order_queue` FOR EACH ROW begin
+update orders set orderInQueue = true where orderID = NEW.orderID;
 end */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -517,7 +613,7 @@ CREATE TABLE `orders` (
   CONSTRAINT `orders_chk_2` CHECK ((`subtotal` > 0)),
   CONSTRAINT `orders_chk_3` CHECK ((`tips` >= 0)),
   CONSTRAINT `orders_chk_4` CHECK ((`total` > 0))
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -526,7 +622,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'2022-10-01','12:17:00','Ready',1,1,26.75,0.00,26.75,37,NULL),(2,'2022-10-02','17:32:00','Ready',1,2,31.00,0.00,31.00,38,NULL),(3,'2022-10-03','14:15:00','Ready',1,1,14.00,0.00,14.00,39,NULL),(4,'2022-10-03','12:00:00','Ready',1,2,31.00,5.00,36.00,1,6),(5,'2022-10-03','18:00:00','Ready',1,4,112.50,20.00,132.50,4,16),(6,'2022-10-04','13:00:00','Ready',1,2,56.50,10.00,66.50,5,6),(7,'2022-10-21','18:00:00','Ready',1,4,112.50,20.00,132.50,17,16),(8,'2022-10-21','18:00:00','Ready',1,4,102.75,20.00,122.75,18,17),(9,'2022-10-21','18:00:00','Ready',1,4,107.50,19.00,126.50,19,18),(10,'2022-10-21','18:00:00','Ready',1,4,143.50,30.00,173.50,20,19),(11,'2022-10-21','18:00:00','Ready',1,4,98.25,20.00,118.25,21,20),(12,'2022-10-30','19:00:00','Ready',1,2,28.50,0.00,28.50,40,NULL),(13,'2022-11-13','23:40:32','Canceled',0,2,46.25,0.00,46.25,51,NULL),(14,'2022-11-15','15:40:26','Ready',1,2,79.75,5.00,84.75,51,7),(15,'2022-11-16','01:31:36','Received',1,2,73.50,0.00,73.50,51,NULL),(16,'2022-11-16','01:39:25','Received',1,3,110.25,0.00,110.25,51,NULL),(17,'2022-11-16','01:51:25','Received',1,2,33.00,0.00,33.00,51,NULL),(18,'2022-11-29','14:48:53','Canceled',0,2,54.00,0.00,54.00,52,5),(19,'2022-11-29','14:56:56','Ready',1,2,58.25,1.00,59.25,52,9),(20,'2022-11-30','13:26:13','Received',1,1,29.00,0.00,29.00,51,NULL),(21,'2022-11-30','13:34:21','Received',0,2,19.00,0.00,19.00,51,NULL),(22,'2022-11-30','14:56:55','Ready',1,2,52.50,7.00,59.50,51,NULL),(23,'2022-11-30','15:07:46','Canceled',1,1,26.25,0.00,26.25,52,NULL),(24,'2022-11-30','15:17:27','Canceled',0,1,29.75,0.00,29.75,52,NULL),(25,'2022-11-30','16:57:45','Canceled',0,2,20.00,0.00,20.00,51,NULL),(26,'2022-11-30','17:00:47','Received',0,2,69.50,0.00,69.50,51,12),(27,'2022-11-30','17:19:24','Received',1,1,10.00,0.00,10.00,51,NULL),(28,'2022-12-01','11:08:53','Received',0,4,94.50,0.00,94.50,35,NULL),(29,'2022-12-01','11:08:53','Received',0,4,66.00,0.00,66.00,35,NULL),(30,'2022-12-01','11:08:54','Received',0,2,56.00,0.00,56.00,45,NULL),(31,'2022-12-01','11:12:05','Received',0,4,67.25,0.00,67.25,51,NULL),(32,'2022-12-01','11:12:05','Received',0,3,89.50,0.00,89.50,21,NULL),(33,'2022-12-01','11:12:05','Received',0,3,48.75,0.00,48.75,2,NULL),(34,'2022-12-01','11:12:05','Received',0,5,91.00,0.00,91.00,12,NULL),(35,'2022-12-01','11:12:06','Received',0,3,81.00,0.00,81.00,45,NULL),(36,'2022-12-01','11:12:06','Received',0,2,62.00,0.00,62.00,41,NULL),(37,'2022-12-01','11:12:06','Received',0,3,89.00,0.00,89.00,19,NULL),(38,'2022-12-01','11:12:06','Received',0,4,111.00,0.00,111.00,44,NULL),(39,'2022-12-01','11:12:07','Received',0,3,71.00,0.00,71.00,4,NULL),(40,'2022-12-01','11:12:07','Received',0,1,28.50,0.00,28.50,49,NULL),(41,'2022-12-01','11:12:07','Received',0,1,10.00,0.00,10.00,42,NULL),(42,'2022-12-01','11:12:07','Received',0,6,140.00,0.00,140.00,35,NULL),(43,'2022-12-01','11:12:08','Received',0,2,51.00,0.00,51.00,33,NULL),(44,'2022-12-01','11:12:08','Received',0,2,57.00,0.00,57.00,12,NULL),(45,'2022-12-01','11:12:08','Received',0,1,29.75,0.00,29.75,42,NULL),(46,'2022-12-01','11:12:08','Received',0,4,90.50,0.00,90.50,49,NULL),(47,'2022-12-01','11:12:09','Received',0,4,106.25,0.00,106.25,13,NULL),(48,'2022-12-01','11:12:09','Received',0,3,56.25,0.00,56.25,23,NULL),(49,'2022-12-01','11:15:05','Received',0,1,5.50,0.00,5.50,16,NULL),(50,'2022-12-01','11:15:05','Received',0,2,39.50,0.00,39.50,11,NULL),(51,'2022-12-01','11:15:37','Received',0,4,112.75,0.00,112.75,5,NULL),(52,'2022-12-01','11:15:37','Received',0,2,60.50,0.00,60.50,31,NULL),(53,'2022-12-01','11:15:38','Received',0,2,22.75,0.00,22.75,25,NULL),(54,'2022-12-01','11:15:38','Received',0,6,130.00,0.00,130.00,7,NULL),(55,'2022-12-01','11:15:38','Received',0,5,107.50,0.00,107.50,8,NULL),(56,'2022-12-01','11:15:38','Received',0,6,150.25,0.00,150.25,6,NULL),(57,'2022-12-01','11:15:39','Received',0,4,50.50,0.00,50.50,8,NULL),(58,'2022-12-01','11:15:39','Received',0,3,78.75,0.00,78.75,37,NULL),(59,'2022-12-01','11:15:39','Received',0,4,33.00,0.00,33.00,25,NULL),(60,'2022-12-01','11:18:33','Received',0,4,94.75,0.00,94.75,37,NULL),(61,'2022-12-01','11:18:33','Received',0,5,111.75,0.00,111.75,4,NULL),(62,'2022-12-01','11:18:33','Received',0,4,94.00,0.00,94.00,36,NULL),(63,'2022-12-01','11:18:34','Received',0,6,109.00,0.00,109.00,42,NULL),(64,'2022-12-01','11:18:34','Received',0,6,96.50,0.00,96.50,11,NULL),(65,'2022-12-01','11:18:35','Received',0,3,48.00,0.00,48.00,24,NULL),(66,'2022-12-01','11:18:35','Received',0,4,61.00,0.00,61.00,32,NULL),(67,'2022-12-01','11:18:35','Received',0,2,86.00,0.00,86.00,17,NULL),(68,'2022-12-01','11:18:36','Received',0,5,120.50,0.00,120.50,43,NULL),(69,'2022-12-01','11:18:36','Received',0,2,33.50,0.00,33.50,20,NULL),(70,'2022-12-01','11:18:36','Received',0,4,86.75,0.00,86.75,8,NULL),(71,'2022-12-01','11:18:37','Received',0,7,168.75,0.00,168.75,12,NULL),(72,'2022-12-01','11:18:37','Received',0,5,80.50,0.00,80.50,24,NULL),(73,'2022-12-01','11:18:37','Received',0,2,28.00,0.00,28.00,21,NULL),(74,'2022-12-01','11:18:38','Received',0,6,95.00,0.00,95.00,18,NULL),(75,'2022-12-01','11:18:38','Received',0,2,58.25,0.00,58.25,41,NULL),(76,'2022-12-01','11:18:39','Received',0,3,57.00,0.00,57.00,8,NULL),(77,'2022-12-01','11:18:39','Received',0,6,187.50,0.00,187.50,16,NULL),(78,'2022-12-01','11:18:40','Received',0,2,28.00,0.00,28.00,46,NULL),(79,'2022-12-01','11:18:40','Received',0,2,24.00,0.00,24.00,21,NULL),(80,'2022-12-01','11:18:40','Received',0,5,84.00,0.00,84.00,27,NULL),(81,'2022-12-01','11:18:41','Received',0,1,16.75,0.00,16.75,18,NULL),(82,'2022-12-01','11:18:41','Received',0,4,76.75,0.00,76.75,41,NULL),(83,'2022-12-01','11:18:41','Received',0,1,28.50,0.00,28.50,24,NULL),(84,'2022-12-01','11:18:41','Received',0,3,61.75,0.00,61.75,23,NULL),(85,'2022-12-01','11:18:42','Received',0,2,47.75,0.00,47.75,37,NULL),(86,'2022-12-01','11:18:42','Received',0,1,67.00,0.00,67.00,5,NULL),(87,'2022-12-01','11:19:45','Received',0,5,117.00,0.00,117.00,4,NULL),(88,'2022-12-01','11:19:46','Received',0,2,51.00,0.00,51.00,50,NULL),(89,'2022-12-01','11:19:46','Received',0,3,84.25,0.00,84.25,1,NULL),(90,'2022-12-01','11:19:46','Received',0,2,56.00,0.00,56.00,41,NULL),(91,'2022-12-01','11:19:47','Received',0,2,55.50,0.00,55.50,28,NULL),(92,'2022-12-01','11:19:47','Received',0,1,9.50,0.00,9.50,1,NULL),(93,'2022-12-01','11:19:47','Received',0,6,121.00,0.00,121.00,16,NULL),(94,'2022-12-01','11:19:47','Received',0,3,92.00,0.00,92.00,6,NULL),(95,'2022-12-01','11:19:48','Received',0,3,162.50,0.00,162.50,17,NULL),(96,'2022-12-01','11:19:48','Received',0,1,25.50,0.00,25.50,51,NULL),(97,'2022-12-01','11:19:48','Received',0,4,178.25,0.00,178.25,15,NULL),(98,'2022-12-01','11:19:49','Received',0,5,124.50,0.00,124.50,4,NULL),(99,'2022-12-01','11:19:49','Received',0,3,85.00,0.00,85.00,30,NULL),(100,'2022-12-01','11:19:49','Received',0,2,17.00,0.00,17.00,39,2),(101,'2022-12-01','11:19:50','Received',0,4,52.50,0.00,52.50,37,NULL);
+INSERT INTO `orders` VALUES (1,'2022-10-01','12:17:00','Ready',1,1,26.75,0.00,26.75,37,NULL),(2,'2022-10-02','17:32:00','Ready',1,2,31.00,0.00,31.00,38,NULL),(3,'2022-10-03','14:15:00','Ready',1,1,14.00,0.00,14.00,39,NULL),(4,'2022-10-03','12:00:00','Ready',1,2,31.00,5.00,36.00,1,6),(5,'2022-10-03','18:00:00','Ready',1,4,112.50,20.00,132.50,4,16),(6,'2022-10-04','13:00:00','Ready',1,2,56.50,10.00,66.50,5,6),(7,'2022-10-21','18:00:00','Ready',1,4,112.50,20.00,132.50,17,16),(8,'2022-10-21','18:00:00','Ready',1,4,102.75,20.00,122.75,18,17),(9,'2022-10-21','18:00:00','Ready',1,4,107.50,19.00,126.50,19,18),(10,'2022-10-21','18:00:00','Ready',1,4,143.50,30.00,173.50,20,19),(11,'2022-10-21','18:00:00','Ready',1,4,98.25,20.00,118.25,21,20),(12,'2022-10-30','19:00:00','Ready',1,2,28.50,0.00,28.50,40,NULL),(13,'2022-12-05','23:03:01','Received',0,6,101.00,0.00,101.00,30,NULL),(14,'2022-12-05','23:03:01','Received',0,5,104.00,0.00,104.00,39,NULL),(15,'2022-12-05','23:03:01','Received',0,2,41.50,0.00,41.50,47,NULL),(16,'2022-12-05','23:03:01','Received',0,2,35.25,0.00,35.25,43,NULL),(17,'2022-12-05','23:03:01','Received',0,2,45.75,0.00,45.75,49,NULL),(18,'2022-12-05','23:03:02','Received',0,3,71.00,0.00,71.00,6,NULL),(19,'2022-12-05','23:03:02','Received',0,3,77.00,0.00,77.00,28,NULL),(20,'2022-12-05','23:03:02','Received',0,3,76.00,0.00,76.00,22,NULL),(21,'2022-12-05','23:03:03','Received',0,3,86.00,0.00,86.00,19,NULL),(22,'2022-12-05','23:03:03','Received',0,4,112.00,0.00,112.00,4,NULL),(23,'2022-12-05','23:03:03','Received',0,3,73.00,0.00,73.00,17,NULL),(24,'2022-12-05','23:03:03','Received',0,4,86.25,0.00,86.25,22,NULL),(25,'2022-12-05','23:03:04','Received',0,5,93.75,0.00,93.75,34,NULL),(26,'2022-12-05','23:03:04','Received',0,4,86.00,0.00,86.00,46,NULL),(27,'2022-12-05','23:03:04','Received',0,2,58.00,0.00,58.00,50,NULL),(28,'2022-12-05','23:03:05','Received',0,1,67.00,0.00,67.00,31,NULL),(29,'2022-12-05','23:03:05','Received',0,5,169.00,0.00,169.00,1,NULL),(30,'2022-12-05','23:03:05','Received',0,2,59.50,0.00,59.50,26,NULL),(31,'2022-12-05','23:03:06','Received',0,3,87.75,0.00,87.75,43,NULL),(32,'2022-12-05','23:03:06','Received',0,2,62.00,0.00,62.00,1,NULL),(33,'2022-12-05','23:03:06','Received',0,5,148.50,0.00,148.50,9,NULL),(34,'2022-12-05','23:03:07','Received',0,5,114.50,0.00,114.50,42,NULL),(35,'2022-12-05','23:03:07','Received',0,7,260.25,0.00,260.25,8,NULL),(36,'2022-12-05','23:03:07','Received',0,2,51.00,0.00,51.00,34,NULL),(37,'2022-12-05','23:03:08','Received',0,6,143.00,0.00,143.00,43,NULL),(38,'2022-12-05','23:03:08','Received',0,4,84.50,0.00,84.50,9,NULL),(39,'2022-12-05','23:03:08','Received',0,3,89.00,0.00,89.00,43,NULL),(40,'2022-12-05','23:03:08','Received',0,2,11.00,0.00,11.00,11,NULL),(41,'2022-12-05','23:03:09','Received',0,2,57.00,0.00,57.00,29,NULL),(42,'2022-12-05','23:03:09','Received',0,3,65.00,0.00,65.00,19,NULL),(43,'2022-12-05','23:03:09','Received',0,3,82.00,0.00,82.00,27,NULL),(44,'2022-12-05','23:03:10','Received',0,6,148.50,0.00,148.50,12,NULL),(45,'2022-12-05','23:03:10','Received',0,2,32.00,0.00,32.00,32,NULL),(46,'2022-12-05','23:03:10','Received',0,3,79.75,0.00,79.75,26,NULL),(47,'2022-12-05','23:03:11','Received',0,4,70.50,0.00,70.50,24,NULL),(48,'2022-12-05','23:03:11','Received',0,3,88.75,0.00,88.75,17,NULL),(49,'2022-12-05','23:03:11','Received',0,2,17.00,0.00,17.00,21,NULL),(50,'2022-12-05','23:03:12','Received',0,2,54.00,0.00,54.00,5,NULL),(51,'2022-12-05','23:03:12','Received',0,3,39.50,0.00,39.50,20,NULL),(52,'2022-12-05','23:03:12','Received',0,6,88.00,0.00,88.00,25,NULL),(53,'2022-12-05','23:03:13','Received',0,2,11.00,0.00,11.00,3,NULL),(54,'2022-12-05','23:03:13','Received',0,4,46.00,0.00,46.00,36,NULL),(55,'2022-12-05','23:03:13','Received',0,2,20.00,0.00,20.00,22,NULL),(56,'2022-12-05','23:03:13','Received',0,6,170.00,0.00,170.00,17,NULL),(57,'2022-12-05','23:03:14','Received',0,3,46.25,0.00,46.25,42,NULL),(58,'2022-12-05','23:03:14','Received',0,4,109.50,0.00,109.50,5,NULL),(59,'2022-12-05','23:03:14','Received',0,1,29.75,0.00,29.75,46,NULL),(60,'2022-12-05','23:03:15','Received',0,7,183.75,0.00,183.75,30,NULL),(61,'2022-12-05','23:03:15','Received',0,1,11.00,0.00,11.00,28,NULL),(62,'2022-12-05','23:03:15','Received',0,4,109.25,0.00,109.25,12,NULL),(63,'2022-12-05','23:03:15','Received',0,3,59.00,0.00,59.00,7,NULL),(64,'2022-12-05','23:03:16','Received',0,6,179.00,0.00,179.00,35,NULL),(65,'2022-12-05','23:03:16','Received',0,2,31.50,0.00,31.50,46,NULL),(66,'2022-12-05','23:03:16','Received',0,4,71.50,0.00,71.50,19,NULL),(67,'2022-12-05','23:03:17','Received',0,4,106.00,0.00,106.00,40,NULL),(68,'2022-12-05','23:03:17','Received',0,4,111.00,0.00,111.00,7,NULL),(69,'2022-12-05','23:03:17','Received',0,4,50.50,0.00,50.50,7,NULL),(70,'2022-12-05','23:03:18','Received',0,4,192.00,0.00,192.00,11,NULL),(71,'2022-12-05','23:03:18','Received',0,3,47.00,0.00,47.00,3,NULL),(72,'2022-12-05','23:03:18','Received',0,2,43.75,0.00,43.75,7,NULL),(73,'2022-12-05','23:03:19','Received',0,2,59.50,0.00,59.50,23,NULL),(74,'2022-12-05','23:03:19','Received',0,1,28.50,0.00,28.50,6,NULL),(75,'2022-12-05','23:03:19','Received',0,1,14.00,0.00,14.00,3,NULL),(76,'2022-12-05','23:03:19','Received',0,3,55.75,0.00,55.75,46,NULL),(77,'2022-12-05','23:03:20','Received',0,1,17.25,0.00,17.25,47,NULL),(78,'2022-12-05','23:03:20','Received',0,2,53.50,0.00,53.50,47,NULL),(79,'2022-12-05','23:03:20','Received',0,3,87.00,0.00,87.00,41,NULL),(80,'2022-12-05','23:03:20','Received',0,4,187.50,0.00,187.50,1,NULL),(81,'2022-12-05','23:03:21','Received',0,3,78.75,0.00,78.75,37,NULL),(82,'2022-12-05','23:03:21','Received',0,2,52.00,0.00,52.00,35,NULL),(83,'2022-12-05','23:03:21','Received',0,3,44.00,0.00,44.00,22,NULL),(84,'2022-12-05','23:03:22','Received',0,4,149.50,0.00,149.50,50,NULL),(85,'2022-12-05','23:03:22','Received',0,2,58.00,0.00,58.00,3,NULL),(86,'2022-12-05','23:03:22','Received',0,4,87.25,0.00,87.25,50,NULL),(87,'2022-12-05','23:03:23','Received',0,2,34.50,0.00,34.50,1,NULL),(88,'2022-12-05','23:03:23','Received',0,5,142.00,0.00,142.00,23,NULL),(89,'2022-12-05','23:03:23','Received',0,3,64.50,0.00,64.50,2,NULL),(90,'2022-12-05','23:03:24','Received',0,6,85.75,0.00,85.75,15,NULL),(91,'2022-12-05','23:03:24','Received',0,6,111.50,0.00,111.50,5,NULL),(92,'2022-12-05','23:03:24','Received',0,6,110.00,0.00,110.00,30,NULL),(93,'2022-12-05','23:03:25','Received',0,2,56.50,0.00,56.50,6,NULL),(94,'2022-12-05','23:03:25','Received',0,3,68.50,0.00,68.50,14,NULL),(95,'2022-12-05','23:03:25','Received',0,1,28.00,0.00,28.00,21,NULL),(96,'2022-12-05','23:03:26','Received',0,2,43.00,0.00,43.00,35,NULL),(97,'2022-12-05','23:03:26','Received',0,4,167.50,0.00,167.50,6,NULL),(98,'2022-12-05','23:03:26','Received',0,2,43.75,0.00,43.75,16,NULL),(99,'2022-12-05','23:03:26','Received',0,3,46.75,0.00,46.75,47,NULL),(100,'2022-12-05','23:03:27','Received',0,4,89.00,0.00,89.00,38,NULL),(101,'2022-12-05','23:03:27','Received',0,3,82.75,0.00,82.75,21,NULL),(102,'2022-12-05','23:03:27','Ready',1,4,65.00,0.00,65.00,24,NULL),(103,'2022-12-05','23:14:59','Canceled',0,4,110.50,3.00,113.50,53,20);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -564,7 +660,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES ('2022-10-03',13,6,1,2,'Reserved',1),('2022-10-03',13,7,2,2,'Canceled',2),('2022-10-03',18,8,3,2,'Canceled',3),('2022-10-03',19,16,4,4,'Reserved',4),('2022-10-04',38,6,5,2,'Reserved',5),('2022-10-04',38,7,6,2,'Canceled',6),('2022-10-04',43,16,7,4,'Canceled',7),('2022-10-04',43,17,8,4,'Canceled',8),('2022-10-12',61,16,9,4,'Canceled',9),('2022-10-12',61,17,10,4,'Canceled',10),('2022-10-12',66,6,11,2,'Canceled',3),('2022-10-12',66,16,12,4,'Canceled',4),('2022-10-13',85,1,13,1,'Canceled',5),('2022-10-13',86,16,14,4,'Canceled',6),('2022-10-13',91,6,15,2,'Canceled',7),('2022-10-13',92,16,16,4,'Canceled',8),('2022-10-21',115,16,17,4,'Reserved',3),('2022-10-21',115,17,18,4,'Reserved',4),('2022-10-21',115,18,19,4,'Reserved',7),('2022-10-21',115,19,20,4,'Reserved',8),('2022-10-21',115,20,21,4,'Reserved',9),('2022-10-22',138,6,22,2,'Canceled',1),('2022-10-22',138,7,23,2,'Canceled',2),('2022-10-30',163,6,24,2,'Canceled',5),('2022-10-30',163,16,51,4,'Reserved',3),('2022-10-30',164,7,25,2,'Canceled',6),('2022-11-18',114,16,51,4,'Canceled',NULL),('2022-11-21',19,16,51,3,'Canceled',3),('2022-11-30',66,16,51,4,'Reserved',3),('2022-11-30',66,17,51,3,'Canceled',NULL),('2022-12-05',18,16,51,3,'Reserved',NULL);
+INSERT INTO `reservation` VALUES ('2022-10-03',13,6,1,2,'Reserved',1),('2022-10-03',13,7,2,2,'Canceled',2),('2022-10-03',18,8,3,2,'Canceled',3),('2022-10-03',19,16,4,4,'Reserved',4),('2022-10-04',38,6,5,2,'Reserved',5),('2022-10-04',38,7,6,2,'Canceled',6),('2022-10-04',43,16,7,4,'Canceled',7),('2022-10-04',43,17,8,4,'Canceled',8),('2022-10-12',61,16,9,4,'Canceled',9),('2022-10-12',61,17,10,4,'Canceled',10),('2022-10-12',66,6,11,2,'Canceled',3),('2022-10-12',66,16,12,4,'Canceled',4),('2022-10-13',85,1,13,1,'Canceled',5),('2022-10-13',86,16,14,4,'Canceled',6),('2022-10-13',91,6,15,2,'Canceled',7),('2022-10-13',92,16,16,4,'Canceled',8),('2022-10-21',115,16,17,4,'Reserved',1),('2022-10-21',115,17,18,4,'Reserved',4),('2022-10-21',115,18,19,4,'Reserved',7),('2022-10-21',115,19,20,4,'Reserved',8),('2022-10-21',115,20,21,4,'Reserved',9),('2022-10-22',138,6,22,2,'Canceled',1),('2022-10-22',138,7,23,2,'Canceled',2),('2022-10-30',163,6,24,2,'Canceled',5),('2022-10-30',164,7,25,2,'Canceled',6),('2022-12-06',43,16,53,4,'Canceled',2);
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -610,7 +706,7 @@ CREATE TABLE `reservation_window` (
 
 LOCK TABLES `reservation_window` WRITE;
 /*!40000 ALTER TABLE `reservation_window` DISABLE KEYS */;
-INSERT INTO `reservation_window` VALUES (1,'Monday','00:00:00',0),(2,'Monday','01:00:00',0),(3,'Monday','02:00:00',0),(4,'Monday','03:00:00',0),(5,'Monday','04:00:00',0),(6,'Monday','05:00:00',0),(7,'Monday','06:00:00',0),(8,'Monday','07:00:00',0),(9,'Monday','08:00:00',0),(10,'Monday','09:00:00',0),(11,'Monday','10:00:00',0),(12,'Monday','11:00:00',1),(13,'Monday','12:00:00',1),(14,'Monday','13:00:00',1),(15,'Monday','14:00:00',1),(16,'Monday','15:00:00',1),(17,'Monday','16:00:00',1),(18,'Monday','17:00:00',1),(19,'Monday','18:00:00',1),(20,'Monday','19:00:00',1),(21,'Monday','20:00:00',1),(22,'Monday','21:00:00',1),(23,'Monday','22:00:00',1),(24,'Monday','23:00:00',0),(25,'Tuesday','00:00:00',0),(26,'Tuesday','01:00:00',0),(27,'Tuesday','02:00:00',0),(28,'Tuesday','03:00:00',0),(29,'Tuesday','04:00:00',0),(30,'Tuesday','05:00:00',0),(31,'Tuesday','06:00:00',0),(32,'Tuesday','07:00:00',0),(33,'Tuesday','08:00:00',0),(34,'Tuesday','09:00:00',0),(35,'Tuesday','10:00:00',0),(36,'Tuesday','11:00:00',1),(37,'Tuesday','12:00:00',1),(38,'Tuesday','13:00:00',1),(39,'Tuesday','14:00:00',1),(40,'Tuesday','15:00:00',1),(41,'Tuesday','16:00:00',1),(42,'Tuesday','17:00:00',1),(43,'Tuesday','18:00:00',1),(44,'Tuesday','19:00:00',1),(45,'Tuesday','20:00:00',1),(46,'Tuesday','21:00:00',1),(47,'Tuesday','22:00:00',1),(48,'Tuesday','23:00:00',0),(49,'Wednesday','00:00:00',0),(50,'Wednesday','01:00:00',0),(51,'Wednesday','02:00:00',0),(52,'Wednesday','03:00:00',0),(53,'Wednesday','04:00:00',0),(54,'Wednesday','05:00:00',0),(55,'Wednesday','06:00:00',0),(56,'Wednesday','07:00:00',0),(57,'Wednesday','08:00:00',0),(58,'Wednesday','09:00:00',0),(59,'Wednesday','10:00:00',0),(60,'Wednesday','11:00:00',1),(61,'Wednesday','12:00:00',1),(62,'Wednesday','13:00:00',1),(63,'Wednesday','14:00:00',1),(64,'Wednesday','15:00:00',1),(65,'Wednesday','16:00:00',1),(66,'Wednesday','17:00:00',1),(67,'Wednesday','18:00:00',1),(68,'Wednesday','19:00:00',1),(69,'Wednesday','20:00:00',1),(70,'Wednesday','21:00:00',1),(71,'Wednesday','22:00:00',1),(72,'Wednesday','23:00:00',0),(73,'Thursday','00:00:00',0),(74,'Thursday','01:00:00',0),(75,'Thursday','02:00:00',0),(76,'Thursday','03:00:00',0),(77,'Thursday','04:00:00',0),(78,'Thursday','05:00:00',0),(79,'Thursday','06:00:00',0),(80,'Thursday','07:00:00',0),(81,'Thursday','08:00:00',0),(82,'Thursday','09:00:00',0),(83,'Thursday','10:00:00',0),(84,'Thursday','11:00:00',1),(85,'Thursday','12:00:00',1),(86,'Thursday','13:00:00',1),(87,'Thursday','14:00:00',1),(88,'Thursday','15:00:00',1),(89,'Thursday','16:00:00',1),(90,'Thursday','17:00:00',1),(91,'Thursday','18:00:00',1),(92,'Thursday','19:00:00',1),(93,'Thursday','20:00:00',1),(94,'Thursday','21:00:00',1),(95,'Thursday','22:00:00',1),(96,'Thursday','23:00:00',0),(97,'Friday','00:00:00',0),(98,'Friday','01:00:00',0),(99,'Friday','02:00:00',0),(100,'Friday','03:00:00',0),(101,'Friday','04:00:00',0),(102,'Friday','05:00:00',0),(103,'Friday','06:00:00',0),(104,'Friday','07:00:00',0),(105,'Friday','08:00:00',0),(106,'Friday','09:00:00',0),(107,'Friday','10:00:00',0),(108,'Friday','11:00:00',1),(109,'Friday','12:00:00',1),(110,'Friday','13:00:00',1),(111,'Friday','14:00:00',1),(112,'Friday','15:00:00',1),(113,'Friday','16:00:00',1),(114,'Friday','17:00:00',1),(115,'Friday','18:00:00',1),(116,'Friday','19:00:00',1),(117,'Friday','20:00:00',1),(118,'Friday','21:00:00',1),(119,'Friday','22:00:00',1),(120,'Friday','23:00:00',0),(121,'Saturday','00:00:00',0),(122,'Saturday','01:00:00',0),(123,'Saturday','02:00:00',0),(124,'Saturday','03:00:00',0),(125,'Saturday','04:00:00',0),(126,'Saturday','05:00:00',0),(127,'Saturday','06:00:00',0),(128,'Saturday','07:00:00',0),(129,'Saturday','08:00:00',0),(130,'Saturday','09:00:00',0),(131,'Saturday','10:00:00',0),(132,'Saturday','11:00:00',1),(133,'Saturday','12:00:00',1),(134,'Saturday','13:00:00',1),(135,'Saturday','14:00:00',1),(136,'Saturday','15:00:00',1),(137,'Saturday','16:00:00',1),(138,'Saturday','17:00:00',1),(139,'Saturday','18:00:00',1),(140,'Saturday','19:00:00',1),(141,'Saturday','20:00:00',1),(142,'Saturday','21:00:00',1),(143,'Saturday','22:00:00',1),(144,'Saturday','23:00:00',0),(145,'Sunday','00:00:00',0),(146,'Sunday','01:00:00',0),(147,'Sunday','02:00:00',0),(148,'Sunday','03:00:00',0),(149,'Sunday','04:00:00',0),(150,'Sunday','05:00:00',0),(151,'Sunday','06:00:00',0),(152,'Sunday','07:00:00',0),(153,'Sunday','08:00:00',0),(154,'Sunday','09:00:00',0),(155,'Sunday','10:00:00',0),(156,'Sunday','11:00:00',1),(157,'Sunday','12:00:00',1),(158,'Sunday','13:00:00',1),(159,'Sunday','14:00:00',1),(160,'Sunday','15:00:00',1),(161,'Sunday','16:00:00',1),(162,'Sunday','17:00:00',1),(163,'Sunday','18:00:00',1),(164,'Sunday','19:00:00',1),(165,'Sunday','20:00:00',1),(166,'Sunday','21:00:00',1),(167,'Sunday','22:00:00',1),(168,'Sunday','23:00:00',0);
+INSERT INTO `reservation_window` VALUES (1,'Monday','00:00:00',0),(2,'Monday','01:00:00',0),(3,'Monday','02:00:00',0),(4,'Monday','03:00:00',0),(5,'Monday','04:00:00',0),(6,'Monday','05:00:00',0),(7,'Monday','06:00:00',0),(8,'Monday','07:00:00',0),(9,'Monday','08:00:00',0),(10,'Monday','09:00:00',0),(11,'Monday','10:00:00',0),(12,'Monday','11:00:00',1),(13,'Monday','12:00:00',1),(14,'Monday','13:00:00',1),(15,'Monday','14:00:00',1),(16,'Monday','15:00:00',1),(17,'Monday','16:00:00',1),(18,'Monday','17:00:00',1),(19,'Monday','18:00:00',1),(20,'Monday','19:00:00',1),(21,'Monday','20:00:00',1),(22,'Monday','21:00:00',1),(23,'Monday','22:00:00',1),(24,'Monday','23:00:00',1),(25,'Tuesday','00:00:00',0),(26,'Tuesday','01:00:00',0),(27,'Tuesday','02:00:00',0),(28,'Tuesday','03:00:00',0),(29,'Tuesday','04:00:00',0),(30,'Tuesday','05:00:00',0),(31,'Tuesday','06:00:00',0),(32,'Tuesday','07:00:00',0),(33,'Tuesday','08:00:00',0),(34,'Tuesday','09:00:00',0),(35,'Tuesday','10:00:00',0),(36,'Tuesday','11:00:00',1),(37,'Tuesday','12:00:00',1),(38,'Tuesday','13:00:00',1),(39,'Tuesday','14:00:00',1),(40,'Tuesday','15:00:00',1),(41,'Tuesday','16:00:00',1),(42,'Tuesday','17:00:00',1),(43,'Tuesday','18:00:00',1),(44,'Tuesday','19:00:00',1),(45,'Tuesday','20:00:00',1),(46,'Tuesday','21:00:00',0),(47,'Tuesday','22:00:00',0),(48,'Tuesday','23:00:00',0),(49,'Wednesday','00:00:00',0),(50,'Wednesday','01:00:00',0),(51,'Wednesday','02:00:00',0),(52,'Wednesday','03:00:00',0),(53,'Wednesday','04:00:00',0),(54,'Wednesday','05:00:00',0),(55,'Wednesday','06:00:00',0),(56,'Wednesday','07:00:00',0),(57,'Wednesday','08:00:00',0),(58,'Wednesday','09:00:00',0),(59,'Wednesday','10:00:00',0),(60,'Wednesday','11:00:00',1),(61,'Wednesday','12:00:00',1),(62,'Wednesday','13:00:00',1),(63,'Wednesday','14:00:00',1),(64,'Wednesday','15:00:00',1),(65,'Wednesday','16:00:00',1),(66,'Wednesday','17:00:00',1),(67,'Wednesday','18:00:00',1),(68,'Wednesday','19:00:00',1),(69,'Wednesday','20:00:00',1),(70,'Wednesday','21:00:00',0),(71,'Wednesday','22:00:00',0),(72,'Wednesday','23:00:00',0),(73,'Thursday','00:00:00',0),(74,'Thursday','01:00:00',0),(75,'Thursday','02:00:00',0),(76,'Thursday','03:00:00',0),(77,'Thursday','04:00:00',0),(78,'Thursday','05:00:00',0),(79,'Thursday','06:00:00',0),(80,'Thursday','07:00:00',0),(81,'Thursday','08:00:00',0),(82,'Thursday','09:00:00',0),(83,'Thursday','10:00:00',0),(84,'Thursday','11:00:00',1),(85,'Thursday','12:00:00',1),(86,'Thursday','13:00:00',1),(87,'Thursday','14:00:00',1),(88,'Thursday','15:00:00',1),(89,'Thursday','16:00:00',1),(90,'Thursday','17:00:00',1),(91,'Thursday','18:00:00',1),(92,'Thursday','19:00:00',1),(93,'Thursday','20:00:00',1),(94,'Thursday','21:00:00',0),(95,'Thursday','22:00:00',0),(96,'Thursday','23:00:00',0),(97,'Friday','00:00:00',0),(98,'Friday','01:00:00',0),(99,'Friday','02:00:00',0),(100,'Friday','03:00:00',0),(101,'Friday','04:00:00',0),(102,'Friday','05:00:00',0),(103,'Friday','06:00:00',0),(104,'Friday','07:00:00',0),(105,'Friday','08:00:00',0),(106,'Friday','09:00:00',0),(107,'Friday','10:00:00',0),(108,'Friday','11:00:00',1),(109,'Friday','12:00:00',1),(110,'Friday','13:00:00',1),(111,'Friday','14:00:00',1),(112,'Friday','15:00:00',1),(113,'Friday','16:00:00',1),(114,'Friday','17:00:00',1),(115,'Friday','18:00:00',1),(116,'Friday','19:00:00',1),(117,'Friday','20:00:00',1),(118,'Friday','21:00:00',0),(119,'Friday','22:00:00',0),(120,'Friday','23:00:00',0),(121,'Saturday','00:00:00',0),(122,'Saturday','01:00:00',0),(123,'Saturday','02:00:00',0),(124,'Saturday','03:00:00',0),(125,'Saturday','04:00:00',0),(126,'Saturday','05:00:00',0),(127,'Saturday','06:00:00',0),(128,'Saturday','07:00:00',0),(129,'Saturday','08:00:00',0),(130,'Saturday','09:00:00',0),(131,'Saturday','10:00:00',0),(132,'Saturday','11:00:00',1),(133,'Saturday','12:00:00',1),(134,'Saturday','13:00:00',1),(135,'Saturday','14:00:00',1),(136,'Saturday','15:00:00',1),(137,'Saturday','16:00:00',1),(138,'Saturday','17:00:00',1),(139,'Saturday','18:00:00',1),(140,'Saturday','19:00:00',1),(141,'Saturday','20:00:00',1),(142,'Saturday','21:00:00',0),(143,'Saturday','22:00:00',0),(144,'Saturday','23:00:00',0),(145,'Sunday','00:00:00',0),(146,'Sunday','01:00:00',0),(147,'Sunday','02:00:00',0),(148,'Sunday','03:00:00',0),(149,'Sunday','04:00:00',0),(150,'Sunday','05:00:00',0),(151,'Sunday','06:00:00',0),(152,'Sunday','07:00:00',0),(153,'Sunday','08:00:00',0),(154,'Sunday','09:00:00',0),(155,'Sunday','10:00:00',0),(156,'Sunday','11:00:00',1),(157,'Sunday','12:00:00',1),(158,'Sunday','13:00:00',1),(159,'Sunday','14:00:00',1),(160,'Sunday','15:00:00',1),(161,'Sunday','16:00:00',1),(162,'Sunday','17:00:00',1),(163,'Sunday','18:00:00',1),(164,'Sunday','19:00:00',1),(165,'Sunday','20:00:00',1),(166,'Sunday','21:00:00',0),(167,'Sunday','22:00:00',0),(168,'Sunday','23:00:00',0);
 /*!40000 ALTER TABLE `reservation_window` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -652,7 +748,7 @@ CREATE TABLE `waiting_list` (
   CONSTRAINT `waiting_fk_customer` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `waiting_fk_window` FOREIGN KEY (`windowID`) REFERENCES `reservation_window` (`windowID`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `waiting_list_chk_1` CHECK ((`numOfPeople` > 0))
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -661,7 +757,7 @@ CREATE TABLE `waiting_list` (
 
 LOCK TABLES `waiting_list` WRITE;
 /*!40000 ALTER TABLE `waiting_list` DISABLE KEYS */;
-INSERT INTO `waiting_list` VALUES (1,'2022-10-21',115,26,4,'Joined'),(2,'2022-10-21',115,27,4,'Joined'),(3,'2022-10-21',115,28,4,'Joined'),(4,'2022-10-21',115,29,4,'Joined'),(5,'2022-10-21',115,30,4,'Canceled'),(6,'2022-10-21',115,31,4,'Joined'),(7,'2022-10-21',115,32,4,'Joined'),(8,'2022-10-21',115,33,4,'Joined'),(9,'2022-10-21',115,34,4,'Joined'),(10,'2022-10-21',115,35,4,'Joined'),(11,'2022-10-21',115,36,4,'Canceled'),(12,'2022-11-12',138,51,2,'Canceled'),(13,'2022-11-30',67,51,3,'Joined'),(14,'2022-09-14',68,51,2,'Joined');
+INSERT INTO `waiting_list` VALUES (1,'2022-10-21',115,26,4,'Joined'),(2,'2022-10-21',115,27,4,'Joined'),(3,'2022-10-21',115,28,4,'Joined'),(4,'2022-10-21',115,29,4,'Joined'),(5,'2022-10-21',115,30,4,'Joined'),(6,'2022-10-21',115,31,4,'Joined'),(7,'2022-10-21',115,32,4,'Joined'),(8,'2022-10-21',115,33,4,'Joined'),(9,'2022-10-21',115,34,4,'Joined'),(10,'2022-10-21',115,35,4,'Joined'),(11,'2022-10-21',115,36,4,'Canceled'),(12,'2022-12-07',66,53,3,'Canceled');
 /*!40000 ALTER TABLE `waiting_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -838,7 +934,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `find_ingredient_id`(ingredientName_v
     DETERMINISTIC
 begin
 declare ingredientID_var int;
-select ingredientID into ingredientID_var from ingredient where ingredientName = ingredientName_var;
+select ingredientID into ingredientID_var from ingredient_name where ingredientName = ingredientName_var;
 return ingredientID_var;
 end ;;
 DELIMITER ;
@@ -884,7 +980,7 @@ declare CONTINUE handler for 1048
 	set name_not_exist = true;
 insert into dish_has_ingredient (menuID, ingredientID, quantity) 
 values ((select menuID from menu where dishName = dishName_var), 
-		(select ingredientID from ingredient where ingredientName = ingredientName_var), 
+		(select ingredientID from ingredient_name where ingredientName = ingredientName_var), 
 		quantity_var);
 if name_not_exist = true then
 	select 'Error: The food name does not exist.' as message;
@@ -909,8 +1005,13 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_employee`(in firstName_var varchar(64), in lastName_var varchar(64), in email_var varchar(64), in phone_var varchar(64), in ssn_var varchar(64), in salary_var varchar(64), in occupation_var varchar(64))
 begin
-insert into employee (firstName, lastName, email, phone, ssn, salary, occupation, rating)
-values (firstName_var, lastName_var, email_var, phone_var, ssn_var, salary_var, occupation_var, '5');
+declare employeeID_var int;
+-- get id first
+insert into employee_email (email) values (email_var);
+select employeeID into employeeID_var from employee_email where email = email_var;
+-- insert other stuff
+insert into employee (employeeID, firstName, lastName, phone, ssn, salary, occupation, rating)
+values (employeeID_var, firstName_var, lastName_var, phone_var, ssn_var, salary_var, occupation_var, '5');
 select "Saved." as message;
 end ;;
 DELIMITER ;
@@ -958,10 +1059,13 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_new_category`(in categoryName_var varchar(64))
 begin
+declare id_var varchar(64);
 declare duplicate_name boolean default false;
 declare CONTINUE handler for 1062
 	set duplicate_name = true;
-insert into menu_category (categoryName) values (categoryName_var);
+insert into menu_category_name (categoryName) values (categoryName_var);
+select categoryID into id_var from menu_category_name where categoryName = categoryName_var;
+insert into menu_category (categoryID) values (id_var);
 if duplicate_name = true then
 	select 'Error: This category name already exists.' as message;
 else
@@ -989,7 +1093,7 @@ declare category_name_not_exist boolean default false;
 declare CONTINUE handler for 1048
 	set category_name_not_exist = true;
 insert into menu (categoryID, dishName, price, dishStatus) 
-values ((select categoryID from menu_category where categoryName = categoryName_var), dishName_var, price_var, true);
+values ((select categoryID from menu_category_name where categoryName = categoryName_var), dishName_var, price_var, true);
 if category_name_not_exist = true then
 	select 'Error: This category name does not exist.' as message;
 else
@@ -1013,10 +1117,13 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_new_ingredient`(in ingredientName_var varchar(64))
 begin
+declare ingredientID_var int;
 declare duplicate_name boolean default false;
 declare CONTINUE handler for 1062
 	set duplicate_name = true;
-insert into ingredient (ingredientName) values (ingredientName_var);
+insert into ingredient_name (ingredientName) values (ingredientName_var);
+select ingredientID into ingredientID_var from ingredient_name where ingredientName = ingredientName_var;
+insert into ingredient (ingredientID, stock) values (ingredientID_var, 0);
 if duplicate_name = true then
 	select 'Error: This ingredient already exists.' as message;
 else
@@ -1331,7 +1438,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_account`(in customerID_var int)
 begin
-delete from customer where customerID = customerID_var;
+delete from customer_email where customerID = customerID_var;
 select 'Saved.' as message;
 end ;;
 DELIMITER ;
@@ -1351,7 +1458,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_employee`(in employeeID_var int)
 begin
-delete from employee where employeeID = employeeID_var;
+delete from employee_email where employeeID = employeeID_var;
 select 'Saved.' as message;
 end ;;
 DELIMITER ;
@@ -1435,7 +1542,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `freq_ingredient`()
 begin
 select dhi.ingredientID, i.ingredientName, count(dhi.ingredientID) as freq
 from dish_has_ingredient as dhi
-natural join ingredient as i
+natural join ingredient_name as i
 group by dhi.ingredientID, i.ingredientName
 order by freq DESC;
 end ;;
@@ -1503,11 +1610,12 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `popular_category`()
 begin
-select mc.categoryID, mc.categoryName, count(categoryID) as freq
-from menu_category as mc
+select mc.categoryID, mcn.categoryName, count(mc.categoryID) as freq
+from menu_category_name as mcn
+natural join menu_category as mc
 natural join menu as m
 natural join order_list
-group by mc.categoryID, mc.categoryName
+group by mc.categoryID, mcn.categoryName
 order by freq DESC;
 end ;;
 DELIMITER ;
@@ -1607,7 +1715,9 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sign_in`(in email_var varchar(64), in password_var varchar(64))
 begin
-select * from customer where email = email_var and customerPassword = password_var;
+select ce.customerID, c.firstName, c.lastName, ce.email, c.phone, c.customerPassword
+from customer_email as ce natural join customer as c
+where ce.email = email_var and c.customerPassword = password_var;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1626,10 +1736,15 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sign_up`(in firstName_var varchar(64), in lastName_var varchar(64), in email_var varchar(64), in phone_var varchar(64), in password_var varchar(64))
 begin
-insert into customer (firstName, lastName, email, phone, customerPassword)
-values (firstName_var, lastName_var, email_var, phone_var, password_var);
--- get new user id
-select customerID from customer where email = email_var;
+declare customerID_var int;
+-- get one id first
+insert into customer_email (email) values (email_var);
+select customerID into customerID_var from customer_email where email = email_var;
+-- insert other stuff
+insert into customer (customerID, firstName, lastName, phone, customerPassword)
+values (customerID_var, firstName_var, lastName_var, phone_var, password_var);
+-- return the id
+select customerID_var;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1935,7 +2050,7 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `view_dish_ingredient`(in menuID_var int)
 begin
 select i.ingredientID, i.ingredientName, dhi.quantity
-from ingredient as i
+from ingredient_name as i
 join dish_has_ingredient as dhi
 on i.ingredientID = dhi.ingredientID
 where dhi.menuID = menuID_var;
@@ -1957,9 +2072,10 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `view_employee`(in occupation_var varchar(64), in filter_var boolean)
 begin
-select employeeID, concat(firstName, ' ', lastName) as ename, email, phone, ssn, salary, occupation, rating
-from employee
-where filter_var or (occupation = occupation_var);
+select ee.employeeID, concat(e.firstName, ' ', e.lastName) as ename, ee.email, e.phone, e.ssn, e.salary, e.occupation, e.rating
+from employee_email as ee natural join employee as e
+where filter_var or (e.occupation = occupation_var)
+order by ee.employeeID ASC;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1978,7 +2094,9 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `view_ingredient_stock`()
 begin
-select * from ingredient;
+select ingn.ingredientID, ingn.ingredientName, i.stock
+from ingredient_name as ingn natural join ingredient as i
+order by ingn.ingredientID ASC;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -2121,7 +2239,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `ingredient_inventory` AS select `inv`.`inventoryID` AS `inventoryID`,`ing`.`ingredientName` AS `ingredientName`,`inv`.`quantity` AS `quantity`,`inv`.`totalCost` AS `totalCost`,`e`.`employeeID` AS `employeeID`,concat(`e`.`firstName`,' ',`e`.`lastName`) AS `employeeName`,`inv`.`purchaseDate` AS `purchaseDate`,`inv`.`expDate` AS `expDate` from ((`inventory` `inv` join `ingredient` `ing` on((`inv`.`ingredientID` = `ing`.`ingredientID`))) join `employee` `e` on((`inv`.`employeeID` = `e`.`employeeID`))) */;
+/*!50001 VIEW `ingredient_inventory` AS select `inv`.`inventoryID` AS `inventoryID`,`ing`.`ingredientName` AS `ingredientName`,`inv`.`quantity` AS `quantity`,`inv`.`totalCost` AS `totalCost`,`e`.`employeeID` AS `employeeID`,concat(`e`.`firstName`,' ',`e`.`lastName`) AS `employeeName`,`inv`.`purchaseDate` AS `purchaseDate`,`inv`.`expDate` AS `expDate` from ((`inventory` `inv` join `ingredient_name` `ing` on((`inv`.`ingredientID` = `ing`.`ingredientID`))) join `employee` `e` on((`inv`.`employeeID` = `e`.`employeeID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -2139,7 +2257,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `menu_for_customer` AS select `menu`.`menuID` AS `menuID`,`menu_category`.`categoryName` AS `categoryName`,`menu`.`dishName` AS `dishName`,`menu`.`price` AS `price` from (`menu` join `menu_category` on((`menu`.`categoryID` = `menu_category`.`categoryID`))) where ((0 <> `menu`.`dishStatus`) is true) order by `menu`.`menuID` */;
+/*!50001 VIEW `menu_for_customer` AS select `menu`.`menuID` AS `menuID`,`mcn`.`categoryName` AS `categoryName`,`menu`.`dishName` AS `dishName`,`menu`.`price` AS `price` from (`menu` join `menu_category_name` `mcn` on((`menu`.`categoryID` = `mcn`.`categoryID`))) where ((0 <> `menu`.`dishStatus`) is true) order by `menu`.`menuID` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -2157,7 +2275,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `menu_for_employee` AS select `m`.`menuID` AS `menuID`,`mc`.`categoryName` AS `categoryName`,`m`.`dishName` AS `dishName`,`m`.`dishDescription` AS `dishDescription`,`m`.`price` AS `price`,`m`.`dishStatus` AS `dishStatus` from (`menu` `m` join `menu_category` `mc` on((`m`.`categoryID` = `mc`.`categoryID`))) order by `m`.`menuID` */;
+/*!50001 VIEW `menu_for_employee` AS select `m`.`menuID` AS `menuID`,`mcn`.`categoryName` AS `categoryName`,`m`.`dishName` AS `dishName`,`m`.`dishDescription` AS `dishDescription`,`m`.`price` AS `price`,`m`.`dishStatus` AS `dishStatus` from (`menu_category_name` `mcn` left join `menu` `m` on((`m`.`categoryID` = `mcn`.`categoryID`))) order by `m`.`menuID` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -2225,4 +2343,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-04 11:00:11
+-- Dump completed on 2022-12-06  0:17:13
